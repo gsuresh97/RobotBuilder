@@ -1,0 +1,83 @@
+{% load static %}
+<html>
+
+	<head>
+		<title>Blockly PPR</title>
+		<script>
+			var allowDuplicates = false;
+			var rootBlock;
+
+		</script>
+		<script src="{% static 'interface/blockly/appengine/storage.js' %}"></script>
+		<script src="{% static 'interface/blockly/blockly_compressed.js' %}"></script>
+		<script src="{% static 'interface/blockly/core/static_typing.js' %}"></script>
+		<script src="{% static 'interface/blockly/blocks_compressed.js' %}"></script>
+		<script src="{% static 'interface/blockly/javascript_compressed.js' %}"></script>
+		<script src="{% static 'interface/blockly/arduino_compressed.js' %}"></script>
+		<script src="{% static 'interface/blockly/msg/js/en.js' %}"></script>
+		<script src="{% static 'interface/download.js' %}"></script>
+		<script src="{% static 'interface/prevcomps.js' %}"></script>
+		<!-- <script src="{% static 'interface/comps.js' %}"></script> -->
+		<script src="{% static 'interface/save.js' %}"></script>
+		<script src="{% static 'interface/prevCompCode.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'interface/styles.css' %}">
+		<script src="{% static 'interface/blocks.js' %}"></script>
+		<script src="{% static 'interface/prevCodeGen.js' %}"></script>
+
+
+	</head>
+
+	<body>
+		<div class="toolbar" id="toolbar">
+			<div class="title">
+				Make new blocks from existing blocks
+			</div>
+			<a class="link" href="..">
+				Blockly Primitives
+			</a>
+			<div class="dropdown">
+				<div class="dropbtn">File</div>
+				<div class="dropdown-content">
+					<button id="save" class="hide" onclick="BlocklyStorage.link()"></button>
+					<label for="save" class="menuitem">
+						Save
+					</label>
+
+					<button class="hide" id="download" onclick="downloadCCSession()"></button>
+					<label for="download" class="menuitem">
+						Download Workspace
+					</label>
+
+					<input class="hide" type="file" id="input" onchange="uploadCCSession(this.files)">
+					<label for="input" class="menuitem">
+						Upload Workspace
+					</label>
+
+					<button class="hide" id="exportCodeComp" onclick="exportCodeComp()"></button>
+					<label for="exportCodeComp" class="menuitem">
+						Export Code Component
+					</label>
+
+					<button class="hide" id="getCode" onclick="getCode()"></button>
+					<label for="getCode" class="menuitem">
+						Download Code
+					</label>
+				</div>
+			</div>
+		</div>
+		<div id="blocklyDiv"></div>
+		<xml id="startBlocks" style="display: none">
+			<block type="component_create"></block>
+		</xml>
+		<div id="createdDiv" hidden="true"></div>
+
+		<xml id="startBlocks" style="display: none">
+			<block type="component_create"></block>
+		</xml>
+
+		<script src="{% static 'interface/init.js' %}"></script>
+		<script src="{% static 'interface/prevtoolbox.js' %}"></script>
+		<script src="{% static 'interface/prevevents.js' %}"></script>
+	</body>
+
+</html>

@@ -1,0 +1,14 @@
+connections: []
+constants: {}
+constraints: []
+interfaces:
+  in1: {interface: inInt2, subcomponent: add}
+  in2: {interface: inInt1, subcomponent: add}
+  sum: {interface: outInt, subcomponent: add}
+parameters: {}
+subcomponents:
+  add:
+    class: Add
+    constants: {}
+    containers: {}
+    parameters: {}
