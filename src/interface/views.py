@@ -18,7 +18,6 @@ import array
 
 from wsgiref.util import FileWrapper
 # from importlib import import_module
-import importlib
 
 from genblocks import CustomBlockFile
 from genBuilder import saveBuilder
@@ -192,15 +191,15 @@ def export_code(request):
     for i in range(len(blines)):
         if i < len(blines)-1:
             if i == 0:
-                t = " \""+blines[i].strip()+"\\n\" + \\ \n"
+                t = "( \""+blines[i].strip()+"\\n\" \n"
             else:
-                t = "\t\t\t\t\t\""+blines[i].strip()+"\\n\" + \\ \n"
+                t = "\t\t\t\t\t\""+blines[i].strip()+"\\n\" \n"
             lines.append(t)
         else:
             if i == 0:
                 t = " \""+blines[i].strip()+"\\n\" \n"
             else:
-                t = "\t\t\t\t\t\""+blines[i].strip()+"\\n\" \n"
+                t = "\t\t\t\t\t\""+blines[i].strip()+"\\n\" )\n"
             lines.append(t)
 
 
@@ -297,7 +296,7 @@ def export_code(request):
 
 
     # builderPath = os.path.join(os.getcwd(), "interface/gen/builderGen/")
-    componentPath = os.path.join(os.getcwd(), "interface/ppr/svggen/library")
+    componentPath = os.path.join(os.getcwd(), "interface/ppr/svggen/library/")
     # if not os.path.exists(builderPath):
     #     os.makedir(builderPath)
     if not os.path.exists(componentPath):
@@ -307,7 +306,9 @@ def export_code(request):
     cmFile = open(cmpath, 'wb', 0)
     cmFile.write(component)
 
-    comp = getComponent(className, name = className)
+    comp = getComponent(className, name=className)
+    print "=====================BEFORE DONE========================="
+    print comp
     buildDatabase([comp])
     updateComponentsLists()
     print "DONE----------------------------------------------"
@@ -321,6 +322,10 @@ def export_builder(request):
     code = request.body
     cName = saveBuilder(code)
 
+    comp = getComponent(cName, name = cName)
+    buildDatabase([comp])
+    updateComponentsLists()
+    print request.body
     return HttpResponse("ok")
 
 def zipdir(path, ziph):
@@ -329,20 +334,11 @@ def zipdir(path, ziph):
         for file in files:
             ziph.write(os.path.join(root, file))
 
-def deleteDir(path):
-    for root, dirs, files in os.walk(path):
-        for f in files:
-            os.remove(os.path.join(path, f))
-    os.rmdir(path)
 
 def get_code(request, **kwargs):
-    code = urllib.unquote(kwargs["code"])
+    print "KWargs: ", kwargs
+    cName = urllib.unquote(kwargs["code"])
     print kwargs
-    print "code: \n", code
-    cName = saveBuilder(code)
-    print "-----------------------------", cName
-
-    importlib.import_module("builder"+cName)
 
     comp = getComponent(cName, name = cName)
     comp.makeOutput(str(os.path.join(os.getcwd(), cName)))
@@ -353,7 +349,6 @@ def get_code(request, **kwargs):
     inner = f.read()
     c = open("iname", "wb")
     c.write(inner)
-    print "fsbdjfkhbsdfhbsdlfsdafnlksdabfklsa", len(inner)
     c.close()
 
     # response = HttpResponse(inner, content_type='application/zip')
@@ -362,24 +357,10 @@ def get_code(request, **kwargs):
 
     response['Content-Disposition'] = 'attachment; filename='+cName+'.zip'
 
-    deleteDir(cName)
+    shutil.rmtree(cName)
     os.remove(cName + ".zip")
 
     return response
-
-    # s = StringIO.StringIO()
-    # # zipf = zipfile.ZipFile('{}.zip'.format(cName), 'w', zipfile.ZIP_DEFLATED)
-    # zipf = zipfile.ZipFile(s, 'w', zipfile.ZIP_DEFLATED)
-    # zipdir('{}/'.format(cName), zipf)
-    # zipf.close()
-
-
-    # print s.getvalue()
-    # response = HttpResponse(s.getvalue(), content_type='application/zip')
-    # response['Content-Disposition'] = 'attachment; filename={}.zip'.format(cName)
-    # return response
-
-    # return HttpResponse("ok")
 
 
 

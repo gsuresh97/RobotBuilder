@@ -136,7 +136,12 @@ class CustomBlockFile:
             if "target" not in k:
                 paramArr += "[\"{}\", {}], ".format(k, a)
         paramArr += "]"
-        self.blockFile.write("\t\tparams:{},\n".format(paramArr))
+
+        if "ArduinoUno" in name:
+            self.blockFile.write("\t\tparams:[],\n")
+        else:
+            self.blockFile.write("\t\tparams:{},\n".format(paramArr))
+
         self.blockFile.write("\t\tcategory:'{}',\n".format(
             self.getCategoryName(comp)))
 

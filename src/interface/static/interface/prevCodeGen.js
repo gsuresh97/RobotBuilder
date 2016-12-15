@@ -30,37 +30,25 @@ function exportCodeComp(){
 }
 
 function printYaml() {
-    var code;
-    // try{
-        code = Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace());
-        console.log(code);
-        return code;
-
-    // } catch(err){
-    //     console.log(err);
-    //     window.alert("Please remove all blocks which are not arduino compatible. These are the ones that are disabled in the toolbar.");
-    // }
+    var code = Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace());
+    console.log(code);
+    return code;
 }
 
 function getCode(){
-    console.log(encodeURIComponent(printYaml()));
-    window.open(printYaml());
-
     var xhttp = new XMLHttpRequest();
     xhttp.name = "code";
-    xhttp.open("POST", "/interface/get_code/", true);
-    // xhttp.responseType = "arraybuffer"
+    xhttp.open("POST", "export_builder/", true);
     xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            window.open(this.response);
-            console.log(this.getAllResponseHeaders());
-            console.log(this.responseType);
-            console.log(this.response);
-            // download("name.zip", this.response)
-            console.log(this.response.length);
+            var c = printYaml().substring(34);
+            var send = "get_zip_" + c.substring(0, c.indexOf("|")) + "/"
+            window.open(encodeURIComponent(send));
         }
     };
     var c = printYaml();
     console.log(c);
     xhttp.send(c);
+
+
 }

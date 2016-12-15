@@ -98,8 +98,7 @@ def getComponent(c, **kwargs):
         mod = __import__(c, fromlist=[c, "library." + c], globals=globals())
         obj = getattr(mod, c)()
     except ImportError as inst:
-        obj = Component(os.path.abspath(
-            os.path.dirname(__file__)) + "/" + c + ".yaml")
+        obj = Component(os.path.abspath(os.path.dirname(__file__)) + "/" + c + ".yaml")
 
     for k, v in kwargs.iteritems():
         if k == 'name':
@@ -125,7 +124,10 @@ def buildDatabase(components, username="root", password=""):
     """
     # con = db.connect(user=username, passwd=password)
 
-    dbPath = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'compDatabase.db')
+    # dbPath = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'compDatabase.db')
+    dbPath = os.path.join(os.getcwd(), 'compDatabase.db')
+    print "Database Path", dbPath
+    print "Working Directory", os.getcwd()
     con = db.connect(dbPath)
     c = con.cursor()
 

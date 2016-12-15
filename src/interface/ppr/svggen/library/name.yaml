@@ -3,4 +3,14 @@ constants: {}
 constraints: []
 interfaces: {}
 parameters: {}
-subcomponents: {}
+subcomponents:
+  Arduino:
+    class: ArduinoUno
+    constants: {}
+    containers: {}
+    parameters: {}
+  pot:
+    class: DrivenPot
+    constants: {}
+    containers: {}
+    parameters: {}

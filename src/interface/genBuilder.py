@@ -1,4 +1,5 @@
-import os, sys
+import os, sys, importlib
+
 
 def removeSetupLoop(code):
     loopIndex = code.find("loop")
@@ -37,11 +38,13 @@ def saveBuilder(code):
         inputCountIndex = code.index("|", 0)
         inputCount = code[0:inputCountIndex]
         code = code[inputCountIndex + 1:]
-
+        print "Before: ", code
         paramCountIndex = code.index("|", 0)
-        paramCount = code[0:inputCountIndex]
+        paramCount = code[0:paramCountIndex]
         code = code[paramCountIndex + 1:]
-
+        print "Param Count Index: ", paramCountIndex
+        print "Param Count: ", paramCount
+        print "After: ", code
         for i in range(int(inputCount)):
             varNameIndex = code.index("\\", 0)
             varName = code[0:varNameIndex]
@@ -83,6 +86,9 @@ def saveBuilder(code):
             paramValIndex = code.find("|")
             paramVal = code[0:paramValIndex]
             code = code[paramValIndex+1:]
+
+            if paramVal.strip() is "":
+                paramVal = "0"
 
             build += "c.setSubParameter((\"{}\", \"{}\"), {})\n".format(className, paramName, paramVal)
 
@@ -129,5 +135,9 @@ def saveBuilder(code):
     blpath = os.path.join(buildPath, "builder" + cName + ".py")
     blFile = open(blpath, 'wb', 0)
     blFile.write(build)
+
+
+    importlib.import_module("builder"+cName)
+
 
     return cName

@@ -1,0 +1,96 @@
+connections:
+- - [split, out1]
+  - [scaleRed1, in]
+  - {}
+- - [split, out2]
+  - [scaleRed2, in]
+  - {}
+- - [split, out3]
+  - [scaleGreen1, in]
+  - {}
+- - [split, out4]
+  - [scaleGreen2, in]
+  - {}
+- - [split, out5]
+  - [scaleBlue1, in]
+  - {}
+- - [split, out6]
+  - [scaleBlue2, in]
+  - {}
+- - [scaleRed2, scaled]
+  - [red, inInt2]
+  - {}
+- - [scaleRed1, scaled]
+  - [red, inInt1]
+  - {}
+- - [scaleGreen2, scaled]
+  - [green, inInt2]
+  - {}
+- - [scaleGreen1, scaled]
+  - [green, inInt1]
+  - {}
+- - [scaleBlue1, scaled]
+  - [blue, inInt2]
+  - {}
+- - [scaleBlue2, scaled]
+  - [blue, inInt1]
+  - {}
+constants: {}
+constraints: []
+interfaces:
+  b: {interface: outInt, subcomponent: blue}
+  g: {interface: outInt, subcomponent: green}
+  in: {interface: in, subcomponent: split}
+  r: {interface: outInt, subcomponent: red}
+parameters: {}
+subcomponents:
+  blue:
+    class: Add
+    constants: {}
+    containers: {}
+    parameters: {}
+  green:
+    class: Add
+    constants: {}
+    containers: {}
+    parameters: {}
+  red:
+    class: Add
+    constants: {}
+    containers: {}
+    parameters: {}
+  scaleBlue1:
+    class: LinearScale
+    constants: {}
+    containers: {}
+    parameters: {inEnd: 1023, inStart: 0, outEnd: 255, outStart: 0}
+  scaleBlue2:
+    class: LinearScale
+    constants: {}
+    containers: {}
+    parameters: {inEnd: 1023, inStart: 0, outEnd: 255, outStart: 0}
+  scaleGreen1:
+    class: LinearScale
+    constants: {}
+    containers: {}
+    parameters: {inEnd: 1023, inStart: 0, outEnd: 255, outStart: 0}
+  scaleGreen2:
+    class: LinearScale
+    constants: {}
+    containers: {}
+    parameters: {inEnd: 1023, inStart: 0, outEnd: 255, outStart: 0}
+  scaleRed1:
+    class: LinearScale
+    constants: {}
+    containers: {}
+    parameters: {inEnd: 1023, inStart: 0, outEnd: 255, outStart: 0}
+  scaleRed2:
+    class: LinearScale
+    constants: {}
+    containers: {}
+    parameters: {inEnd: 1023, inStart: 0, outEnd: 255, outStart: 0}
+  split:
+    class: SixSplitter
+    constants: {}
+    containers: {}
+    parameters: {}
