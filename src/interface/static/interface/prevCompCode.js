@@ -65,6 +65,50 @@ function makeOutputSortString(count){
 	};
 }
 
+//SplitThree
+function makeOutputSplitThree(count){
+	Blockly.Arduino['SplitThree|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//out1- SplitThree
+	Blockly.Arduino['SplitThree|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'out1'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//out2- SplitThree
+	Blockly.Arduino['SplitThree|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'out2'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//out3- SplitThree
+	Blockly.Arduino['SplitThree|' + count + '\\2'] = function() {
+		var code = this.name + '_';
+		code += 'out3'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
 //Multiply
 function makeOutputMultiply(count){
 	Blockly.Arduino['Multiply|' + count] = function() {
@@ -91,50 +135,6 @@ function makeOutputMultiply(count){
 	Blockly.Arduino['Multiply|' + count + '\\0'] = function() {
 		var code = this.name + '_';
 		code += 'product'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//user_potColor
-function makeOutputuser_potColor(count){
-	Blockly.Arduino['user_potColor|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//r- user_potColor
-	Blockly.Arduino['user_potColor|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'r'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//b- user_potColor
-	Blockly.Arduino['user_potColor|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'b'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//g- user_potColor
-	Blockly.Arduino['user_potColor|' + count + '\\2'] = function() {
-		var code = this.name + '_';
-		code += 'g'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 }
@@ -353,36 +353,6 @@ function makeOutputArduinoUno(count){
 	};
 }
 
-//user_LinearScale2
-function makeOutputuser_LinearScale2(count){
-	Blockly.Arduino['user_LinearScale2|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//scaled- user_LinearScale2
-	Blockly.Arduino['user_LinearScale2|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'scaled'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
 //LiveDemo0
 function makeOutputLiveDemo0(count){
 	Blockly.Arduino['LiveDemo0|' + count] = function() {
@@ -432,29 +402,6 @@ function makeOutputLiveDemo1(count){
 //LiveDemo2
 function makeOutputLiveDemo2(count){
 	Blockly.Arduino['LiveDemo2|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//name
-function makeOutputname(count){
-	Blockly.Arduino['name|' + count] = function() {
 		var code = this.name + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
@@ -581,50 +528,6 @@ function makeOutputPrintString(count){
 	}
 }
 
-//potColor
-function makeOutputpotColor(count){
-	Blockly.Arduino['potColor|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//r- potColor
-	Blockly.Arduino['potColor|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'r'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//b- potColor
-	Blockly.Arduino['potColor|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'b'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//g- potColor
-	Blockly.Arduino['potColor|' + count + '\\2'] = function() {
-		var code = this.name + '_';
-		code += 'g'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
 //ReverseSort
 function makeOutputReverseSort(count){
 	Blockly.Arduino['ReverseSort|' + count] = function() {
@@ -651,71 +554,6 @@ function makeOutputReverseSort(count){
 	Blockly.Arduino['ReverseSort|' + count + '\\0'] = function() {
 		var code = this.name + '_';
 		code += 'outStr'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//SixSplitter
-function makeOutputSixSplitter(count){
-	Blockly.Arduino['SixSplitter|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//out1- SixSplitter
-	Blockly.Arduino['SixSplitter|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'out1'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out2- SixSplitter
-	Blockly.Arduino['SixSplitter|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'out2'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out3- SixSplitter
-	Blockly.Arduino['SixSplitter|' + count + '\\2'] = function() {
-		var code = this.name + '_';
-		code += 'out3'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out4- SixSplitter
-	Blockly.Arduino['SixSplitter|' + count + '\\3'] = function() {
-		var code = this.name + '_';
-		code += 'out4'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out5- SixSplitter
-	Blockly.Arduino['SixSplitter|' + count + '\\4'] = function() {
-		var code = this.name + '_';
-		code += 'out5'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out6- SixSplitter
-	Blockly.Arduino['SixSplitter|' + count + '\\5'] = function() {
-		var code = this.name + '_';
-		code += 'out6'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 }
@@ -794,9 +632,9 @@ function makeOutputSplitFour(count){
 	};
 }
 
-//add1
-function makeOutputadd1(count){
-	Blockly.Arduino['add1|' + count] = function() {
+//user_add
+function makeOutputuser_add(count){
+	Blockly.Arduino['user_add|' + count] = function() {
 		var code = this.name + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
@@ -816,40 +654,40 @@ function makeOutputadd1(count){
 		return code;
 	}
 
-	//sum- add1
-	Blockly.Arduino['add1|' + count + '\\0'] = function() {
+	//out- user_add
+	Blockly.Arduino['user_add|' + count + '\\0'] = function() {
 		var code = this.name + '_';
-		code += 'sum'+'>';
+		code += 'out'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
+}
+
+//PutString
+function makeOutputPutString(count){
+	Blockly.Arduino['PutString|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
 }
 
 //ReverseHello
 function makeOutputReverseHello(count){
 	Blockly.Arduino['ReverseHello|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//demo1
-function makeOutputdemo1(count){
-	Blockly.Arduino['demo1|' + count] = function() {
 		var code = this.name + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
@@ -930,36 +768,6 @@ function makeOutputStringSource(count){
 	};
 }
 
-//user_LinearScale1
-function makeOutputuser_LinearScale1(count){
-	Blockly.Arduino['user_LinearScale1|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//scaled- user_LinearScale1
-	Blockly.Arduino['user_LinearScale1|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'scaled'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
 //Add
 function makeOutputAdd(count){
 	Blockly.Arduino['Add|' + count] = function() {
@@ -986,126 +794,6 @@ function makeOutputAdd(count){
 	Blockly.Arduino['Add|' + count + '\\0'] = function() {
 		var code = this.name + '_';
 		code += 'outInt'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//user_LinearScale3
-function makeOutputuser_LinearScale3(count){
-	Blockly.Arduino['user_LinearScale3|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//scaled- user_LinearScale3
-	Blockly.Arduino['user_LinearScale3|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'scaled'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//user_LinearScale4
-function makeOutputuser_LinearScale4(count){
-	Blockly.Arduino['user_LinearScale4|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//scaled- user_LinearScale4
-	Blockly.Arduino['user_LinearScale4|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'scaled'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//user_LinearScale5
-function makeOutputuser_LinearScale5(count){
-	Blockly.Arduino['user_LinearScale5|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//scaled- user_LinearScale5
-	Blockly.Arduino['user_LinearScale5|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'scaled'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//user_LinearScale6
-function makeOutputuser_LinearScale6(count){
-	Blockly.Arduino['user_LinearScale6|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//scaled- user_LinearScale6
-	Blockly.Arduino['user_LinearScale6|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'scaled'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 }
@@ -1177,80 +865,6 @@ function makeOutputrevLen(count){
 	};
 }
 
-//user_potColor1
-function makeOutputuser_potColor1(count){
-	Blockly.Arduino['user_potColor1|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//r- user_potColor1
-	Blockly.Arduino['user_potColor1|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'r'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//b- user_potColor1
-	Blockly.Arduino['user_potColor1|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'b'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//g- user_potColor1
-	Blockly.Arduino['user_potColor1|' + count + '\\2'] = function() {
-		var code = this.name + '_';
-		code += 'g'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//user_LinearScale
-function makeOutputuser_LinearScale(count){
-	Blockly.Arduino['user_LinearScale|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//scaled- user_LinearScale
-	Blockly.Arduino['user_LinearScale|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'scaled'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
 //RGBLEDDriver
 function makeOutputRGBLEDDriver(count){
 	Blockly.Arduino['RGBLEDDriver|' + count] = function() {
@@ -1291,6 +905,149 @@ function makeOutputRGBLEDDriver(count){
 	Blockly.Arduino['RGBLEDDriver|' + count + '\\2'] = function() {
 		var code = this.name + '_';
 		code += 'bOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//user_am
+function makeOutputuser_am(count){
+	Blockly.Arduino['user_am|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//DuplicateNumber
+function makeOutputDuplicateNumber(count){
+	Blockly.Arduino['DuplicateNumber|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//copy1- DuplicateNumber
+	Blockly.Arduino['DuplicateNumber|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'copy1'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//copy2- DuplicateNumber
+	Blockly.Arduino['DuplicateNumber|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'copy2'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//PutReverseSort
+function makeOutputPutReverseSort(count){
+	Blockly.Arduino['PutReverseSort|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//live_demo_test1
+function makeOutputlive_demo_test1(count){
+	Blockly.Arduino['live_demo_test1|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//PotDriver
+function makeOutputPotDriver(count){
+	Blockly.Arduino['PotDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- PotDriver
+	Blockly.Arduino['PotDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//aOut- PotDriver
+	Blockly.Arduino['PotDriver|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'aOut'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 }
@@ -1369,417 +1126,35 @@ function makeOutputPot(count){
 	};
 }
 
-//PutString
-function makeOutputPutString(count){
-	Blockly.Arduino['PutString|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//LinearScale
-function makeOutputLinearScale(count){
-	Blockly.Arduino['LinearScale|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//scaled- LinearScale
-	Blockly.Arduino['LinearScale|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'scaled'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//DuplicateNumber
-function makeOutputDuplicateNumber(count){
-	Blockly.Arduino['DuplicateNumber|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//copy1- DuplicateNumber
-	Blockly.Arduino['DuplicateNumber|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'copy1'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//copy2- DuplicateNumber
-	Blockly.Arduino['DuplicateNumber|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'copy2'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//addIntFloat
-function makeOutputaddIntFloat(count){
-	Blockly.Arduino['addIntFloat|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//name- addIntFloat
-	Blockly.Arduino['addIntFloat|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'name'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//SplitThree
-function makeOutputSplitThree(count){
-	Blockly.Arduino['SplitThree|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//out1- SplitThree
-	Blockly.Arduino['SplitThree|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'out1'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out2- SplitThree
-	Blockly.Arduino['SplitThree|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'out2'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out3- SplitThree
-	Blockly.Arduino['SplitThree|' + count + '\\2'] = function() {
-		var code = this.name + '_';
-		code += 'out3'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//user_SixSplitter
-function makeOutputuser_SixSplitter(count){
-	Blockly.Arduino['user_SixSplitter|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//out1- user_SixSplitter
-	Blockly.Arduino['user_SixSplitter|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'out1'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out2- user_SixSplitter
-	Blockly.Arduino['user_SixSplitter|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'out2'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out3- user_SixSplitter
-	Blockly.Arduino['user_SixSplitter|' + count + '\\2'] = function() {
-		var code = this.name + '_';
-		code += 'out3'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out4- user_SixSplitter
-	Blockly.Arduino['user_SixSplitter|' + count + '\\3'] = function() {
-		var code = this.name + '_';
-		code += 'out4'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out5- user_SixSplitter
-	Blockly.Arduino['user_SixSplitter|' + count + '\\4'] = function() {
-		var code = this.name + '_';
-		code += 'out5'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out6- user_SixSplitter
-	Blockly.Arduino['user_SixSplitter|' + count + '\\5'] = function() {
-		var code = this.name + '_';
-		code += 'out6'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//PutReverseSort
-function makeOutputPutReverseSort(count){
-	Blockly.Arduino['PutReverseSort|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//live_demo_test1
-function makeOutputlive_demo_test1(count){
-	Blockly.Arduino['live_demo_test1|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//addProds
-function makeOutputaddProds(count){
-	Blockly.Arduino['addProds|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//sumProds- addProds
-	Blockly.Arduino['addProds|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'sumProds'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//PotDriver
-function makeOutputPotDriver(count){
-	Blockly.Arduino['PotDriver|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//outInt- PotDriver
-	Blockly.Arduino['PotDriver|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'outInt'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//aOut- PotDriver
-	Blockly.Arduino['PotDriver|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'aOut'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//Demo
-function makeOutputDemo(count){
-	Blockly.Arduino['Demo|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
 makeOutputDrivenPot(0);
 makeOutputSortString(0);
+makeOutputSplitThree(0);
 makeOutputMultiply(0);
-makeOutputuser_potColor(0);
 makeOutputArduinoUno(0);
-makeOutputuser_LinearScale2(0);
 makeOutputLinearInterpolate(0);
 makeOutputReverseString(0);
-makeOutputpotColor(0);
 makeOutputReverseSort(0);
-makeOutputSixSplitter(0);
 makeOutputSplitFour(0);
-makeOutputadd1(0);
+makeOutputuser_add(0);
 makeOutputtimes3(0);
 makeOutputStringSource(0);
-makeOutputuser_LinearScale1(0);
 makeOutputAdd(0);
-makeOutputuser_LinearScale3(0);
-makeOutputuser_LinearScale4(0);
-makeOutputuser_LinearScale5(0);
-makeOutputuser_LinearScale6(0);
 makeOutputSplitTwo(0);
 makeOutputrevLen(0);
-makeOutputuser_potColor1(0);
-makeOutputuser_LinearScale(0);
 makeOutputRGBLEDDriver(0);
+makeOutputDuplicateNumber(0);
+makeOutputPotDriver(0);
 makeOutputGetColor(0);
 makeOutputPot(0);
-makeOutputLinearScale(0);
-makeOutputDuplicateNumber(0);
-makeOutputaddIntFloat(0);
-makeOutputSplitThree(0);
-makeOutputuser_SixSplitter(0);
-makeOutputaddProds(0);
-makeOutputPotDriver(0);
 makeOutputDrivenRGBLED(0);
 makeOutputLiveDemo0(0);
 makeOutputLiveDemo1(0);
 makeOutputLiveDemo2(0);
-makeOutputname(0);
 makeOutputRGBLED(0);
 makeOutputPrintString(0);
 makeOutputSortHello(0);
-makeOutputReverseHello(0);
-makeOutputdemo1(0);
 makeOutputPutString(0);
+makeOutputReverseHello(0);
+makeOutputuser_am(0);
 makeOutputPutReverseSort(0);
 makeOutputlive_demo_test1(0);
-makeOutputDemo(0);
