@@ -109,6 +109,63 @@ function makeMultiply(count){
 	};
 }
 
+//user_potColor
+function makeuser_potColor(count){
+	Blockly.Blocks['user_potColor|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_potColor ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_potColor',
+		params:[],
+		category:'code',
+		inputs:['in', ],
+		outputs:['r', 'b', 'g', ],
+	};
+
+	//r- user_potColor
+	Blockly.Blocks['user_potColor|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->r");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'r',
+		name:'Block Name 0',
+	};
+
+	//b- user_potColor
+	Blockly.Blocks['user_potColor|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->b");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'b',
+		name:'Block Name 0',
+	};
+
+	//g- user_potColor
+	Blockly.Blocks['user_potColor|' + count + '\\2'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->g");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'g',
+		name:'Block Name 0',
+	};
+}
+
 //DrivenRGBLED
 function makeDrivenRGBLED(count){
 	Blockly.Blocks['DrivenRGBLED|' + count] = {
@@ -466,6 +523,39 @@ function makeArduinoUno(count){
 	};
 }
 
+//user_LinearScale2
+function makeuser_LinearScale2(count){
+	Blockly.Blocks['user_LinearScale2|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_LinearScale2 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InIntPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_LinearScale2',
+		params:[["inStart", "0"], ["inEnd", 1023], ["outStart", "0"], ["outEnd", 255], ],
+		category:'code',
+		inputs:['in', ],
+		outputs:['scaled', ],
+	};
+
+	//scaled- user_LinearScale2
+	Blockly.Blocks['user_LinearScale2|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->scaled");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'scaled',
+		name:'Block Name 0',
+	};
+}
+
 //LiveDemo0
 function makeLiveDemo0(count){
 	Blockly.Blocks['LiveDemo0|' + count] = {
@@ -644,6 +734,63 @@ function makePrintString(count){
 		params:[],
 		category:'code',
 		inputs:['inStr', ],
+	};
+}
+
+//potColor
+function makepotColor(count){
+	Blockly.Blocks['potColor|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("potColor ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'potColor',
+		params:[],
+		category:'code',
+		inputs:['in', ],
+		outputs:['r', 'b', 'g', ],
+	};
+
+	//r- potColor
+	Blockly.Blocks['potColor|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->r");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'r',
+		name:'Block Name 0',
+	};
+
+	//b- potColor
+	Blockly.Blocks['potColor|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->b");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'b',
+		name:'Block Name 0',
+	};
+
+	//g- potColor
+	Blockly.Blocks['potColor|' + count + '\\2'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->g");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'g',
+		name:'Block Name 0',
 	};
 }
 
@@ -998,6 +1145,39 @@ function makeStringSource(count){
 	};
 }
 
+//user_LinearScale1
+function makeuser_LinearScale1(count){
+	Blockly.Blocks['user_LinearScale1|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_LinearScale1 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InIntPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_LinearScale1',
+		params:[["inStart", "0"], ["inEnd", 1023], ["outStart", "0"], ["outEnd", 255], ],
+		category:'code',
+		inputs:['in', ],
+		outputs:['scaled', ],
+	};
+
+	//scaled- user_LinearScale1
+	Blockly.Blocks['user_LinearScale1|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->scaled");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'scaled',
+		name:'Block Name 0',
+	};
+}
+
 //Add
 function makeAdd(count){
 	Blockly.Blocks['Add|' + count] = {
@@ -1032,59 +1212,134 @@ function makeAdd(count){
 	};
 }
 
-//potColor
-function makepotColor(count){
-	Blockly.Blocks['potColor|' + count] = {
+//user_LinearScale3
+function makeuser_LinearScale3(count){
+	Blockly.Blocks['user_LinearScale3|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("potColor ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("user_LinearScale3 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
-			this.appendValueInput("in").setCheck("InPort").appendField("in");
+			this.appendValueInput("in").setCheck("InIntPort").appendField("in");
 			this.setPreviousStatement(true, null);
 			this.setNextStatement(true, null);
 			this.setColour(180);
 		},
-		name:'potColor',
-		params:[],
+		name:'user_LinearScale3',
+		params:[["inStart", "0"], ["inEnd", 1023], ["outStart", "0"], ["outEnd", 255], ],
 		category:'code',
 		inputs:['in', ],
-		outputs:['r', 'b', 'g', ],
+		outputs:['scaled', ],
 	};
 
-	//r- potColor
-	Blockly.Blocks['potColor|' + count + '\\0'] = {
+	//scaled- user_LinearScale3
+	Blockly.Blocks['user_LinearScale3|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->r");
+			this.appendDummyInput().appendField("Block Name 0->scaled");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
 		outputType:'OutIntPort',
-		outputName:'r',
+		outputName:'scaled',
 		name:'Block Name 0',
 	};
+}
 
-	//b- potColor
-	Blockly.Blocks['potColor|' + count + '\\1'] = {
+//user_LinearScale4
+function makeuser_LinearScale4(count){
+	Blockly.Blocks['user_LinearScale4|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->b");
-			this.setOutput(true, null);
+			this.appendDummyInput().appendField("user_LinearScale4 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InIntPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
 			this.setColour(180);
 		},
-		outputType:'OutIntPort',
-		outputName:'b',
-		name:'Block Name 0',
+		name:'user_LinearScale4',
+		params:[["inStart", "0"], ["inEnd", 1023], ["outStart", "0"], ["outEnd", 255], ],
+		category:'code',
+		inputs:['in', ],
+		outputs:['scaled', ],
 	};
 
-	//g- potColor
-	Blockly.Blocks['potColor|' + count + '\\2'] = {
+	//scaled- user_LinearScale4
+	Blockly.Blocks['user_LinearScale4|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->g");
+			this.appendDummyInput().appendField("Block Name 0->scaled");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
 		outputType:'OutIntPort',
-		outputName:'g',
+		outputName:'scaled',
+		name:'Block Name 0',
+	};
+}
+
+//user_LinearScale5
+function makeuser_LinearScale5(count){
+	Blockly.Blocks['user_LinearScale5|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_LinearScale5 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InIntPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_LinearScale5',
+		params:[["inStart", "0"], ["inEnd", 1023], ["outStart", "0"], ["outEnd", 255], ],
+		category:'code',
+		inputs:['in', ],
+		outputs:['scaled', ],
+	};
+
+	//scaled- user_LinearScale5
+	Blockly.Blocks['user_LinearScale5|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->scaled");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'scaled',
+		name:'Block Name 0',
+	};
+}
+
+//user_LinearScale6
+function makeuser_LinearScale6(count){
+	Blockly.Blocks['user_LinearScale6|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_LinearScale6 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InIntPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_LinearScale6',
+		params:[["inStart", "0"], ["inEnd", 1023], ["outStart", "0"], ["outEnd", 255], ],
+		category:'code',
+		inputs:['in', ],
+		outputs:['scaled', ],
+	};
+
+	//scaled- user_LinearScale6
+	Blockly.Blocks['user_LinearScale6|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->scaled");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'scaled',
 		name:'Block Name 0',
 	};
 }
@@ -1163,6 +1418,96 @@ function makerevLen(count){
 		},
 		outputType:'OutStringPort',
 		outputName:'out',
+		name:'Block Name 0',
+	};
+}
+
+//user_potColor1
+function makeuser_potColor1(count){
+	Blockly.Blocks['user_potColor1|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_potColor1 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_potColor1',
+		params:[],
+		category:'code',
+		inputs:['in', ],
+		outputs:['r', 'b', 'g', ],
+	};
+
+	//r- user_potColor1
+	Blockly.Blocks['user_potColor1|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->r");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'r',
+		name:'Block Name 0',
+	};
+
+	//b- user_potColor1
+	Blockly.Blocks['user_potColor1|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->b");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'b',
+		name:'Block Name 0',
+	};
+
+	//g- user_potColor1
+	Blockly.Blocks['user_potColor1|' + count + '\\2'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->g");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'g',
+		name:'Block Name 0',
+	};
+}
+
+//user_LinearScale
+function makeuser_LinearScale(count){
+	Blockly.Blocks['user_LinearScale|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_LinearScale ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InIntPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_LinearScale',
+		params:[["inStart", "0"], ["inEnd", 1023], ["outStart", "0"], ["outEnd", 255], ],
+		category:'code',
+		inputs:['in', ],
+		outputs:['scaled', ],
+	};
+
+	//scaled- user_LinearScale
+	Blockly.Blocks['user_LinearScale|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->scaled");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'scaled',
 		name:'Block Name 0',
 	};
 }
@@ -1506,6 +1851,99 @@ function makeSplitThree(count){
 	};
 }
 
+//user_SixSplitter
+function makeuser_SixSplitter(count){
+	Blockly.Blocks['user_SixSplitter|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_SixSplitter ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in").setCheck("InPort").appendField("in");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_SixSplitter',
+		params:[],
+		category:'code',
+		inputs:['in', ],
+		outputs:['out1', 'out2', 'out3', 'out4', 'out5', 'out6', ],
+	};
+
+	//out1- user_SixSplitter
+	Blockly.Blocks['user_SixSplitter|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->out1");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutPort',
+		outputName:'out1',
+		name:'Block Name 0',
+	};
+
+	//out2- user_SixSplitter
+	Blockly.Blocks['user_SixSplitter|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->out2");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutPort',
+		outputName:'out2',
+		name:'Block Name 0',
+	};
+
+	//out3- user_SixSplitter
+	Blockly.Blocks['user_SixSplitter|' + count + '\\2'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->out3");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutPort',
+		outputName:'out3',
+		name:'Block Name 0',
+	};
+
+	//out4- user_SixSplitter
+	Blockly.Blocks['user_SixSplitter|' + count + '\\3'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->out4");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutPort',
+		outputName:'out4',
+		name:'Block Name 0',
+	};
+
+	//out5- user_SixSplitter
+	Blockly.Blocks['user_SixSplitter|' + count + '\\4'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->out5");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutPort',
+		outputName:'out5',
+		name:'Block Name 0',
+	};
+
+	//out6- user_SixSplitter
+	Blockly.Blocks['user_SixSplitter|' + count + '\\5'] = {
+		init: function(){
+			this.appendDummyInput().appendField("Block Name 0->out6");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutPort',
+		outputName:'out6',
+		name:'Block Name 0',
+	};
+}
+
 //PutReverseSort
 function makePutReverseSort(count){
 	Blockly.Blocks['PutReverseSort|' + count] = {
@@ -1647,19 +2085,28 @@ function makeDemo(count){
 makeDrivenPot(0);
 makeSortString(0);
 makeMultiply(0);
+makeuser_potColor(0);
 makeArduinoUno(0);
+makeuser_LinearScale2(0);
 makeLinearInterpolate(0);
 makeReverseString(0);
+makepotColor(0);
 makeReverseSort(0);
 makeSixSplitter(0);
 makeSplitFour(0);
 makeadd1(0);
 maketimes3(0);
 makeStringSource(0);
+makeuser_LinearScale1(0);
 makeAdd(0);
-makepotColor(0);
+makeuser_LinearScale3(0);
+makeuser_LinearScale4(0);
+makeuser_LinearScale5(0);
+makeuser_LinearScale6(0);
 makeSplitTwo(0);
 makerevLen(0);
+makeuser_potColor1(0);
+makeuser_LinearScale(0);
 makeRGBLEDDriver(0);
 makeGetColor(0);
 makePot(0);
@@ -1667,6 +2114,7 @@ makeLinearScale(0);
 makeDuplicateNumber(0);
 makeaddIntFloat(0);
 makeSplitThree(0);
+makeuser_SixSplitter(0);
 makeaddProds(0);
 makePotDriver(0);
 makeDrivenRGBLED(0);

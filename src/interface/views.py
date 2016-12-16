@@ -99,9 +99,6 @@ def prevblocks(request):
     print "Here===================================================================="
     for i in comps:
         print i.getName()
-        if "times3" in i.getName():
-            print "Found i"
-            print "Parameters", i.parameters, "\n\n\n\n\n"
     template = loader.get_template('interface/prev-blocks.html')
     return HttpResponse(template.render(context, request))
 
@@ -119,7 +116,7 @@ def export_code(request):
     # Extract Class Name
     classNameIndex = code.index("|", 0)
     print
-    className = code[0:classNameIndex]
+    className = "user_"+code[0:classNameIndex]
 
     code = code[classNameIndex + 1:]
 

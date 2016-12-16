@@ -15,6 +15,7 @@ def getCName(code):
 def saveBuilder(code):
     code = removeSetupLoop(code)
     cName, code = getCName(code)
+    cName = "user_" + cName
 
     build = "from svggen.api.component import Component\n"
     build += "from svggen.library import *\n"

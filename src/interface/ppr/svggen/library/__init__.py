@@ -20,7 +20,8 @@ def updateComponentsLists():
     pyComponents = [os.path.basename(f)[:-3] for f in glob.glob(os.path.dirname(__file__) + "/*.py") if os.path.basename(f)[0] != "_"]
     yamlComponents = [os.path.basename(f)[:-5] for f in glob.glob(os.path.dirname(__file__) + "/*.yaml")]
     allComponents = list(set(pyComponents + yamlComponents))
-    print "\n\n\n\n\n", allComponents, "\n\n\n\n"
+    print "\n\n\n\n\nUpdated Components\n", allComponents, "\n\n\n\n"
+    return allComponents
 
 
 def instanceOf(comp, composable_type):
@@ -76,9 +77,11 @@ def filterDatabase(composable_type=["all"], verbose=False):
         database which had the specified composable type
     """
     comps = []
-    print "\n\n\n\n\n", allComponents, "\n\n\n\n"
+    a = updateComponentsLists()
+    print "Updated components list in filterDatabase==========================="
+    print "\n\n\n\n\n", a, "\n\n\n\n"
 
-    for comp in allComponents:
+    for comp in a:
         try:
             a = queryDatabase(comp)
             print "component", a
