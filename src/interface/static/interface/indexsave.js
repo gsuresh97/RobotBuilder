@@ -136,11 +136,11 @@ function addOptions(files){
     var c = document.getElementById("openlist");
     var cont = document.getElementById("list");
     var overlay = document.getElementById("dim");
-    var q = document.getElementById("quote");
+    // var q = document.getElementById("quote");
 
     c.style.display = "block";
     overlay.style.display = "block";
-    q.innerText = quotes[Math.floor(Math.random()*quotes.length)];
+    // q.innerText = quotes[Math.floor(Math.random()*quotes.length)];
 
     if (files.length == 0) {
         var mainDiv = document.createElement("DIV");
