@@ -61,8 +61,8 @@ Blockly.Blocks['component_create'] = {
         this.appendDummyInput()
             .appendField("Component")
             .appendField(new Blockly.FieldTextInput("name"), "NAME");
-        // this.appendStatementInput('CODE')
-        //     .appendField("Insert Code Here:");
+        this.appendStatementInput('CODE')
+            .appendField("Insert Code Here:");
         this.setMutator(new Blockly.Mutator(['component_output',
             'component_input', 'component_parameter'
         ]));
@@ -130,18 +130,19 @@ Blockly.Blocks['component_create'] = {
             connection.connect(inputBlock.previousConnection);
             connection = inputBlock.nextConnection;
         }
-        for (var i = 1; i <= this.outputCount; i++) {
-            var outputBlock = workspace.newBlock('component_output');
-            outputBlock.initSvg();
-            connection.connect(outputBlock.previousConnection);
-            connection = outputBlock.nextConnection;
-        }
         for (var i = 1; i <= this.parameterCount; i++) {
             var parameterBlock = workspace.newBlock('component_parameter');
             parameterBlock.initSvg();
             connection.connect(parameterBlock.previousConnection);
             connection = parameterBlock.nextConnection;
         }
+        for (var i = 1; i <= this.outputCount; i++) {
+            var outputBlock = workspace.newBlock('component_output');
+            outputBlock.initSvg();
+            connection.connect(outputBlock.previousConnection);
+            connection = outputBlock.nextConnection;
+        }
+
         return containerBlock;
     },
     /**
@@ -153,31 +154,50 @@ Blockly.Blocks['component_create'] = {
         if (loc) {
             console.log("in compose");
         }
+        var code_connection = containerBlock.code;
         var clauseBlock = containerBlock.nextConnection.targetBlock();
         // Count number of inputs.
         this.inputCount = 0;
         this.outputCount = 0;
         this.parameterCount = 0;
-        var input_name_connections = [null];
-        var input_value_connections = [null];
+        var input_port_connections = [null];
+        var input_names = [null];
         var output_value_connections = [null];
-        var output_name_connections = [null];
-        var parameter_value_connections = [null];
-        var parameter_name_connections = [null];
+        var output_port_connections = [null];
+        var output_names = [null];
+        var parameter_values = [null];
+        var parameter_names = [null];
         var codeStatementConnection = null;
         while (clauseBlock) {
             switch (clauseBlock.type) {
                 case 'component_output':
                     this.outputCount++;
-                    output_value_connections.push(clauseBlock.valueConnection_);
+                    output_value_connections.push(clauseBlock.value);
+                    if (clauseBlock.name === undefined) {
+                        clauseBlock.name = "name";
+                    }
+                    output_names.push(clauseBlock.name);
+                    output_port_connections.push(clauseBlock.port);
                     break;
                 case 'component_input':
                     this.inputCount++;
-                    input_value_connections.push(clauseBlock.valueConnection_);
+                    input_port_connections.push(clauseBlock.port);
+                    if (clauseBlock.name === undefined) {
+                        clauseBlock.name = "name";
+                    }
+                    input_names.push(clauseBlock.name);
                     break;
                 case 'component_parameter':
                     this.parameterCount++;
-                    parameter_value_connections.push(clauseBlock.valueConnection_);
+                    if (clauseBlock.name === undefined) {
+                        clauseBlock.name = "name";
+                    }
+                    if (clauseBlock.value === undefined) {
+                        clauseBlock.value = "default value";
+                    }
+                    parameter_values.push(clauseBlock.value);
+                    parameter_names.push(clauseBlock.name);
+
                     break;
                 default:
                     throw 'Unknown block type.';
@@ -188,19 +208,20 @@ Blockly.Blocks['component_create'] = {
 
         this.updateShape_();
         // Reconnect any child blocks.
+        Blockly.Mutator.reconnect(code_connection, this, 'CODE');
         for (var i = 0; i < this.inputCount; i++) {
-            Blockly.Mutator.reconnect(input_value_connections[i], this, 'INP' + i);
-            // Blockly.Mutator.reconnect(input_name_connections[i], this, 'INPUT_NAME' + i);
+            Blockly.Mutator.reconnect(input_port_connections[i+1], this, 'INP_PORT' + i);
+            this.getField('INPUT_NAME' + i) && this.getField('INPUT_NAME' + i).setText(input_names[i+1]);
         }
-        //Blockly.Mutator.reconnect(parameter_value_connections[i], this, 'INP' + i);
         for (var i = 0; i < this.outputCount; i++) {
-            Blockly.Mutator.reconnect(output_value_connections[i], this, 'OUT' + i);
-            // Blockly.Mutator.reconnect(output_name_connections[i], this, 'OUTPUT_NAME' + i);
+            Blockly.Mutator.reconnect(output_value_connections[i+1], this, 'OUT' + i);
+            this.getField('OUTPUT_NAME' + i) && this.getField('OUTPUT_NAME' + i).setText(output_names[i+1]);
+            Blockly.Mutator.reconnect(output_port_connections[i+1], this, 'OUT_PORT' + i);
         }
 
         for (var i = 0; i < this.parameterCount; i++) {
-            Blockly.Mutator.reconnect(parameter_value_connections[i], this, 'PAR' + i);
-            // Blockly.Mutator.reconnect(output_name_connections[i], this, 'OUTPUT_NAME' + i);
+            this.getField('PAR_NAME' + i) && this.getField('PAR_NAME' + i).setText(parameter_names[i+1]);
+            this.getField('PAR_VAL' + i) && this.getField('PAR_VAL' + i).setText(parameter_values[i+1]);
         }
     },
     /**
@@ -212,31 +233,43 @@ Blockly.Blocks['component_create'] = {
         if (loc) {
             console.log("in saveConnections");
         }
+        var code = this.getInput("CODE");
+        containerBlock.code = code && code.connection.targetConnection;
         var clauseBlock = containerBlock.nextConnection.targetBlock();
         var i = 0;
         var j = 0;
         var k = 0;
-        // var names = [];
         while (clauseBlock) {
             // console.log(clauseBlock);
             switch (clauseBlock.type) {
                 case 'component_output':
+                    // value
                     var outInput = this.getInput('OUT' + i);
-                    var outNameInput = this.getInput('OUTPUT_NAME' + i);
-                    clauseBlock.valueConnection_ = outInput && outInput.connection.targetConnection;
+                    // field
+                    var outNameInput = this.getFieldValue('OUTPUT_NAME' + i);
+                    // value
+                    var outputPort = this.getInput('OUT_PORT' + i);
+                    clauseBlock.value = outInput && outInput.connection.targetConnection;
+                    clauseBlock.name = outNameInput;
+                    clauseBlock.port = outputPort && outputPort.connection.targetConnection;
                     i++;
                     break;
                 case 'component_input':
-                    var paramInput = this.getInput('INP' + j);
-                    var paramNameInput = this.getInput('INPUT_NAME' + j);
-                    // names.push(paramNameInput);
-                    // clauseBlock.valueConnection_ = paramInput && paramInput.connection.targetConnection;
+                    // value
+                    var inputPort = this.getInput('INP_PORT' + j);
+                    // field
+                    var inputNameInput = this.getFieldValue('INPUT_NAME' + j);
+                    clauseBlock.name = inputNameInput;
+                    clauseBlock.port = inputPort && inputPort.connection.targetConnection;
                     j++;
                     break;
                 case 'component_parameter':
-                    var parInput = this.getInput('PAR' + k);
-                    var parNameInput = this.getInput('PAR_NAME' + k);
-                    var parValueInput = this.getInput('PAR_VAL' + k);
+                    // field
+                    var parNameInput = this.getFieldValue('PAR_NAME' + k);
+                    // field
+                    var parValueInput = this.getFieldValue('PAR_VAL' + k);
+                    clauseBlock.name = parNameInput;
+                    clauseBlock.value = parValueInput;
                     k++;
                     break;
                 default:
@@ -285,9 +318,8 @@ Blockly.Blocks['component_create'] = {
                 .setCheck("InputPort")
                 .setAlign(Blockly.ALIGN_RIGHT)
                 .appendField("Input Port Type");
-
-
         }
+
         for (var i = 0; i < this.parameterCount; i++) {
             this.appendDummyInput("PAR" + i)
                 .appendField("Parameter ")

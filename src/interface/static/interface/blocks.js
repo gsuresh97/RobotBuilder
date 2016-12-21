@@ -1,8 +1,14 @@
+var BlockList = new Map();
+
 //DrivenPot
-function makeDrivenPot(count){
+function makeDrivenPot(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="DrivenPot"+(count);
+	}
 	Blockly.Blocks['DrivenPot|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("DrivenPot ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("DrivenPot ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -20,7 +26,7 @@ function makeDrivenPot(count){
 	//outInt- DrivenPot
 	Blockly.Blocks['DrivenPot|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outInt");
+			this.appendDummyInput().appendField(ans + "->outInt");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -32,7 +38,7 @@ function makeDrivenPot(count){
 	//aOut- DrivenPot
 	Blockly.Blocks['DrivenPot|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->aOut");
+			this.appendDummyInput().appendField(ans + "->aOut");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -43,10 +49,14 @@ function makeDrivenPot(count){
 }
 
 //SortString
-function makeSortString(count){
+function makeSortString(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="SortString"+(count);
+	}
 	Blockly.Blocks['SortString|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("SortString ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("SortString ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -65,7 +75,7 @@ function makeSortString(count){
 	//outStr- SortString
 	Blockly.Blocks['SortString|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outStr");
+			this.appendDummyInput().appendField(ans + "->outStr");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -76,10 +86,14 @@ function makeSortString(count){
 }
 
 //SplitThree
-function makeSplitThree(count){
+function makeSplitThree(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="SplitThree"+(count);
+	}
 	Blockly.Blocks['SplitThree|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("SplitThree ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("SplitThree ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -98,7 +112,7 @@ function makeSplitThree(count){
 	//out1- SplitThree
 	Blockly.Blocks['SplitThree|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out1");
+			this.appendDummyInput().appendField(ans + "->out1");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -110,7 +124,7 @@ function makeSplitThree(count){
 	//out2- SplitThree
 	Blockly.Blocks['SplitThree|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out2");
+			this.appendDummyInput().appendField(ans + "->out2");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -122,7 +136,7 @@ function makeSplitThree(count){
 	//out3- SplitThree
 	Blockly.Blocks['SplitThree|' + count + '\\2'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out3");
+			this.appendDummyInput().appendField(ans + "->out3");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -133,10 +147,14 @@ function makeSplitThree(count){
 }
 
 //Multiply
-function makeMultiply(count){
+function makeMultiply(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="Multiply"+(count);
+	}
 	Blockly.Blocks['Multiply|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("Multiply ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("Multiply ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -156,7 +174,7 @@ function makeMultiply(count){
 	//product- Multiply
 	Blockly.Blocks['Multiply|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->product");
+			this.appendDummyInput().appendField(ans + "->product");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -167,10 +185,14 @@ function makeMultiply(count){
 }
 
 //DrivenRGBLED
-function makeDrivenRGBLED(count){
+function makeDrivenRGBLED(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="DrivenRGBLED"+(count);
+	}
 	Blockly.Blocks['DrivenRGBLED|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("DrivenRGBLED ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("DrivenRGBLED ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -192,10 +214,14 @@ function makeDrivenRGBLED(count){
 }
 
 //ArduinoUno
-function makeArduinoUno(count){
+function makeArduinoUno(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="ArduinoUno"+(count);
+	}
 	Blockly.Blocks['ArduinoUno|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("ArduinoUno ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("ArduinoUno ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -237,7 +263,7 @@ function makeArduinoUno(count){
 	//do18- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do18");
+			this.appendDummyInput().appendField(ans + "->do18");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -249,7 +275,7 @@ function makeArduinoUno(count){
 	//do14- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do14");
+			this.appendDummyInput().appendField(ans + "->do14");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -261,7 +287,7 @@ function makeArduinoUno(count){
 	//do15- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\2'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do15");
+			this.appendDummyInput().appendField(ans + "->do15");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -273,7 +299,7 @@ function makeArduinoUno(count){
 	//do16- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\3'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do16");
+			this.appendDummyInput().appendField(ans + "->do16");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -285,7 +311,7 @@ function makeArduinoUno(count){
 	//do17- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\4'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do17");
+			this.appendDummyInput().appendField(ans + "->do17");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -297,7 +323,7 @@ function makeArduinoUno(count){
 	//do10- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\5'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do10");
+			this.appendDummyInput().appendField(ans + "->do10");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -309,7 +335,7 @@ function makeArduinoUno(count){
 	//do11- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\6'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do11");
+			this.appendDummyInput().appendField(ans + "->do11");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -321,7 +347,7 @@ function makeArduinoUno(count){
 	//do12- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\7'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do12");
+			this.appendDummyInput().appendField(ans + "->do12");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -333,7 +359,7 @@ function makeArduinoUno(count){
 	//do13- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\8'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do13");
+			this.appendDummyInput().appendField(ans + "->do13");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -345,7 +371,7 @@ function makeArduinoUno(count){
 	//do8- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\9'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do8");
+			this.appendDummyInput().appendField(ans + "->do8");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -357,7 +383,7 @@ function makeArduinoUno(count){
 	//do9- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\10'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do9");
+			this.appendDummyInput().appendField(ans + "->do9");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -369,7 +395,7 @@ function makeArduinoUno(count){
 	//do2- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\11'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do2");
+			this.appendDummyInput().appendField(ans + "->do2");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -381,7 +407,7 @@ function makeArduinoUno(count){
 	//do3- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\12'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do3");
+			this.appendDummyInput().appendField(ans + "->do3");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -393,7 +419,7 @@ function makeArduinoUno(count){
 	//pwm6- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\13'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->pwm6");
+			this.appendDummyInput().appendField(ans + "->pwm6");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -405,7 +431,7 @@ function makeArduinoUno(count){
 	//do1- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\14'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do1");
+			this.appendDummyInput().appendField(ans + "->do1");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -417,7 +443,7 @@ function makeArduinoUno(count){
 	//do6- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\15'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do6");
+			this.appendDummyInput().appendField(ans + "->do6");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -429,7 +455,7 @@ function makeArduinoUno(count){
 	//pwm1- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\16'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->pwm1");
+			this.appendDummyInput().appendField(ans + "->pwm1");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -441,7 +467,7 @@ function makeArduinoUno(count){
 	//do4- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\17'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do4");
+			this.appendDummyInput().appendField(ans + "->do4");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -453,7 +479,7 @@ function makeArduinoUno(count){
 	//do5- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\18'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do5");
+			this.appendDummyInput().appendField(ans + "->do5");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -465,7 +491,7 @@ function makeArduinoUno(count){
 	//pwm4- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\19'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->pwm4");
+			this.appendDummyInput().appendField(ans + "->pwm4");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -477,7 +503,7 @@ function makeArduinoUno(count){
 	//pwm5- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\20'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->pwm5");
+			this.appendDummyInput().appendField(ans + "->pwm5");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -489,7 +515,7 @@ function makeArduinoUno(count){
 	//do7- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\21'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->do7");
+			this.appendDummyInput().appendField(ans + "->do7");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -501,7 +527,7 @@ function makeArduinoUno(count){
 	//pwm2- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\22'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->pwm2");
+			this.appendDummyInput().appendField(ans + "->pwm2");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -513,7 +539,7 @@ function makeArduinoUno(count){
 	//pwm3- ArduinoUno
 	Blockly.Blocks['ArduinoUno|' + count + '\\23'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->pwm3");
+			this.appendDummyInput().appendField(ans + "->pwm3");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -524,10 +550,14 @@ function makeArduinoUno(count){
 }
 
 //LiveDemo0
-function makeLiveDemo0(count){
+function makeLiveDemo0(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="LiveDemo0"+(count);
+	}
 	Blockly.Blocks['LiveDemo0|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("LiveDemo0 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("LiveDemo0 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -543,10 +573,14 @@ function makeLiveDemo0(count){
 }
 
 //LiveDemo1
-function makeLiveDemo1(count){
+function makeLiveDemo1(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="LiveDemo1"+(count);
+	}
 	Blockly.Blocks['LiveDemo1|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("LiveDemo1 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("LiveDemo1 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -562,10 +596,14 @@ function makeLiveDemo1(count){
 }
 
 //LiveDemo2
-function makeLiveDemo2(count){
+function makeLiveDemo2(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="LiveDemo2"+(count);
+	}
 	Blockly.Blocks['LiveDemo2|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("LiveDemo2 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("LiveDemo2 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -581,10 +619,14 @@ function makeLiveDemo2(count){
 }
 
 //RGBLED
-function makeRGBLED(count){
+function makeRGBLED(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="RGBLED"+(count);
+	}
 	Blockly.Blocks['RGBLED|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("RGBLED ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("RGBLED ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -600,10 +642,14 @@ function makeRGBLED(count){
 }
 
 //LinearInterpolate
-function makeLinearInterpolate(count){
+function makeLinearInterpolate(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="LinearInterpolate"+(count);
+	}
 	Blockly.Blocks['LinearInterpolate|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("LinearInterpolate ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("LinearInterpolate ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -622,7 +668,7 @@ function makeLinearInterpolate(count){
 	//outInt- LinearInterpolate
 	Blockly.Blocks['LinearInterpolate|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outInt");
+			this.appendDummyInput().appendField(ans + "->outInt");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -633,10 +679,14 @@ function makeLinearInterpolate(count){
 }
 
 //ReverseString
-function makeReverseString(count){
+function makeReverseString(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="ReverseString"+(count);
+	}
 	Blockly.Blocks['ReverseString|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("ReverseString ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("ReverseString ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -655,7 +705,7 @@ function makeReverseString(count){
 	//outStr- ReverseString
 	Blockly.Blocks['ReverseString|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outStr");
+			this.appendDummyInput().appendField(ans + "->outStr");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -665,11 +715,52 @@ function makeReverseString(count){
 	};
 }
 
+//user_times3
+function makeuser_times3(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="user_times3"+(count);
+	}
+	Blockly.Blocks['user_times3|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_times3 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("in1").setCheck("InIntPort").appendField("in1");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name:'user_times3',
+		params:[["in2", 3], ],
+		category:'code',
+		inputs:['in1', ],
+		outputs:['out', ],
+	};
+
+	//out- user_times3
+	Blockly.Blocks['user_times3|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput().appendField(ans + "->out");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'out',
+		name:'Block Name 0',
+	};
+}
+
 //PrintString
-function makePrintString(count){
+function makePrintString(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="PrintString"+(count);
+	}
 	Blockly.Blocks['PrintString|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("PrintString ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("PrintString ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -686,10 +777,14 @@ function makePrintString(count){
 }
 
 //ReverseSort
-function makeReverseSort(count){
+function makeReverseSort(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="ReverseSort"+(count);
+	}
 	Blockly.Blocks['ReverseSort|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("ReverseSort ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("ReverseSort ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -708,7 +803,7 @@ function makeReverseSort(count){
 	//outStr- ReverseSort
 	Blockly.Blocks['ReverseSort|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outStr");
+			this.appendDummyInput().appendField(ans + "->outStr");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -719,10 +814,14 @@ function makeReverseSort(count){
 }
 
 //SortHello
-function makeSortHello(count){
+function makeSortHello(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="SortHello"+(count);
+	}
 	Blockly.Blocks['SortHello|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("SortHello ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("SortHello ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -738,10 +837,14 @@ function makeSortHello(count){
 }
 
 //SplitFour
-function makeSplitFour(count){
+function makeSplitFour(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="SplitFour"+(count);
+	}
 	Blockly.Blocks['SplitFour|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("SplitFour ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("SplitFour ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -760,7 +863,7 @@ function makeSplitFour(count){
 	//out1- SplitFour
 	Blockly.Blocks['SplitFour|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out1");
+			this.appendDummyInput().appendField(ans + "->out1");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -772,7 +875,7 @@ function makeSplitFour(count){
 	//out2- SplitFour
 	Blockly.Blocks['SplitFour|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out2");
+			this.appendDummyInput().appendField(ans + "->out2");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -784,7 +887,7 @@ function makeSplitFour(count){
 	//out3- SplitFour
 	Blockly.Blocks['SplitFour|' + count + '\\2'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out3");
+			this.appendDummyInput().appendField(ans + "->out3");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -796,7 +899,7 @@ function makeSplitFour(count){
 	//out4- SplitFour
 	Blockly.Blocks['SplitFour|' + count + '\\3'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out4");
+			this.appendDummyInput().appendField(ans + "->out4");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -806,45 +909,15 @@ function makeSplitFour(count){
 	};
 }
 
-//user_add
-function makeuser_add(count){
-	Blockly.Blocks['user_add|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("user_add ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.appendValueInput("two").setCheck("InIntPort").appendField("two");
-			this.appendValueInput("one").setCheck("InIntPort").appendField("one");
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name:'user_add',
-		params:[],
-		category:'code',
-		inputs:['two', 'one', ],
-		outputs:['out', ],
-	};
-
-	//out- user_add
-	Blockly.Blocks['user_add|' + count + '\\0'] = {
-		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'OutIntPort',
-		outputName:'out',
-		name:'Block Name 0',
-	};
-}
-
 //PutString
-function makePutString(count){
+function makePutString(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="PutString"+(count);
+	}
 	Blockly.Blocks['PutString|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("PutString ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("PutString ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -860,10 +933,14 @@ function makePutString(count){
 }
 
 //ReverseHello
-function makeReverseHello(count){
+function makeReverseHello(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="ReverseHello"+(count);
+	}
 	Blockly.Blocks['ReverseHello|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("ReverseHello ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("ReverseHello ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -879,10 +956,14 @@ function makeReverseHello(count){
 }
 
 //times3
-function maketimes3(count){
+function maketimes3(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="times3"+(count);
+	}
 	Blockly.Blocks['times3|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("times3 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("times3 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -901,7 +982,7 @@ function maketimes3(count){
 	//outInt- times3
 	Blockly.Blocks['times3|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outInt");
+			this.appendDummyInput().appendField(ans + "->outInt");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -912,10 +993,14 @@ function maketimes3(count){
 }
 
 //StringSource
-function makeStringSource(count){
+function makeStringSource(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="StringSource"+(count);
+	}
 	Blockly.Blocks['StringSource|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("StringSource ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("StringSource ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -933,7 +1018,7 @@ function makeStringSource(count){
 	//outStr- StringSource
 	Blockly.Blocks['StringSource|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outStr");
+			this.appendDummyInput().appendField(ans + "->outStr");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -944,10 +1029,14 @@ function makeStringSource(count){
 }
 
 //Add
-function makeAdd(count){
+function makeAdd(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="Add"+(count);
+	}
 	Blockly.Blocks['Add|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("Add ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("Add ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -967,7 +1056,7 @@ function makeAdd(count){
 	//outInt- Add
 	Blockly.Blocks['Add|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outInt");
+			this.appendDummyInput().appendField(ans + "->outInt");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -978,10 +1067,14 @@ function makeAdd(count){
 }
 
 //SplitTwo
-function makeSplitTwo(count){
+function makeSplitTwo(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="SplitTwo"+(count);
+	}
 	Blockly.Blocks['SplitTwo|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("SplitTwo ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("SplitTwo ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1000,7 +1093,7 @@ function makeSplitTwo(count){
 	//out1- SplitTwo
 	Blockly.Blocks['SplitTwo|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out1");
+			this.appendDummyInput().appendField(ans + "->out1");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1012,7 +1105,7 @@ function makeSplitTwo(count){
 	//out2- SplitTwo
 	Blockly.Blocks['SplitTwo|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out2");
+			this.appendDummyInput().appendField(ans + "->out2");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1023,10 +1116,14 @@ function makeSplitTwo(count){
 }
 
 //revLen
-function makerevLen(count){
+function makerevLen(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="revLen"+(count);
+	}
 	Blockly.Blocks['revLen|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("revLen ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("revLen ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1045,7 +1142,7 @@ function makerevLen(count){
 	//out- revLen
 	Blockly.Blocks['revLen|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->out");
+			this.appendDummyInput().appendField(ans + "->out");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1056,10 +1153,14 @@ function makerevLen(count){
 }
 
 //RGBLEDDriver
-function makeRGBLEDDriver(count){
+function makeRGBLEDDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="RGBLEDDriver"+(count);
+	}
 	Blockly.Blocks['RGBLEDDriver|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("RGBLEDDriver ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("RGBLEDDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1083,7 +1184,7 @@ function makeRGBLEDDriver(count){
 	//gOut- RGBLEDDriver
 	Blockly.Blocks['RGBLEDDriver|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->gOut");
+			this.appendDummyInput().appendField(ans + "->gOut");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1095,7 +1196,7 @@ function makeRGBLEDDriver(count){
 	//rOut- RGBLEDDriver
 	Blockly.Blocks['RGBLEDDriver|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->rOut");
+			this.appendDummyInput().appendField(ans + "->rOut");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1107,7 +1208,7 @@ function makeRGBLEDDriver(count){
 	//bOut- RGBLEDDriver
 	Blockly.Blocks['RGBLEDDriver|' + count + '\\2'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->bOut");
+			this.appendDummyInput().appendField(ans + "->bOut");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1117,32 +1218,15 @@ function makeRGBLEDDriver(count){
 	};
 }
 
-//user_am
-function makeuser_am(count){
-	Blockly.Blocks['user_am|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("user_am ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.appendValueInput("two").setCheck("InIntPort").appendField("two");
-			this.appendValueInput("one").setCheck("InIntPort").appendField("one");
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name:'user_am',
-		params:[],
-		category:'code',
-		inputs:['two', 'one', ],
-	};
-}
-
 //DuplicateNumber
-function makeDuplicateNumber(count){
+function makeDuplicateNumber(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="DuplicateNumber"+(count);
+	}
 	Blockly.Blocks['DuplicateNumber|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("DuplicateNumber ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("DuplicateNumber ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1161,7 +1245,7 @@ function makeDuplicateNumber(count){
 	//copy1- DuplicateNumber
 	Blockly.Blocks['DuplicateNumber|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->copy1");
+			this.appendDummyInput().appendField(ans + "->copy1");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1173,7 +1257,7 @@ function makeDuplicateNumber(count){
 	//copy2- DuplicateNumber
 	Blockly.Blocks['DuplicateNumber|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->copy2");
+			this.appendDummyInput().appendField(ans + "->copy2");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1184,10 +1268,14 @@ function makeDuplicateNumber(count){
 }
 
 //PutReverseSort
-function makePutReverseSort(count){
+function makePutReverseSort(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="PutReverseSort"+(count);
+	}
 	Blockly.Blocks['PutReverseSort|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("PutReverseSort ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("PutReverseSort ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1203,10 +1291,14 @@ function makePutReverseSort(count){
 }
 
 //live_demo_test1
-function makelive_demo_test1(count){
+function makelive_demo_test1(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="live_demo_test1"+(count);
+	}
 	Blockly.Blocks['live_demo_test1|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("live_demo_test1 ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("live_demo_test1 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1222,10 +1314,14 @@ function makelive_demo_test1(count){
 }
 
 //PotDriver
-function makePotDriver(count){
+function makePotDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="PotDriver"+(count);
+	}
 	Blockly.Blocks['PotDriver|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("PotDriver ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("PotDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1244,7 +1340,7 @@ function makePotDriver(count){
 	//outInt- PotDriver
 	Blockly.Blocks['PotDriver|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->outInt");
+			this.appendDummyInput().appendField(ans + "->outInt");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1256,7 +1352,7 @@ function makePotDriver(count){
 	//aOut- PotDriver
 	Blockly.Blocks['PotDriver|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->aOut");
+			this.appendDummyInput().appendField(ans + "->aOut");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1267,10 +1363,14 @@ function makePotDriver(count){
 }
 
 //GetColor
-function makeGetColor(count){
+function makeGetColor(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="GetColor"+(count);
+	}
 	Blockly.Blocks['GetColor|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("GetColor ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("GetColor ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1289,7 +1389,7 @@ function makeGetColor(count){
 	//blue- GetColor
 	Blockly.Blocks['GetColor|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->blue");
+			this.appendDummyInput().appendField(ans + "->blue");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1301,7 +1401,7 @@ function makeGetColor(count){
 	//green- GetColor
 	Blockly.Blocks['GetColor|' + count + '\\1'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->green");
+			this.appendDummyInput().appendField(ans + "->green");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1313,7 +1413,7 @@ function makeGetColor(count){
 	//red- GetColor
 	Blockly.Blocks['GetColor|' + count + '\\2'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->red");
+			this.appendDummyInput().appendField(ans + "->red");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1324,10 +1424,14 @@ function makeGetColor(count){
 }
 
 //Pot
-function makePot(count){
+function makePot(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="Pot"+(count);
+	}
 	Blockly.Blocks['Pot|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("Pot ").appendField(new Blockly.FieldTextInput("Block Name "+(count)), "NAME");
+			this.appendDummyInput().appendField("Pot ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1345,7 +1449,7 @@ function makePot(count){
 	//vOut- Pot
 	Blockly.Blocks['Pot|' + count + '\\0'] = {
 		init: function(){
-			this.appendDummyInput().appendField("Block Name 0->vOut");
+			this.appendDummyInput().appendField(ans + "->vOut");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
@@ -1362,9 +1466,9 @@ makeMultiply(0);
 makeArduinoUno(0);
 makeLinearInterpolate(0);
 makeReverseString(0);
+makeuser_times3(0);
 makeReverseSort(0);
 makeSplitFour(0);
-makeuser_add(0);
 maketimes3(0);
 makeStringSource(0);
 makeAdd(0);
@@ -1384,6 +1488,5 @@ makePrintString(0);
 makeSortHello(0);
 makePutString(0);
 makeReverseHello(0);
-makeuser_am(0);
 makePutReverseSort(0);
 makelive_demo_test1(0);

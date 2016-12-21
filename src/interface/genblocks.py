@@ -33,7 +33,7 @@ class CustomBlockFile:
 
         self.componentCodeWithOutputs = []
         self.componentCodeWithoutOutputs = []
-        print "BlocklyStorage instantiated"
+
 
     def getCategoryName(self, comp):
         category = ""
@@ -66,19 +66,11 @@ class CustomBlockFile:
             ET.SubElement(categories[category], "block", {
                           "type": (comp.getName() + suffix)})
             # print ET.dump(self.tree)
-        self.initFile.write("var toolbox = '" +
-                            ET.tostring(self.tree) + "';\n")
+        self.initFile.write("var toolbox = '" + ET.tostring(self.tree) + "';\n")
 
-
-        self.initFile.write(
-            "var workspace = Blockly.inject('{}', {{toolbox: toolbox}});\n".format("blocklyDiv"))
+        self.initFile.write("var workspace = Blockly.inject('{}', {{toolbox: toolbox}});\n".format("blocklyDiv"))
         self.initFile.write("Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);\n")
-        # self.initFile.write(
-        #     'Blockly.Xml.domToWorkspace(document.getElementById(\'startBlocks\'), workspace);\n')
-
-        # self.initFile.write(
-
-        #     "toolbox += '  <block type=\"{}\"></block>';\n".format(comp.getName()))
+        self.blockFile.write("var BlockList = new Map();\n\n")
 
     def writeStringSourceInit(self):
         self.initFile.write(
@@ -104,10 +96,11 @@ class CustomBlockFile:
             self.componentsWithoutOutputs.append(name)
 
         self.blockFile.write("//{}\n".format(name))
-        self.blockFile.write('function make{}(count){{\n'.format(name))
+        self.blockFile.write('function make{}(count, name){{\n'.format(name))
+        self.blockFile.write('\tvar ans = name;\n\tif (name === undefined){{\n\t\tans=\"{}\"+(count);\n\t}}\n'.format(name))
         self.blockFile.write("\tBlockly.Blocks['{}' + count] = {{\n".format(name + "|"))
         self.blockFile.write("\t\tinit: function(){\n")
-        self.blockFile.write("\t\t\tthis.appendDummyInput().appendField(\"{} \").appendField(new Blockly.FieldTextInput(\"Block Name \"+(count)), \"NAME\");\n".format(name))
+        self.blockFile.write("\t\t\tthis.appendDummyInput().appendField(\"{} \").appendField(new Blockly.FieldTextInput(ans), \"NAME\");\n".format(name))
         self.blockFile.write("\t\t\tfor(var i = 0; i < this.params.length; i++){\n")
         self.blockFile.write("\t\t\t\tthis.appendDummyInput().appendField(\"Parameter \" + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), \"PARAM\" + i);\n")
         self.blockFile.write("\t\t\t}\n")
@@ -126,7 +119,7 @@ class CustomBlockFile:
         self.blockFile.write("\t\t},\n")
         self.blockFile.write("\t\tname:'{}',\n".format(name))
         paramArr = "["
-        print comp
+
         for k, v in comp.parameters.iteritems():
             a = v
             if v == "":
@@ -171,11 +164,8 @@ class CustomBlockFile:
         self.blockFile.write(
             "\tBlockly.Blocks['{}|' + {} + '\\\\{}'] = {{\n".format(componentName, "count",  str(count)))
         self.blockFile.write("\t\tinit: function(){\n")
-        # self.blockFile.write("\t\t\tthis.outputName='{}';\n".format(name))
-        # self.blockFile.write("\t\t\tthis.outputType='{}';\n".format(valueType))
-
         self.blockFile.write(
-            "\t\t\tthis.appendDummyInput().appendField(\"{}\");\n".format("Block Name 0" + "->" + name))
+            "\t\t\tthis.appendDummyInput().appendField(ans + \"{}\");\n".format("->" + name))
         self.blockFile.write(
             "\t\t\tthis.setOutput(true, {});\n".format("null"))
         self.blockFile.write("\t\t\tthis.setColour(180);\n")
@@ -194,7 +184,6 @@ class CustomBlockFile:
             self.blockFile.write("//{}\n".format(name))
             self.blockFile.write(
                 "Blockly.Blocks['{}|0'] = {{\n".format(name))
-            print "Blockly.Blocks['{}|0'] = {{\n".format(name)
             self.blockFile.write("\t init: function(){\n")
             self.blockFile.write(
                 "\t\tthis.appendDummyInput().appendField(\"{}\").appendField(new Blockly.FieldTextInput(\"Block Name\"), \"NAME\");\n".format(name))

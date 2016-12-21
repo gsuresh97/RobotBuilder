@@ -20,7 +20,7 @@ def updateComponentsLists():
     pyComponents = [os.path.basename(f)[:-3] for f in glob.glob(os.path.dirname(__file__) + "/*.py") if os.path.basename(f)[0] != "_"]
     yamlComponents = [os.path.basename(f)[:-5] for f in glob.glob(os.path.dirname(__file__) + "/*.yaml")]
     allComponents = list(set(pyComponents + yamlComponents))
-    print "\n\n\n\n\nUpdated Components\n", allComponents, "\n\n\n\n"
+    # print "\n\n\n\n\nUpdated Components\n", allComponents, "\n\n\n\n"
     return allComponents
 
 
@@ -77,14 +77,14 @@ def filterDatabase(composable_type=["all"], verbose=False):
         database which had the specified composable type
     """
     comps = []
-    a = updateComponentsLists()
-    print "Updated components list in filterDatabase==========================="
-    print "\n\n\n\n\n", a, "\n\n\n\n"
+    b = updateComponentsLists()
+    # print "Updated components list in filterDatabase==========================="
+    # print "\n\n\n\n\n", a, "\n\n\n\n"
 
-    for comp in a:
+    for comp in b:
         try:
             a = queryDatabase(comp)
-            print "component", a
+            # print "component", a
             for ctype in composable_type:
                 codeInstance = instanceOf(a, ctype)
                 if codeInstance is True and a not in comps:
@@ -92,7 +92,7 @@ def filterDatabase(composable_type=["all"], verbose=False):
         except Exception as err:
             logging.error(traceback.format_exc())
 
-    print allComponents
+    # print allComponents
     return comps
 
 
@@ -201,7 +201,7 @@ def writeInterfaces(comp, comp_id, c, verbose=False):
         x = c.fetchall()
         if len(x) > 0:
             c.execute('DELETE FROM component_interface_link WHERE component_id LIKE {}'.format(comp_id))
-            print x[0][1]
+            # print x[0][1]
     except Exception as err:
         logging.error(traceback.format_exc())
     pprint(comp.interfaces)
@@ -212,7 +212,7 @@ def writeInterfaces(comp, comp_id, c, verbose=False):
                 compositeComp = v["subcomponent"]
                 value = comp.subcomponents[compositeComp]["component"].interfaces[v["interface"]].__class__.__name__
             else:
-                print comp.interfaces, "\n\n value: ", v
+                # print comp.interfaces, "\n\n value: ", v
                 value = v.__class__.__name__
 
             c.execute('SELECT * FROM interfaces WHERE var_name LIKE "{}" AND port_type LIKE "{}"'.format(k, value))
@@ -381,7 +381,7 @@ def queryDatabase(component, username="root", password="", verbose=False):
     # con = db.connect(user=username, passwd=password)
 
     dbPath = os.path.join(os.getcwd(), 'compDatabase.db')
-    print "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Path^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", dbPath
+    # print "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Path^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", dbPath
     con = db.connect(dbPath)
     c = con.cursor()
     # c.execute('USE component_info')
@@ -412,7 +412,7 @@ def queryDatabase(component, username="root", password="", verbose=False):
     x = c.execute('SELECT c.*, p.* FROM components c INNER JOIN component_parameter_link cp ON cp.component_id = c.id INNER JOIN params p ON p.id = cp.parameter_id WHERE type LIKE "{}"'.format(component))
     y = c.fetchall()
     item.genParameters(y)
-    print y
+    # print y
 
     # gather composables
     x = c.execute('SELECT c.*, m.* FROM components c INNER JOIN component_composable_link cc ON cc.component_id = c.id INNER JOIN composables m ON m.id = cc.composable_id WHERE type LIKE "{}"'.format(component))

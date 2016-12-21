@@ -6,6 +6,8 @@
 		<script>
 			var allowDuplicates = false;
 			var rootBlock;
+			var sessionName = "untitled";
+			var newSession = true;
 
 		</script>
 		<script src="{% static 'interface/blockly/appengine/storage.js' %}"></script>
@@ -17,12 +19,12 @@
 		<script src="{% static 'interface/blockly/msg/js/en.js' %}"></script>
 		<script src="{% static 'interface/download.js' %}"></script>
 		<script src="{% static 'interface/prevcomps.js' %}"></script>
-		<!-- <script src="{% static 'interface/comps.js' %}"></script> -->
-		<script src="{% static 'interface/save.js' %}"></script>
+		<script src="{% static 'interface/prevsave.js' %}"></script>
 		<script src="{% static 'interface/prevCompCode.js' %}"></script>
-		<link rel="stylesheet" type="text/css" href="{% static 'interface/styles.css' %}">
 		<script src="{% static 'interface/blocks.js' %}"></script>
 		<script src="{% static 'interface/prevCodeGen.js' %}"></script>
+		<script src="{% static 'interface/python.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'interface/styles.css' %}">
 
 
 	</head>
@@ -38,10 +40,35 @@
 			<div class="dropdown">
 				<div class="dropbtn">File</div>
 				<div class="dropdown-content">
-					<button id="save" class="hide" onclick="BlocklyStorage.link()"></button>
-					<label for="save" class="menuitem">
-						Save
-					</label>
+					<div id="save" class="menuitem" onclick="prevSave()">
+						<div class="menuDiv">
+							<div class="nameDiv">
+								Save
+							</div>
+							<div class="dateDiv">
+								⌘S/Ctrl-S
+							</div>
+						</div>
+					</div>
+
+					<div id="saveas" class="menuitem" onclick="prevSaveAs()">
+						<div class="menuDiv">
+							<div class="nameDiv">
+								Save As
+							</div>
+							<div class="dateDiv">
+								⌘⇧S/Ctrl-⇧-S
+							</div>
+						</div>
+					</div>
+
+					<div id="open" class="menuitem" onclick="prevOpen()">
+						<div class="menuDiv">
+							<div class="nameDiv">
+								Open
+							</div>
+						</div>
+					</div>
 
 					<button class="hide" id="download" onclick="downloadCCSession()"></button>
 					<label for="download" class="menuitem">
@@ -65,6 +92,11 @@
 				</div>
 			</div>
 		</div>
+		<div class="opencont" id="openlist">
+			<div class="open" id="list"></div>
+			<!-- <div class="quote" id="quote"></div> -->
+		</div>
+		<div class="dim" onclick="abortOpen()" id="dim"></div>
 		<div id="blocklyDiv"></div>
 		<xml id="startBlocks" style="display: none">
 			<block type="component_create"></block>

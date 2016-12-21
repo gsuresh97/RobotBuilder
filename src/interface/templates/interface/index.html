@@ -8,6 +8,8 @@
 			var allowDuplicates = true;
 			var rootBlock;
 			var mangler = "@@name@@";
+			var sessionName = "untitled";
+			var newSession = true;
 		</script>
 		<script src="{% static 'interface/blockly/appengine/storage.js' %}"></script>
 		<script src="{% static 'interface/blockly/blockly_compressed.js' %}"></script>
@@ -16,14 +18,14 @@
 		<script src="{% static 'interface/blockly/javascript_compressed.js' %}"></script>
 		<script src="{% static 'interface/blockly/arduino_compressed.js' %}"></script>
 		<script src="{% static 'interface/blockly/msg/js/en.js' %}"></script>
-		<script src="{% static 'interface/download.js' %}"></script>
 		<script src="{% static 'interface/comps.js' %}"></script>
 		<script src="{% static 'interface/indextoolbox.js' %}"></script>
 		<script src="{% static 'interface/indexPortsBlocks.js' %}"></script>
 		<script src="{% static 'interface/indexPortsXML.js' %}"></script>
 		<script src="{% static 'interface/portCodeGen.js' %}"></script>
-		<script src="{% static 'interface/save.js' %}"></script>
+		<script src="{% static 'interface/indexsave.js' %}"></script>
 		<script src="{% static 'interface/indexcodegen.js' %}"></script>
+		<script src="{% static 'interface/python.js' %}"></script>
 		<link rel="stylesheet" type="text/css" href="{% static 'interface/styles.css' %}">
 	</head>
 
@@ -74,43 +76,63 @@
 			<div class="dropdown">
 				<div class="dropbtn">File</div>
 				<div class="dropdown-content">
-					<button id="save" class="hide" onclick="BlocklyStorage.link()"></button>
-					<label for="save" class="menuitem">
-						Save
-					</label>
+					<div id="save" class="menuitem" onclick="indexSave()">
+						<div class="menuDiv">
+							<div class="nameDiv">
+								Save
+							</div>
+							<div class="dateDiv">
+								⌘S/Ctrl-S
+							</div>
+						</div>
+					</div>
+
+					<div id="saveas" class="menuitem" onclick="indexSaveAs()">
+						<div class="menuDiv">
+							<div class="nameDiv">
+								Save As
+							</div>
+							<div class="dateDiv">
+								⌘⇧S/Ctrl-⇧-S
+							</div>
+						</div>
+					</div>
+
+					<div id="open" class="menuitem" onclick="indexOpen()">
+						<div class="menuDiv">
+							<div class="nameDiv">
+								Open
+							</div>
+						</div>
+					</div>
 
 					<button class="hide" id="download" onclick="downloadBPSession()"></button>
 					<label for="download" class="menuitem">
-						Download Code
+						Download Workspace
 					</label>
 
 					<input class="hide" type="file" id="input" onchange="uploadBPSession(this.files)">
 					<label for="input" class="menuitem">
-						Upload Code
+						Upload Workspace
 					</label>
 
-					<button class="hide" id="printCode" onclick="getCode()"></button>
+					<!-- <button class="hide" id="printCode" onclick="getCode()"></button>
 					<label for="printCode" class="menuitem">
 						Print Arduino Code
-					</label>
+					</label> -->
 					<button class="hide" id="exportCode" onclick="exportCode()"></button>
 					<label for="exportCode" class="menuitem">
 						Export Code
 					</label>
 				</div>
 			</div>
-
-			<!-- <div class="dropdown">
-				<div id="index" class="dropbtn">Index</div>
-				<div class="dropdown-content">
-					<div class="indexContent">
-						Ports <br><br>
-
-					</div>
-				</div>
-			</div> -->
-
 		</div>
+		<div class="opencont" id="openlist">
+			<div class="open" id="list"></div>
+			<!-- <div class="quote" id="quote"></div> -->
+		</div>
+
+		<div class="dim" onclick="abortOpen()" id="dim"></div>
 		<div id="blocklyDiv"></div>
 		<div id="createdDiv" hidden="true"></div>
 		<xml id="startBlocks" style="display: none">

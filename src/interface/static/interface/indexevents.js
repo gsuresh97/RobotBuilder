@@ -18,7 +18,6 @@ function onParameterNameChange(event) {
                 return ["<<"+event.newValue.trim()+mangler+">>", Blockly.Arduino.ORDER_ATOMIC];
             }
         } else if (event.name.substring(0, 8) == "PAR_NAME"){
-            console.log(event.name.substring(8));
             Blockly.Blocks['parameter' + event.name.substring(8)] = {
                 // mutator blocks for component
                 init: function() {
@@ -38,7 +37,7 @@ function onParameterNameChange(event) {
     }
 }
 
-// whenever a new input block is added to component_create through its mutator,
+// whenever a new input or parameter block is added to component_create through its mutator,
 // add a corresponding input block in the componnents category in the toolbar.
 function onComponentModify(event) {
     var block = workspace.getBlockById(event.blockId)
@@ -75,17 +74,17 @@ function onComponentModify(event) {
                         // mutator blocks for component
                         init: function() {
                             this.appendDummyInput()
-                                .appendField("Input name");
+                                .appendField("Input " + this.mut_name);
                             this.setOutput(true, null);
                             this.setColour(180);
                             this.setTooltip('');
                             this.setHelpUrl('http://www.example.com/');
                         }
                     };
+                    Blockly.Blocks['input' + inputCount].mut_name = clauseBlock.name;
                     Blockly.Arduino['input' + inputCount] = function(){
-                        // return "bfsfbjdhbjdhfbgjkdhb";
-                        this.codeName = "name" + inputCount;
-                        return ["<<name"+mangler+">>" + inputCount, Blockly.Arduino.ORDER_ATOMIC];
+                        this.codeName = this.mut_name + inputCount;
+                        return ["<<" + this.mut_name +mangler+">>" + inputCount, Blockly.Arduino.ORDER_ATOMIC];
                     }
                     inputCount++;
                     break;
@@ -101,17 +100,18 @@ function onComponentModify(event) {
                         // mutator blocks for component
                         init: function() {
                             this.appendDummyInput()
-                                .appendField("parameter name");
+                                .appendField("Parameter " + this.mut_name);
                             this.setOutput(true, null);
                             this.setColour(180);
                             this.setTooltip('');
                             this.setHelpUrl('http://www.example.com/');
                         }
                     };
+                    Blockly.Blocks['parameter' + parameterCount].mut_name = clauseBlock.name;
                     Blockly.Arduino['parameter' + parameterCount] = function(){
                         // return "bfsfbjdhbjdhfbgjkdhb";
-                        this.codeName = "name" + parameterCount;
-                        return ["<<name"+mangler+">>" + parameterCount, Blockly.Arduino.ORDER_ATOMIC];
+                        this.codeName = this.mut_name + parameterCount;
+                        return ["<<" + this.mut_name + mangler+">>" + parameterCount, Blockly.Arduino.ORDER_ATOMIC];
                     }
                     parameterCount++;
                     break;
@@ -120,7 +120,6 @@ function onComponentModify(event) {
             }
             clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
         }
-
         Toolbox.updateToolbox();
     }
 }

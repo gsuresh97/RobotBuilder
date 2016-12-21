@@ -505,6 +505,36 @@ function makeOutputReverseString(count){
 	};
 }
 
+//user_times3
+function makeOutputuser_times3(count){
+	Blockly.Arduino['user_times3|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//out- user_times3
+	Blockly.Arduino['user_times3|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'out'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
 //PrintString
 function makeOutputPrintString(count){
 	Blockly.Arduino['PrintString|' + count] = function() {
@@ -628,36 +658,6 @@ function makeOutputSplitFour(count){
 	Blockly.Arduino['SplitFour|' + count + '\\3'] = function() {
 		var code = this.name + '_';
 		code += 'out4'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//user_add
-function makeOutputuser_add(count){
-	Blockly.Arduino['user_add|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//out- user_add
-	Blockly.Arduino['user_add|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'out'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 }
@@ -909,29 +909,6 @@ function makeOutputRGBLEDDriver(count){
 	};
 }
 
-//user_am
-function makeOutputuser_am(count){
-	Blockly.Arduino['user_am|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
 //DuplicateNumber
 function makeOutputDuplicateNumber(count){
 	Blockly.Arduino['DuplicateNumber|' + count] = function() {
@@ -1133,9 +1110,9 @@ makeOutputMultiply(0);
 makeOutputArduinoUno(0);
 makeOutputLinearInterpolate(0);
 makeOutputReverseString(0);
+makeOutputuser_times3(0);
 makeOutputReverseSort(0);
 makeOutputSplitFour(0);
-makeOutputuser_add(0);
 makeOutputtimes3(0);
 makeOutputStringSource(0);
 makeOutputAdd(0);
@@ -1155,6 +1132,5 @@ makeOutputPrintString(0);
 makeOutputSortHello(0);
 makeOutputPutString(0);
 makeOutputReverseHello(0);
-makeOutputuser_am(0);
 makeOutputPutReverseSort(0);
 makeOutputlive_demo_test1(0);

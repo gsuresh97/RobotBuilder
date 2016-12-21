@@ -20,6 +20,26 @@ urlpatterns = [
     # ex: /interface/get_code
     url(r'^prevblocks/get_zip_(?P<code>.+)/$', views.get_code, name='getcode'),
 
+    url(r'^prevblocks/CC(?P<code>.+)/$', views.get_cc_save, name='getccsave'),
+
+    url(r'^prevblocks/prev_list/$', views.prev_list, name='prevlist'),
+
+    url(r'^prevblocks/prev_load/$', views.prev_load, name='prevload'),
+
+    url(r'^prevblocks/prev_save_check/$', views.prev_save_check, name='prevsavecheck'),
+
+    url(r'^prevblocks/prev_save/$', views.prev_save, name='prevsave'),
+
+    url(r'^prev_save_check/$', views.prev_save_check, name='prevsavecheck'),
+
+    url(r'^BP(?P<code>.+)/$', views.get_bp_save, name='getbpsave'),
+
+    url(r'^prev_save/$', views.prev_save, name='prevsave'),
+
+    url(r'^prev_list/$', views.prev_list, name='prevlist'),
+
+    url(r'^prev_load/$', views.prev_load, name='prevload'),
+
     # ex: /interface/5/results/
     # url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name='results'),
     # ex: /interface/5/vote/

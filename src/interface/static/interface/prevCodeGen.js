@@ -43,7 +43,7 @@ function getCode(){
         if(this.readyState == 4 && this.status == 200){
             var c = printYaml().substring(34);
             var send = "get_zip_" + c.substring(0, c.indexOf("|")) + "/"
-            window.open(encodeURIComponent(send));
+            window.location.assign(encodeURIComponent(send));
         }
     };
     var c = printYaml();

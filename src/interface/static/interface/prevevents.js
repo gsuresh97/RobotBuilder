@@ -13,7 +13,7 @@ function onBlockAddedToWorkspace(event) {
             }
 
             //make a category to house the output of the block that was just dragged
-            block.cat = Toolbox.addEmptyCategory("Block Name " + blockNumber, Toolbox.blocks);
+            block.cat = Toolbox.addEmptyCategory(blockName + blockNumber, Toolbox.blocks);
 
             // add all the outputs blocks of the new block on the workspace to the
             // toolbar
@@ -96,6 +96,62 @@ function onBlockNameChange(event) {
     }
 }
 
+function deleteRightBlocks(block, name, tree){
+    // if the block is a component block
+    if(block.indexOf("\\") < 0 && block.indexOf("|") > 0){
+        var blocks = Blockly.getMainWorkspace().getAllBlocks();
+        for(var i = 0; i < blocks.length; i++){
+            if(blocks[i].type.includes(block)){
+                blocks[i].dispose(false);
+            }
+        }
+        for(var i = 1; i < tree.childNodes.length; i++){
+            var t = tree.childNodes[i].childNodes[0];
+            if(t != ""){
+                console.log(t);
+                var b = t.getAttribute("type");
+                var n;
+                if(t.childNodes[0]){
+                    n = t.childNodes[0].innerText;
+                }
+                deleteRightBlocks(b, n, t);
+            }
+
+        }
+        // nullify current block
+        Blockly.Blocks[block]=null;
+        delete Blockly.Blocks[block];
+
+        // nullify possible outputs
+        for (var i = 0; Blockly.Blocks[block + "\\" + i]; i++) {
+            Blockly.Blocks[block + "\\" + i]=null;
+            delete Blockly.Blocks[block + "\\" + i];
+        }
+
+        // remove category
+        if(Toolbox.blocks)
+            Toolbox.deleteCategory(name, Toolbox.blocks);
+
+        Toolbox.updateToolbox();
+
+    } else if (block.indexOf('\\')>0) {
+        outputCount[block] = 0;
+        var c;
+        var outs = Toolbox.blocks.childNodes;
+        for(var i =0; i < outs.length; i++){
+            var cat = outs[i].childNodes;
+            var cate = outs[i];
+            for(var j = 0; j < cat.length; j++){
+                if (cat[j].getAttribute("type") == block) {
+                    c = cate;
+                    break;
+                }
+            }
+        }
+        Toolbox.enableBlock([block], c);
+    }
+}
+
 function onComponentDelete(event){
     if (event.type == Blockly.Events.DELETE) {
         var tree = event.oldXml;
@@ -104,40 +160,8 @@ function onComponentDelete(event){
         if(tree.childNodes[0]){
             name = tree.childNodes[0].innerText;
         }
-        // if the block is a component block
-        if(block.indexOf("\\") < 0 && block.indexOf("|") > 0){
-            // nullify current block
-            Blockly.Blocks[block]=null;
-            delete Blockly.Blocks[block];
 
-            // nullify possible outputs
-            for (var i = 0; Blockly.Blocks[block + "\\" + i]; i++) {
-                Blockly.Blocks[block + "\\" + i]=null;
-                delete Blockly.Blocks[block + "\\" + i];
-            }
-
-            // remove category
-            if(Toolbox.blocks)
-                Toolbox.deleteCategory(name, Toolbox.blocks);
-
-            Toolbox.updateToolbox();
-
-        } else if (block.indexOf('\\')>0) {
-            outputCount[block] = 0;
-            var c;
-            var outs = Toolbox.blocks.childNodes;
-            for(var i =0; i < outs.length; i++){
-                var cat = outs[i].childNodes;
-                var cate = outs[i];
-                for(var j = 0; j < cat.length; j++){
-                    if (cat[j].getAttribute("type") == block) {
-                        c = cate;
-                        break;
-                    }
-                }
-            }
-            Toolbox.enableBlock([block], c);
-        }
+        deleteRightBlocks(block, name, tree);
     }
 }
 

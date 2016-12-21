@@ -15,6 +15,7 @@ import shutil
 import StringIO
 import urllib
 import array
+import datetime
 
 from wsgiref.util import FileWrapper
 # from importlib import import_module
@@ -56,7 +57,7 @@ def index(request):
 def prevblocks(request):
     # c = CustomBlockFile()
     comps = filterDatabase(["electrical", "code"])
-    print comps
+    # print comps
     # print "Number of Components: ", len(comps)
     # print comps
 
@@ -66,7 +67,7 @@ def prevblocks(request):
 
     for i in comps:
         item = {}
-        print i.getName(), i.interfaces
+        # print i.getName(), i.interfaces
         for k, v in i.interfaces.iteritems():
             if "out" in k.lower() or "out" in v.lower() :
                 if 'out' not in item.keys():
@@ -96,9 +97,9 @@ def prevblocks(request):
     context = {
         'files': files
     }
-    print "Here===================================================================="
-    for i in comps:
-        print i.getName()
+    # print "Here===================================================================="
+    # for i in comps:
+    #     print i.getName()
     template = loader.get_template('interface/prev-blocks.html')
     return HttpResponse(template.render(context, request))
 
@@ -115,7 +116,7 @@ def export_code(request):
     code = code[code.find("op() {") + 9:]
     # Extract Class Name
     classNameIndex = code.index("|", 0)
-    print
+
     className = "user_"+code[0:classNameIndex]
 
     code = code[classNameIndex + 1:]
@@ -251,7 +252,7 @@ def export_code(request):
 
     # inputs
     component += "\t\t\t\t\"inputs\": {\n"
-    print inputs
+    # print inputs
     for i in inputs:
         component += "\t\t\t\t\t\"" + i[0] + "\": None"
         if i[0] != inputs[len(inputs)-1]:
@@ -304,13 +305,13 @@ def export_code(request):
     cmFile.write(component)
 
     comp = getComponent(className, name=className)
-    print "=====================BEFORE DONE========================="
-    print comp
+    # print "=====================BEFORE DONE========================="
+    # print comp
     buildDatabase([comp])
     updateComponentsLists()
-    print "DONE----------------------------------------------"
-
-    print component
+    # print "DONE----------------------------------------------"
+    #
+    # print component
 
     return HttpResponse("ok")
 
@@ -322,40 +323,34 @@ def export_builder(request):
     comp = getComponent(cName, name = cName)
     buildDatabase([comp])
     updateComponentsLists()
-    print request.body
+    # print request.body
     return HttpResponse("ok")
 
 def zipdir(path, ziph):
     for root, dirs, files in os.walk(path):
-        print root, dirs, files
+        # print root, dirs, files
         for file in files:
             ziph.write(os.path.join(root, file))
 
 
 def get_code(request, **kwargs):
-    print "KWargs: ", kwargs
+    # print "KWargs: ", kwargs
     cName = urllib.unquote(kwargs["code"])
-    print kwargs
+    # print kwargs
 
-    comp = getComponent(cName, name = cName)
-    comp.makeOutput(str(os.path.join(os.getcwd(), cName)))
+    comp = getComponent("user_"+cName, name = cName)
+    comp.makeOutput(str(os.path.join(os.getcwd(), "user_"+cName)))
 
-    path_to_zip = shutil.make_archive(cName,"zip",cName)
-
-    f = open(cName + ".zip", 'rb')
-    inner = f.read()
-    c = open("iname", "wb")
-    c.write(inner)
-    c.close()
+    path_to_zip = shutil.make_archive("user_"+cName,"zip","user_"+cName)
 
     # response = HttpResponse(inner, content_type='application/zip')
     response = HttpResponse(FileWrapper(file(path_to_zip, 'rb')), content_type='application/zip')
-    print inner
+    # print inner
 
     response['Content-Disposition'] = 'attachment; filename='+cName+'.zip'
 
-    shutil.rmtree(cName)
-    os.remove(cName + ".zip")
+    shutil.rmtree("user_"+cName)
+    os.remove("user_"+cName + ".zip")
 
     return response
 
@@ -366,3 +361,169 @@ def save(request):
         'xml'], save_date=timezone.now())
     session.save()
     return HttpResponse(session.pk)
+
+def prev_save_check(request):
+    prel = request.body
+    print "Prel 0, 2" , prel[0:2]
+    print "prel: ", prel
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    if "CC" in prel[0:2]:
+        componentPath = os.path.join(os.getcwd(), "saves", ip, "CC", prel[2:] + ".cpr")
+        print componentPath
+        if not os.path.exists(componentPath):
+            return HttpResponse("ok")
+        else:
+            r = HttpResponse("ok")
+            r.status_code = 400
+            return r
+    elif "BP" in prel[0:2]:
+        componentPath = os.path.join(os.getcwd(), "saves", ip, "BP", prel[2:] + ".bpr")
+        print componentPath
+        if not os.path.exists(componentPath):
+            return HttpResponse("ok")
+        else:
+            r = HttpResponse("ok")
+            r.status_code = 400
+            return r
+    else:
+        r = HttpResponse("ok")
+        r.status_code = 403
+        return r
+
+def prev_save(request):
+    print request.body, "\n\n"
+    save = request.body
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    print ip
+
+    componentPath = os.path.join(os.getcwd(), "saves/")
+    if not os.path.exists(componentPath):
+        os.makedirs(componentPath)
+
+    # Create direcotry for this ip address
+    componentPath = os.path.join(componentPath, ip)
+    if not os.path.exists(componentPath):
+        os.makedirs(componentPath)
+
+    if "CC" in save[5:7]:
+        componentPath = os.path.join(componentPath, "CC")
+        if not os.path.exists(componentPath):
+            os.makedirs(componentPath)
+        componentPath = os.path.join(componentPath, save[8:save.find("\n", 8)] + ".cpr")
+        f = open(componentPath, "w")
+        f.write(save)
+        f.close()
+    elif "BP" in save[5:7]:
+        componentPath = os.path.join(componentPath, "BP")
+        if not os.path.exists(componentPath):
+            os.makedirs(componentPath)
+        componentPath = os.path.join(componentPath, save[8:save.find("\n", 8)] + ".bpr")
+        f = open(componentPath, "w")
+        f.write(save)
+        f.close()
+    else:
+        r = HttpResponse("ok")
+        r.status_code = 400
+        return r
+
+    return HttpResponse("ok")
+
+def prev_list(request):
+    t = request.body
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    ans = ""
+    if "CC" in t:
+        componentPath = os.path.join(os.getcwd(), "saves", ip, "CC")
+        for root, dirs, files in os.walk(componentPath):
+            for f in files:
+                j = os.path.getmtime(os.path.join(componentPath, f))
+                time = datetime.datetime.fromtimestamp(int(j)).strftime('%Y-%m-%d %H:%M:%S')
+                print time
+                ans += (f + "%" + time + "%")
+
+    elif "BP" in t:
+        componentPath = os.path.join(os.getcwd(), "saves", ip, "BP")
+        for root, dirs, files in os.walk(componentPath):
+            for f in files:
+                j = os.path.getmtime(os.path.join(componentPath, f))
+                time = datetime.datetime.fromtimestamp(int(j)).strftime('%Y-%m-%d %H:%M:%S')
+                print time
+                ans += (f + "%" + time + "%")
+    else:
+        r = HttpResponse("ok")
+        r.status_code = 400
+        return r
+    return HttpResponse(ans)
+    # return HttpResponse("")
+
+def prev_load(request):
+    session = request.body
+    t = session[0:2]
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    save = ""
+    if "CC" in t:
+        componentPath = os.path.join(os.getcwd(), "saves", ip, "CC", session[2:])
+        save = open(componentPath, "r").read()
+
+    elif "BP" in t:
+        componentPath = os.path.join(os.getcwd(), "saves", ip, "BP", session[2:])
+        save = open(componentPath, "r").read()
+    else:
+        r = HttpResponse("ok")
+        r.status_code = 400
+        return r
+    return HttpResponse(save)
+
+def get_cc_save(request, **kwargs):
+    fName = kwargs["code"]
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    componentPath = os.path.join(os.getcwd(), "saves", ip, "CC", fName)
+    response = HttpResponse(FileWrapper(file(componentPath, 'rb')) , content_type='text/plain')
+
+    print "==========================================hello"
+
+    response['Content-Disposition'] = 'attachment; filename='+fName
+
+    return response
+
+def get_bp_save(request, **kwargs):
+    fName = kwargs["code"]
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    componentPath = os.path.join(os.getcwd(), "saves", ip, "BP", fName)
+    response = HttpResponse(FileWrapper(file(componentPath, 'rb')) , content_type='text/plain')
+
+    print "==========================================hello"
+
+    response['Content-Disposition'] = 'attachment; filename='+fName
+
+    return response
