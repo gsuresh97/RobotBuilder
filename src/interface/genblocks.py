@@ -267,6 +267,16 @@ class CustomBlockFile:
                     "\treturn [\"{}\", Blockly.Arduino.ORDER_ATOMIC];\n".format(p))
                 self.pcgFile.write("}\n\n")
 
+        self.pcgFile.write("\n//Python\n")
+        for kind, port in ports.iteritems():
+            for p in port:
+                self.pcgFile.write("//{}\n".format(p))
+                self.pcgFile.write(
+                    "Blockly.Python[\"{}|{}\"] = function(){{\n".format(p, kind))
+                self.pcgFile.write(
+                    "\treturn [\"{}\", Blockly.Python.ORDER_ATOMIC];\n".format(p))
+                self.pcgFile.write("}\n\n")
+
     # prevCompCode.js
     def writePrevCompCode(self, comp, ports):
         name = comp.getName()

@@ -46,9 +46,9 @@ Blockly.Arduino.controls_for = function() {
       argument1.match(/^-?\d+(\.\d+)?$/)) {
     // Both arguments are simple numbers.
     var up = parseFloat(argument0) <= parseFloat(argument1);
-    code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
-        variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
-        variable0 + (up ? '++' : '--') + ') {\n' +
+    code = 'for (' + mangler + variable0 + ' = ' + argument0 + '; ' +
+        mangler + variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
+        mangler + variable0 + (up ? '++' : '--') + ') {\n' +
         branch + '}\n';
   } else {
     code = '';
@@ -65,11 +65,11 @@ Blockly.Arduino.controls_for = function() {
           variable0 + '_end', Blockly.Variables.NAME_TYPE);
       code += 'int ' + endVar + ' = ' + argument1 + ';\n';
     }
-    code += 'for (' + variable0 + ' = ' + startVar + ';\n' +
+    code += 'for (' + mangler + variable0 + ' = ' + startVar + ';\n' +
         '    (' + startVar + ' <= ' + endVar + ') ? ' +
-        variable0 + ' <= ' + endVar + ' : ' +
-        variable0 + ' >= ' + endVar + ';\n' +
-        '    ' + variable0 + ' += (' + startVar + ' <= ' + endVar +
+        mangler + variable0 + ' <= ' + endVar + ' : ' +
+        mangler + variable0 + ' >= ' + endVar + ';\n' +
+        '    ' + mangler + variable0 + ' += (' + startVar + ' <= ' + endVar +
             ') ? 1 : -1) {\n' +
         branch0 + '}\n';
   }

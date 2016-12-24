@@ -151,7 +151,19 @@ Blockly.Python.finish = function(code) {
     if (def.match(/^(from\s+\S+\s+)?import\s+\S+/)) {
       imports.push(def);
     } else {
-      definitions.push(def);
+      if (def.includes('"""')) {
+        definitions.push(def);
+      } else{
+        var d = def.split("\n");
+        for(var i = 0; i < d.length; i++){
+          if(d[i].trim().length > 0){
+            d[i] = mangler + d[i];
+          }
+        }
+        def = d.join("\n");
+        definitions.push(def);
+      }
+
     }
   }
   // Clean up temporary data.

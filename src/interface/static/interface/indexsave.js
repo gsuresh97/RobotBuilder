@@ -20,33 +20,39 @@ function indexCheck(save){
         sessionName = window.prompt("Save As: ", sessionName);
         newSession = false;
     }
-    if (sessionName.length > 0) {
-        var c = "BP" + sessionName;
-        var xhttp = new XMLHttpRequest();
-        xhttp.name = "code";
-        xhttp.open("POST", "prev_save_check/", true);
-        xhttp.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                console.log("got 200");
-                save();
-            } else if(this.readyState == 4 && this.status == 400){
-                console.log(this.responseText);
-                var overwrite = confirm("There is already a saved session named " + sessionName + ". Would you like to overwrite it?\n");
-                if(overwrite){
+    if (sessionName) {
+        if (sessionName.length > 0) {
+            var c = "BP" + sessionName;
+            var xhttp = new XMLHttpRequest();
+            xhttp.name = "code";
+            xhttp.open("POST", "prev_save_check/", true);
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    console.log("got 200");
                     save();
+                } else if(this.readyState == 4 && this.status == 400){
+                    console.log(this.responseText);
+                    var overwrite = confirm("There is already a saved session named " + sessionName + ". Would you like to overwrite it?\n");
+                    if(overwrite){
+                        save();
+                    }
+                } else if(this.readyState == 4 && this.status == 403){
+                    alert("Corrupted Save Request");
                 }
-            } else if(this.readyState == 4 && this.status == 403){
-                alert("Corrupted Save Request");
-            }
-        };
+            };
 
-        console.log(c);
-        xhttp.send(c);
-    } else {
-        console.log(sessionName);
-        window.alert("Invalid Save Name. Name should contain at least one character.");
+            console.log(c);
+            xhttp.send(c);
+        } else {
+            console.log(sessionName);
+            window.alert("Invalid Save Name. Name should contain at least one character.");
+            newSession = true;
+        }
+    } else{
+        sessionName = "untitled";
         newSession = true;
     }
+
 
 }
 function indexDoSave(){
@@ -281,6 +287,10 @@ function processBPOpen(save) {
             this.codeName = this.mut_name + inputCount;
             return ["<<" + this.mut_name +mangler+">>" + inputCount, Blockly.Arduino.ORDER_ATOMIC];
         }
+        Blockly.Python['input' + inputCount] = function(){
+            this.codeName = this.mut_name + inputCount;
+            return ["<<" + this.mut_name +mangler+">>" + inputCount, Blockly.Python.ORDER_ATOMIC];
+        }
     }
     for (var parameterCount = 0; parameterCount < numParams; parameterCount++) {
         // add input block to toolbox
@@ -305,6 +315,10 @@ function processBPOpen(save) {
         Blockly.Arduino['parameter' + parameterCount] = function(){
             this.codeName = this.mut_name + parameterCount;
             return ["<<" + this.mut_name + mangler+">>" + parameterCount, Blockly.Arduino.ORDER_ATOMIC];
+        }
+        Blockly.Python['parameter' + parameterCount] = function(){
+            this.codeName = this.mut_name + parameterCount;
+            return ["<<" + this.mut_name + mangler+">>" + parameterCount, Blockly.Python.ORDER_ATOMIC];
         }
     }
     Toolbox.updateToolbox();

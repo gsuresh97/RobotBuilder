@@ -38,28 +38,34 @@ function prevCheck(save){
         sessionName = window.prompt("Save As: ", sessionName);
         newSession = false;
     }
-    if (sessionName.length > 0) {
-        var c = "CC" + sessionName;
-        var xhttp = new XMLHttpRequest();
-        xhttp.name = "code";
-        xhttp.open("POST", "prev_save_check/", true);
-        xhttp.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                save();
-            } else if(this.readyState == 4 && this.status == 400){
-                var overwrite = confirm("There is already a saved session named " + sessionName + ". Would you like to overwrite it?\n");
-                if(overwrite){
+    if (sessionName) {
+        if (sessionName.length > 0) {
+            var c = "CC" + sessionName;
+            var xhttp = new XMLHttpRequest();
+            xhttp.name = "code";
+            xhttp.open("POST", "prev_save_check/", true);
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
                     save();
+                } else if(this.readyState == 4 && this.status == 400){
+                    var overwrite = confirm("There is already a saved session named " + sessionName + ". Would you like to overwrite it?\n");
+                    if(overwrite){
+                        save();
+                    }
+                } else if(this.readyState == 4 && this.status == 403){
+                    alert("Corrupted Save Request");
                 }
-            } else if(this.readyState == 4 && this.status == 403){
-                alert("Corrupted Save Request");
-            }
-        };
-        xhttp.send(c);
-    } else {
-        window.alert("Invalid Save Name. Name should contain at least one character.");
+            };
+            xhttp.send(c);
+        } else {
+            window.alert("Invalid Save Name. Name should contain at least one character.");
+            newSession = true;
+        }
+    } else{
+        sessionName = "untitled";
         newSession = true;
     }
+
 
 }
 function prevDoSave(){

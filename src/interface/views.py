@@ -108,11 +108,64 @@ def recall_session(request):
     session = SessionSave.objects.get(pk=int(request.POST['key']))
     return HttpResponse(session.xml_text)
 
+def formatIndent(snippet, trimBegin=False, python = False):
+    lines = []
+    t = ""
+    blines = snippet.split("\n")
+    blines1 = []
+    if trimBegin:
+        if python:
+            for i in blines:
+                if(len(i[2:]) > 0):
+                    blines1.append(i[2:])
+        else:
+            blines1.append(blines[0][2:])
+            for i in blines[1:]:
+                if(len(i[4:]) > 0):
+                    blines1.append(i[4:])
+        blines = blines1
+        blines1 = []
+    print "blines:", blines
+    for i in blines:
+        indented = ""
+        while i[0:2] == "  ":
+            indented += "    "
+            i = i[2:]
+        indented += i
+        if len(indented) > 0:
+            blines1.append(indented)
+
+    blines = blines1
+
+    for i in range(len(blines)):
+        if i < len(blines)-1:
+            if i == 0:
+                t = "( \""+blines[i]+"\\n\" \n"
+            else:
+                t = "\t\t\t\t\t\""+blines[i]+"\\n\" \n"
+            lines.append(t)
+        else:
+            if i == 0:
+                t = " \""+blines[i]+"\\n\" \n"
+            else:
+                t = "\t\t\t\t\t\""+blines[i]+"\\n\" )\n"
+            lines.append(t)
+
+    dCode = ""
+    for i in lines:
+        dCode += i
+
+    return dCode
 
 def export_code(request):
     code = request.body
+    codeP = code[code.find("...---...") + 9:]
+    code = code[0:code.find("...---..."):]
+    print "Code began------------------------------------------------------------\n\n\n", code
+    print "Python code============================================================", codeP
+
+    # Get Arduino Info
     declare = code[0:code.find("void ")].strip()
-    # print declare
     code = code[code.find("op() {") + 9:]
     # Extract Class Name
     classNameIndex = code.index("|", 0)
@@ -122,7 +175,8 @@ def export_code(request):
     code = code[classNameIndex + 1:]
 
     # Constant imports
-    component = "from svggen.api.targets.ArduinoTarget import Arduino\n\n"
+    component = "from svggen.api.targets.PythonTarget import Python\n"
+    component += "from svggen.api.targets.ArduinoTarget import Arduino\n\n"
     component += "from svggen.api.CodeComponent import CodeComponent\n"
 
     # Extract number of ports
@@ -145,7 +199,7 @@ def export_code(request):
     component += "\n\n\n"
 
     code = code[code.find("##") + 2:]
-    compCode = code[0: code.find("##")].strip() + "\n"
+    compCode = code[0: code.find("##")] + "\n"
     code = code[code.find("##")  +2:]
 
     inputs = []
@@ -179,56 +233,39 @@ def export_code(request):
 
         parameters.append([parName, parVal])
 
-    blines = declare.split("\n")
 
     #name mangle variable names here
+    dCode = formatIndent(declare)
+    if len(dCode.strip()) == 0:
+        dCode = "\"\"\n"
 
-    variables = {}
-    lines = []
-    t = ""
-    for i in range(len(blines)):
-        if i < len(blines)-1:
-            if i == 0:
-                t = "( \""+blines[i].strip()+"\\n\" \n"
-            else:
-                t = "\t\t\t\t\t\""+blines[i].strip()+"\\n\" \n"
-            lines.append(t)
-        else:
-            if i == 0:
-                t = " \""+blines[i].strip()+"\\n\" \n"
-            else:
-                t = "\t\t\t\t\t\""+blines[i].strip()+"\\n\" )\n"
-            lines.append(t)
+    print "dCode:==================================================:", dCode
+
+    cCode = formatIndent(compCode, trimBegin = True)
 
 
-    # print variables
+    # Get Python info
+    print "\n\n\nclass Name", className[5:]
 
-    dCode = ""
-    for i in lines:
-        dCode += i
+    defs = codeP[0:codeP.find(className[5:])]
+    print "defs====================------------------------========================\n", defs, "\nend defs==================================="
+    codeP = codeP[codeP.find(className[5:]):]
+    print "CodeP:================", codeP
 
-    dlines = compCode.split("\n")
-    cCode = ""
-    dlines.remove("")
-    lines = []
-    t = ""
-    for i in range(len(dlines)):
-        if i < len(dlines)-1:
-            if i == 0:
-                t =" \""+dlines[i].strip()+"\\n\" + \\ \n"
-            else:
-                t = "\t\t\t\t\t\""+dlines[i].strip()+"\\n\" + \\ \n"
-            lines.append(t)
-        else:
-            if i == 0:
-                t =" \""+dlines[i].strip()+"\\n\" \n"
-            else:
-                t = "\t\t\t\t\t\""+dlines[i].strip()+"\\n\" \n"
-            lines.append(t)
+    codeP = codeP[codeP.find("##") + 2:]
+    compCode = codeP[0: codeP.find("##")] + "\n"
+    codeP = codeP[codeP.find("##") + 2:]
 
-    cCode = ""
-    for i in lines:
-        cCode += i
+    outputsP = []
+    cPCode = formatIndent(compCode, True, True)
+    dPCode = formatIndent(defs)
+
+    while (codeP.find("|")>0):
+        bar1 = codeP.find("|")
+        bar2 = codeP.find("|", codeP.find("|") + 1)
+        bar3 = codeP.find("|", codeP.find("|", codeP.find("|") + 1) + 1)
+        outputsP.append([codeP[0:bar1], codeP[bar1 + 1: bar2], codeP[bar2 + 1: bar3]])
+        codeP = codeP[bar3+1:]
 
     # Declare class
     component += "class {}(CodeComponent):\n\n".format(className)
@@ -243,7 +280,7 @@ def export_code(request):
     for i in parameters:
         component += "\t\tself.addParameter(\"{}\", {}, isSymbol=False)\n".format(i[0][:-8], i[1])
     component += "\t\tself.meta = {\n"
-    component += "\t\t\tArduino : {\n"
+    component += "\t\t\tArduino: {\n"
 
     # code
     component += "\t\t\t\t\"code\":"
@@ -273,7 +310,42 @@ def export_code(request):
     component += "\t\t\t\t\"setup\": \"\",\n\n"
 
     component += "\t\t\t\t\"needs\": set()\n"
-    component += "\t\t\t}\n\t\t}\n\n"
+    component += "\t\t\t},\n\n"
+
+    # Python
+    component += "\t\t\tPython: {\n"
+
+    # code
+    print "dCode python: ======================", dPCode, "length", len(dPCode)
+    component += "\t\t\t\t\"code\":"
+    if len(dPCode.strip()):
+        component += dPCode[0:-3] + "\n\t\t\t\t\t" + cPCode[2:]
+    else:
+        component += cPCode
+    component += "\t\t\t\t,\n\n"
+
+    # inputs
+    component += "\t\t\t\t\"inputs\": {\n"
+    # print inputs
+    for i in inputs:
+        component += "\t\t\t\t\t\"" + i[0] + "\": None"
+        if i[0] != inputs[len(inputs)-1]:
+            component += ","
+        component += "\n"
+    component += "\t\t\t\t},\n\n"
+
+    # outputs
+    component += "\t\t\t\t\"outputs\": {\n"
+    for i in outputsP:
+        component += "\t\t\t\t\t\"" + i[0] + "\" : \"" + i[1] + "\",\n"
+    component += "\t\t\t\t},\n\n"
+
+    component += "\t\t\t\t\"setup\": \"\",\n\n"
+
+    component += "\t\t\t\t\"needs\": set()\n"
+    component += "\t\t\t}\n"
+
+    component += "\t\t}\n\n"
 
     for i in range(len(inputs)):
         component += "\t\tself.addInterface(\"" +inputs[i][0][:-8] + "\", " + inputs[i][1]+"(self, \"" + inputs[i][0][:-8] + "\", " + "\"" + inputs[i][0] + "\"))\n"
@@ -305,13 +377,8 @@ def export_code(request):
     cmFile.write(component)
 
     comp = getComponent(className, name=className)
-    # print "=====================BEFORE DONE========================="
-    # print comp
     buildDatabase([comp])
     updateComponentsLists()
-    # print "DONE----------------------------------------------"
-    #
-    # print component
 
     return HttpResponse("ok")
 

@@ -17,6 +17,10 @@ function onParameterNameChange(event) {
                 this.codeName = event.newValue.trim();
                 return ["<<"+event.newValue.trim()+mangler+">>", Blockly.Arduino.ORDER_ATOMIC];
             }
+            Blockly.Python['input' + event.name.substring(10)] = function(){
+                this.codeName = event.newValue.trim();
+                return ["<<"+event.newValue.trim()+mangler+">>", Blockly.Python.ORDER_ATOMIC];
+            }
         } else if (event.name.substring(0, 8) == "PAR_NAME"){
             Blockly.Blocks['parameter' + event.name.substring(8)] = {
                 // mutator blocks for component
@@ -32,6 +36,10 @@ function onParameterNameChange(event) {
             Blockly.Arduino['parameter' + event.name.substring(8)] = function(){
                 this.codeName = event.newValue.trim();
                 return ["<<"+event.newValue.trim()+mangler+">>", Blockly.Arduino.ORDER_ATOMIC];
+            }
+            Blockly.Python['parameter' + event.name.substring(8)] = function(){
+                this.codeName = event.newValue.trim();
+                return ["<<"+event.newValue.trim()+mangler+">>", Blockly.Python.ORDER_ATOMIC];
             }
         }
     }
@@ -86,6 +94,10 @@ function onComponentModify(event) {
                         this.codeName = this.mut_name + inputCount;
                         return ["<<" + this.mut_name +mangler+">>" + inputCount, Blockly.Arduino.ORDER_ATOMIC];
                     }
+                    Blockly.Python['input' + inputCount] = function(){
+                        this.codeName = this.mut_name + inputCount;
+                        return ["<<" + this.mut_name +mangler+">>" + inputCount, Blockly.Python.ORDER_ATOMIC];
+                    }
                     inputCount++;
                     break;
                 case 'component_parameter':
@@ -109,9 +121,12 @@ function onComponentModify(event) {
                     };
                     Blockly.Blocks['parameter' + parameterCount].mut_name = clauseBlock.name;
                     Blockly.Arduino['parameter' + parameterCount] = function(){
-                        // return "bfsfbjdhbjdhfbgjkdhb";
                         this.codeName = this.mut_name + parameterCount;
                         return ["<<" + this.mut_name + mangler+">>" + parameterCount, Blockly.Arduino.ORDER_ATOMIC];
+                    }
+                    Blockly.Python['parameter' + parameterCount] = function(){
+                        this.codeName = this.mut_name + parameterCount;
+                        return ["<<" + this.mut_name + mangler+">>" + parameterCount, Blockly.Python.ORDER_ATOMIC];
                     }
                     parameterCount++;
                     break;

@@ -1,6 +1,6 @@
-var target = "";
-targetNone();
-document.getElementById("target").innerHTML = "Target: " + target;
+// var target = "";
+// targetNone();
+// document.getElementById("target").innerHTML = "Target: " + target;
 
 function targetRP(){
     target = "Raspberry Pi";

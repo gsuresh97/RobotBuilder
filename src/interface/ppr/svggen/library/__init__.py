@@ -381,7 +381,6 @@ def queryDatabase(component, username="root", password="", verbose=False):
     # con = db.connect(user=username, passwd=password)
 
     dbPath = os.path.join(os.getcwd(), 'compDatabase.db')
-    # print "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Path^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", dbPath
     con = db.connect(dbPath)
     c = con.cursor()
     # c.execute('USE component_info')

@@ -12,6 +12,21 @@ Blockly.Blocks['component_input'] = {
     }
 };
 
+Blockly.Blocks['delay'] = {
+  init: function() {
+    this.appendValueInput("TIME")
+        .setCheck("Number")
+        .appendField("delay");
+    this.appendDummyInput()
+        .appendField("ms");
+    this.setPreviousStatement(true, "");
+    this.setNextStatement(true, "");
+    this.setColour(260);
+    this.setTooltip('Insert an integer. The system will pause for that number of milliseconds.');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
 Blockly.Blocks['component_output'] = {
     init: function() {
         this.appendDummyInput()
