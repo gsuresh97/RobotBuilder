@@ -283,7 +283,10 @@ def export_code(request):
     component += "\t\t\tArduino: {\n"
 
     # code
-    component += "\t\t\t\t\"code\":"
+    if len(cCode.strip()) == 0:
+        cCode = "\"\"\n"
+
+    component += "\t\t\t\t\"code\": "
     component += cCode
     component += "\t\t\t\t,\n\n"
 
@@ -317,11 +320,13 @@ def export_code(request):
 
     # code
     print "dCode python: ======================", dPCode, "length", len(dPCode)
-    component += "\t\t\t\t\"code\":"
+    component += "\t\t\t\t\"code\": "
     if len(dPCode.strip()):
         component += dPCode[0:-3] + "\n\t\t\t\t\t" + cPCode[2:]
-    else:
+    elif len(cPCode.strip()):
         component += cPCode
+    else :
+        component += "\"\"\n"
     component += "\t\t\t\t,\n\n"
 
     # inputs

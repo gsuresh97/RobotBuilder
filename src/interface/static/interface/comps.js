@@ -347,7 +347,7 @@ Blockly.Blocks['component_create'] = {
 
         for (var i = 0; i < this.outputCount; i++) {
             this.appendValueInput("OUT" + i)
-                .setCheck(null)
+                .setCheck(['Number', 'Boolean', 'String'])
                 .appendField("Output    ")
                 .appendField(new Blockly.FieldTextInput("name"), "OUTPUT_NAME" + i)
                 .appendField("    Value");

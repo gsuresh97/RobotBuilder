@@ -1,0 +1,7 @@
+<!--
+BP
+nameCheck
+1
+1
+-->
+<xml xmlns="http://www.w3.org/1999/xhtml"><block type="component_create" id="/1e6Bt0Z^@-||NN;ZvvL" deletable="false" x="0" y="0"><mutation input="1" output="1" parameter="1"></mutation><field name="NAME">name</field><field name="INPUT_NAME0">name</field><field name="PAR_NAME0">jhvjk#%&amp;</field><field name="PAR_VAL0">8</field><field name="OUTPUT_NAME0">name</field><value name="INP_PORT0"><block type="InPort|input" id="^~7(fM3JinN=K)^5n4`i"></block></value></block></xml>
