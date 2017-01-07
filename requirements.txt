@@ -1,3 +1,13 @@
-django
-PyYAML
-sympy
+Django==1.9.7
+matplotlib==1.5.1
+numpy==1.11.1
+sympy==1.0
+ipython==5.1.0
+dxfwrite==1.2.0
+protobuf==3.1.0.post1
+networkx==1.11
+objgraph==3.1.0
+pydot==1.2.3
+svgwrite==1.1.9
+triangle==20160203
+PyYAML==3.12
