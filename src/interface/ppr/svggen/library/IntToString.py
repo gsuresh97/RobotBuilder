@@ -5,7 +5,6 @@ from svggen.api.ports.CodePort import InIntPort
 from svggen.api.ports.CodePort import OutStringPort
 from svggen.api.CodeComponent import CodeComponent
 
-
 class IntToString(CodeComponent):
 
     def define(self, **kwargs):
@@ -17,9 +16,9 @@ class IntToString(CodeComponent):
                 "name": name,
                 "invocation": "%s(@@InInt@@)" % name,
                 "declaration": "std::string %s(int n);" % name,
-                "source":
-                "std::string %s(int n)\n" % name +
-                    "{\n" +
+                "source": \
+                    "std::string %s(int n)\n" % name + \
+                    "{\n" + \
                     "    return std::to_string(n);\n"
                     "}\n",
                 "needs": ["iostream", "string"]

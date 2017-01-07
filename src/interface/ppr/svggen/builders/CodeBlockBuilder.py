@@ -61,3 +61,10 @@ c.inheritInterface("blue", ("Blue", "outInt"))
 c.inheritInterface("inInt", ("Split", "in"))
 
 c.toYaml("library/GetColor.yaml")
+
+
+
+
+
+
+

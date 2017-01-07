@@ -2,7 +2,6 @@ from svggen.api.composables.Composable import Composable
 from svggen.api.ports.ElectricalPort import ElectricalPort
 from copy import copy, deepcopy
 
-
 class ElectricalComposable(Composable):
 
     def new(self):
@@ -90,3 +89,6 @@ class ElectricalComposable(Composable):
                     f.write("Connect %s on %s to Vout\n" % (fPinName, name))
                 elif fPin in val["power"]["Ground"]:
                     f.write("Connect %s on %s to ground\n" % (fPinName, name))
+
+
+

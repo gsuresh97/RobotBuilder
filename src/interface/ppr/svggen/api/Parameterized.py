@@ -5,7 +5,7 @@ from svggen.utils.utils import prefix as prefixString
 class Parameterized(object):
     """
   Like a dictionary k/v store, but we require special syntax constructs
-  to set/update keys
+  to set/update keys 
 
   Parameters are symbolic by default
   """

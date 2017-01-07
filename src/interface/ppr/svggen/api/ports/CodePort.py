@@ -1,6 +1,5 @@
 from svggen.api.ports.Port import Port
 
-
 class CodePort(Port):
     def __init__(self, parent, name, label, dtype=None, **kwargs):
         Port.__init__(self, parent, {}, **kwargs)
@@ -19,8 +18,7 @@ class CodePort(Port):
 
         for p in self.parameters:
             if p in toPort.parameters:
-                constraints.append(
-                    (self.getParameter(p), toPort.getParameter(p)))
+                constraints.append((self.getParameter(p), toPort.getParameter(p)))
         return constraints
 
     def getLabel(self):
@@ -46,7 +44,6 @@ class InPort(CodePort):
     def canMate(self, otherPort):
         return CodePort.canMate(self, otherPort) and isinstance(otherPort, OutPort)
 
-
 class InStringPort(InPort):
     def __init__(self, parent, name, label, is_arg=False, **kwargs):
         InPort.__init__(self, parent, name, label, dtype="string", **kwargs)
@@ -56,7 +53,6 @@ class OutStringPort(OutPort):
     def __init__(self, parent, name,  label, **kwargs):
         OutPort.__init__(self, parent, name, label, dtype="string", **kwargs)
         self.addAllowableMate(self.__class__)
-
 
 class InIntPort(InPort):
     def __init__(self, parent, name, label, is_arg=False, **kwargs):
@@ -87,3 +83,8 @@ class OutDoublePort(OutPort):
     def __init__(self, parent, name, label, **kwargs):
         OutPort.__init__(self, parent, name, label, dtype="double", **kwargs)
         self.addAllowableMate(self.__class__)
+
+
+
+
+

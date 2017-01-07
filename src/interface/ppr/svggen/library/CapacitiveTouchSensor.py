@@ -1,7 +1,9 @@
 from svggen.api.ElectricalComponent import ElectricalComponent
 from svggen.api.ports.ElectricalPort import ElectricalPort
 
-class LED(ElectricalComponent):
+
+
+class CapacitiveTouchSensor(ElectricalComponent):
 
     def __init__(self, yamlFile=None, **kwargs):
         ElectricalComponent.__init__(self, yamlFile, **kwargs)
@@ -9,17 +11,16 @@ class LED(ElectricalComponent):
     def define(self, **kwargs):
         ElectricalComponent.define(self)
 
-        self.physical =  {
-            "numPins": 2,
+        self.physical = {
+            "numPins": 3,
             "power": {
-                "Vin": [0],
-                "Ground": [1]
+                "Vin": [1],
+                "Ground": [2],
             },
-            "aliases": ["anode", "cathode"]
+            "aliases": ["sig", "vcc", "ground"],
         }
 
-        self.addInterface('eIn', ElectricalPort(self, [0]))
+        self.addInterface("sig", ElectricalPort(self, [0]))
 
     def assemble(self):
         ElectricalComponent.assemble(self)
-

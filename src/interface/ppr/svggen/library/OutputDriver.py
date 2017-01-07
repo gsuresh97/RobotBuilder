@@ -8,8 +8,7 @@ class OutputDriver(Driver):
 
     def define(self, **kwargs):
         Driver.define(self)
-        self.addInterface("eout", ElectricalPort(
-            self, self.getName(), [0], virtual=True))
+        self.addInterface("eout", ElectricalPort(self, self.getName(), [0], virtual=True))
         self.addParameter("interface", kwargs["interface"], False)
         self.addParameter("pin", 9, False)
 
@@ -20,8 +19,7 @@ class OutputDriver(Driver):
         meta = dict()
 
         if parameter == "Digital":
-            self.addInterface("din", DigitalInputPort(
-                self, self.getName(), "data"))
+            self.addInterface("din", DigitalInputPort(self, self.getName(), "data"))
             meta = {
                 "Arduino": {
                     "name": name,
@@ -34,8 +32,7 @@ class OutputDriver(Driver):
             }
 
         elif parameter == "Analog":
-            self.addInterface("ain", AnalogInputPort(
-                self, self.getName(), "data"))
+            self.addInterface("ain", AnalogInputPort(self,self.getName(), "data"))
             meta = {
                 "Arduino": {
                     "name": name,
@@ -48,8 +45,7 @@ class OutputDriver(Driver):
             }
 
         elif parameter == "PWM":
-            self.addInterface("pwmin", PWMInputPort(
-                self, self.getName(), "data"))
+            self.addInterface("pwmin", PWMInputPort(self, self.getName(), "data"))
             meta = {
                 "Arduino": {
                     "name": name,
@@ -75,6 +71,7 @@ class OutputDriver(Driver):
         })
         Driver.assemble(self)
 
+
     def setContainer(self, virtualObject, containerObject, virtualParams, containerParams, types=list(['code'])):
         for (key, val) in virtualParams.iteritems():
             self.setParameter(key, val, forceConstant=True)
@@ -86,6 +83,6 @@ class OutputDriver(Driver):
             elif type == 'electrical':
                 self.composables['electrical'].setContainer(virtualObject.getName(),
                                                             containerObject.getName(),
-                                                            containerObject.composables[
-                                                                'electrical'],
+                                                            containerObject.composables['electrical'],
                                                             [(0, self.getParameter("pin"))])
+

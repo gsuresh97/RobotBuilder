@@ -18,6 +18,8 @@ class Arduino(Cpp):
     def append(self, newMeta, newPrefix):
         pNewLine = "" if not self.meta["setup"] else "\n"
         if newMeta["setup"]:
+            if "Serial.begin" in newMeta["setup"] and "Serial.begin" in self.meta["setup"]:
+                newMeta["setup"] = newMeta["setup"].replace("Serial.begin(115200)", "")
             self.meta["setup"] += pNewLine + newMeta["setup"]
         return Cpp.append(self, newMeta, newPrefix)
 

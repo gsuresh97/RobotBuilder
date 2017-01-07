@@ -2,6 +2,7 @@ from svggen.api.ports.CodePort import InStringPort
 from svggen.api.ports.CodePort import OutStringPort
 from svggen.api.CodeComponent import CodeComponent
 from svggen.api.targets.CppTarget import Cpp
+from svggen.api.targets.ArduinoTarget import Arduino
 
 class PrintString(CodeComponent):
 
@@ -25,6 +26,24 @@ class PrintString(CodeComponent):
                 "declarations": "",
 
                 "needs": set(["iostream"])
+            },
+
+            Arduino: {
+                "code": "",
+
+                "inputs": {
+                    "str@@name@@": None
+                },
+
+                "outputs": {
+                    "print@@name@@": "Serial.print(<<str@@name@@>>)"
+                },
+
+                "declarations": "",
+
+                "setup": "Serial.begin(115200)",
+
+                "needs": set()
             }
         }
         self.addInterface("inStr", InStringPort(self, "inStr", "str@@name@@"))

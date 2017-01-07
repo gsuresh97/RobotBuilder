@@ -132,7 +132,7 @@ class Port(Parameterized):
     By default, constrain same-named parameters to be equal
 
     Override this method for better matching
-    :returns: list of semantic constraints
+    :returns: list of semantic constraints 
     :rtype: list
     """
         constraints = []

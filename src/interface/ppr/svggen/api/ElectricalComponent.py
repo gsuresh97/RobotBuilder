@@ -16,3 +16,4 @@ class ElectricalComponent(Component):
 
     def assemble(self):
         self.composables['electrical'] = ElectricalComposable(self.getName(), self.physical)
+

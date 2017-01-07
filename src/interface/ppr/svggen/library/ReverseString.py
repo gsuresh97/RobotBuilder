@@ -38,7 +38,7 @@ class ReverseString(CodeComponent):
                 "needs": set()
             }
         }
-
+        
         self.addInterface("inStr", InStringPort(self, "inStr", "inReverse_@@name@@"))
         self.addInterface("outStr", OutStringPort(self, "reversed", "reversed_@@name@@"))
 

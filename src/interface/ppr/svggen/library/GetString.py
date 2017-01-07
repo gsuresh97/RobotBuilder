@@ -1,36 +1,36 @@
-from svggen.api.component import Component
-from svggen.api.composables.CodeComposable import CodeComposable
+from svggen.api.ports.CodePort import InStringPort
 from svggen.api.ports.CodePort import OutStringPort
 from svggen.api.CodeComponent import CodeComponent
-
+from svggen.api.targets.CppTarget import Cpp
+from svggen.api.targets.ArduinoTarget import Arduino
 
 class GetString(CodeComponent):
 
+    def __init__(self, yamlFile=None, **kwargs):
+        CodeComponent.__init__(self, yamlFile, **kwargs)
+
     def define(self, **kwargs):
         CodeComponent.define(self, **kwargs)
-        name = self.getName()
-        self.setParameter("meta", {
-            "cpp": {
-                "name": name,
-                "invocation": "%s()" % name,
-                "declaration": "std::string %s();" % name,
-                "source": \
-                    "std::string %s()" % name + \
-                    "{\n" + \
-                    "    std::string inStr;\n" + \
-                    "    std::cin >> inStr;\n" + \
-                    "    return inStr;\n" + \
-                    "}\n\n",
-                "needs": ["iostream", "string"]
-            },
+        self.meta = {
+            Arduino: {
+                "code": "",
 
-            "python": {
-                "name": name,
-                "invocation": "raw_input()",
-                "source": "",
-                "needs": []
+                "inputs": {
+                },
+
+                "outputs": {
+                    "str@@name@@": "Serial.readString()"
+                },
+
+                "declarations": "",
+
+                "setup": "Serial.begin(115200)",
+
+                "needs": set()
             }
-        }, forceConstant=True)
+        }
+        self.addInterface("outStr", OutStringPort(self, "outStr", "str@@name@@"))
 
-        self.addInterface("outStr", OutStringPort(self, self.getName()))
+    def assemble(self):
+        CodeComponent.assemble(self)
 

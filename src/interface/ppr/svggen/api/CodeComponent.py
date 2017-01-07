@@ -21,7 +21,6 @@ class CodeComponent(Component):
         newMeta = dict()
         name = self.getModifiedName()
 
-
         for (target, meta) in self.meta.iteritems():
             newMeta[target] = target(None, meta).mangle(name)
 

@@ -8,8 +8,7 @@ class InputDriver(Driver):
 
     def define(self, **kwargs):
         Driver.define(self)
-        self.addInterface("ein", ElectricalPort(
-            self, self.getName(), [1], virtual=True))
+        self.addInterface("ein", ElectricalPort(self, self.getName(), [1], virtual=True))
         self.addConstant("interface", kwargs["interface"])
         self.addParameter("pin", 15, False)
 
@@ -83,6 +82,5 @@ class InputDriver(Driver):
             elif type == 'electrical':
                 self.composables['electrical'].setContainer(virtualObject.getName(),
                                                             containerObject.getName(),
-                                                            containerObject.composables[
-                                                                'electrical'],
+                                                            containerObject.composables['electrical'],
                                                             [(1, self.getParameter("pin"))])
