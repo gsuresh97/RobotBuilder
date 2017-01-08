@@ -27,7 +27,7 @@ path = os.path.join(os.getcwd(), "interface/ppr/")
 sys.path.append(path)
 from svggen.library import allComponents, getComponent, instanceOf, buildDatabase, queryDatabase, filterComponents, filterDatabase, updateComponentsLists
 from svggen.api.component import Component
-from svggen.api.ports import code_ports
+# from svggen.api.ports import code_ports
 from svggen.api.CodeComponent import CodeComponent
 
 # Create your views here.

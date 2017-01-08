@@ -218,7 +218,7 @@ function processBPOpen(save) {
         Blockly.Blocks['input' + i] = {
             // mutator blocks for component
             init: function() {
-                this.appendDummyInput()
+                this.appendDummyInput("NAME")
                     .appendField("Input name");
                 this.setOutput(true, null);
                 this.setColour(180);
@@ -231,7 +231,7 @@ function processBPOpen(save) {
         Blockly.Blocks['parameter' + i] = {
             // mutator blocks for component
             init: function() {
-                this.appendDummyInput()
+                this.appendDummyInput("NAME")
                     .appendField("Parameter name");
                 this.setOutput(true, null);
                 this.setColour(180);
@@ -274,7 +274,7 @@ function processBPOpen(save) {
         Blockly.Blocks['input' + inputCount] = {
             // mutator blocks for component
             init: function() {
-                this.appendDummyInput()
+                this.appendDummyInput("NAME")
                     .appendField("Input " + this.mut_name);
                 this.setOutput(true, null);
                 this.setColour(180);
@@ -303,7 +303,7 @@ function processBPOpen(save) {
         Blockly.Blocks['parameter' + parameterCount] = {
             // mutator blocks for component
             init: function() {
-                this.appendDummyInput()
+                this.appendDummyInput("NAME")
                     .appendField("Parameter " + this.mut_name);
                 this.setOutput(true, null);
                 this.setColour(180);

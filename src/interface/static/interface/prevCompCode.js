@@ -65,80 +65,6 @@ function makeOutputSortString(count){
 	};
 }
 
-//SplitThree
-function makeOutputSplitThree(count){
-	Blockly.Arduino['SplitThree|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//out1- SplitThree
-	Blockly.Arduino['SplitThree|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'out1'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out2- SplitThree
-	Blockly.Arduino['SplitThree|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'out2'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//out3- SplitThree
-	Blockly.Arduino['SplitThree|' + count + '\\2'] = function() {
-		var code = this.name + '_';
-		code += 'out3'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//Multiply
-function makeOutputMultiply(count){
-	Blockly.Arduino['Multiply|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//product- Multiply
-	Blockly.Arduino['Multiply|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'product'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
 //DrivenRGBLED
 function makeOutputDrivenRGBLED(count){
 	Blockly.Arduino['DrivenRGBLED|' + count] = function() {
@@ -678,36 +604,6 @@ function makeOutputReverseHello(count){
 	}
 }
 
-//times3
-function makeOutputtimes3(count){
-	Blockly.Arduino['times3|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//outInt- times3
-	Blockly.Arduino['times3|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'outInt'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
 //StringSource
 function makeOutputStringSource(count){
 	Blockly.Arduino['StringSource|' + count] = function() {
@@ -805,9 +701,9 @@ function makeOutputSplitTwo(count){
 	};
 }
 
-//revLen
-function makeOutputrevLen(count){
-	Blockly.Arduino['revLen|' + count] = function() {
+//CapacitiveTouchSensorDriver
+function makeOutputCapacitiveTouchSensorDriver(count){
+	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count] = function() {
 		var code = this.name + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
@@ -827,12 +723,42 @@ function makeOutputrevLen(count){
 		return code;
 	}
 
-	//out- revLen
-	Blockly.Arduino['revLen|' + count + '\\0'] = function() {
+	//outInt- CapacitiveTouchSensorDriver
+	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count + '\\0'] = function() {
 		var code = this.name + '_';
-		code += 'out'+'>';
+		code += 'outInt'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
+
+	//dOut- CapacitiveTouchSensorDriver
+	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'dOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//LED
+function makeOutputLED(count){
+	Blockly.Arduino['LED|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
 }
 
 //RGBLEDDriver
@@ -879,9 +805,9 @@ function makeOutputRGBLEDDriver(count){
 	};
 }
 
-//DuplicateNumber
-function makeOutputDuplicateNumber(count){
-	Blockly.Arduino['DuplicateNumber|' + count] = function() {
+//GetString
+function makeOutputGetString(count){
+	Blockly.Arduino['GetString|' + count] = function() {
 		var code = this.name + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
@@ -901,17 +827,54 @@ function makeOutputDuplicateNumber(count){
 		return code;
 	}
 
-	//copy1- DuplicateNumber
-	Blockly.Arduino['DuplicateNumber|' + count + '\\0'] = function() {
+	//outStr- GetString
+	Blockly.Arduino['GetString|' + count + '\\0'] = function() {
 		var code = this.name + '_';
-		code += 'copy1'+'>';
+		code += 'outStr'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//SplitThree
+function makeOutputSplitThree(count){
+	Blockly.Arduino['SplitThree|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//out1- SplitThree
+	Blockly.Arduino['SplitThree|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'out1'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
-	//copy2- DuplicateNumber
-	Blockly.Arduino['DuplicateNumber|' + count + '\\1'] = function() {
+	//out2- SplitThree
+	Blockly.Arduino['SplitThree|' + count + '\\1'] = function() {
 		var code = this.name + '_';
-		code += 'copy2'+'>';
+		code += 'out2'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//out3- SplitThree
+	Blockly.Arduino['SplitThree|' + count + '\\2'] = function() {
+		var code = this.name + '_';
+		code += 'out3'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 }
@@ -960,36 +923,6 @@ function makeOutputlive_demo_test1(count){
 		code += '#';
 		return code;
 	}
-}
-
-//user_trial_add
-function makeOutputuser_trial_add(count){
-	Blockly.Arduino['user_trial_add|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//out- user_trial_add
-	Blockly.Arduino['user_trial_add|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'out'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
 }
 
 //PotDriver
@@ -1103,26 +1036,100 @@ function makeOutputPot(count){
 	};
 }
 
+//GetAndPutString
+function makeOutputGetAndPutString(count){
+	Blockly.Arduino['GetAndPutString|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//CapacitiveTouchSensor
+function makeOutputCapacitiveTouchSensor(count){
+	Blockly.Arduino['CapacitiveTouchSensor|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//revLen
+function makeOutputrevLen(count){
+	Blockly.Arduino['revLen|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//out- revLen
+	Blockly.Arduino['revLen|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'out'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
 makeOutputDrivenPot(0);
 makeOutputSortString(0);
-makeOutputSplitThree(0);
-makeOutputMultiply(0);
 makeOutputArduinoUno(0);
 makeOutputLinearInterpolate(0);
 makeOutputReverseString(0);
 makeOutputReverseSort(0);
 makeOutputSplitFour(0);
-makeOutputtimes3(0);
 makeOutputStringSource(0);
 makeOutputAdd(0);
 makeOutputSplitTwo(0);
-makeOutputrevLen(0);
+makeOutputCapacitiveTouchSensorDriver(0);
 makeOutputRGBLEDDriver(0);
-makeOutputDuplicateNumber(0);
-makeOutputuser_trial_add(0);
+makeOutputGetString(0);
+makeOutputSplitThree(0);
 makeOutputPotDriver(0);
 makeOutputGetColor(0);
 makeOutputPot(0);
+makeOutputrevLen(0);
 makeOutputDrivenRGBLED(0);
 makeOutputLiveDemo0(0);
 makeOutputLiveDemo1(0);
@@ -1132,5 +1139,8 @@ makeOutputPrintString(0);
 makeOutputSortHello(0);
 makeOutputPutString(0);
 makeOutputReverseHello(0);
+makeOutputLED(0);
 makeOutputPutReverseSort(0);
 makeOutputlive_demo_test1(0);
+makeOutputGetAndPutString(0);
+makeOutputCapacitiveTouchSensor(0);

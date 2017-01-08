@@ -165,7 +165,7 @@ class CustomBlockFile:
             "\tBlockly.Blocks['{}|' + {} + '\\\\{}'] = {{\n".format(componentName, "count",  str(count)))
         self.blockFile.write("\t\tinit: function(){\n")
         self.blockFile.write(
-            "\t\t\tthis.appendDummyInput().appendField(ans + \"{}\");\n".format("->" + name))
+            "\t\t\tthis.appendDummyInput(\"NAME\").appendField(ans + \"{}\");\n".format("->" + name))
         self.blockFile.write(
             "\t\t\tthis.setOutput(true, {});\n".format("null"))
         self.blockFile.write("\t\t\tthis.setColour(180);\n")

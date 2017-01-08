@@ -1,3 +1,44 @@
+function onStubAdded(event){
+    var block = workspace.getBlockById(event.blockId);
+    if(event.type==Blockly.Events.CREATE){
+        if(block.type.indexOf("input") >= 0 && !isNaN(parseInt(block.type.substring(block.type.indexOf("input") + 5)))) {
+            if(inputStubs[block.type]){
+                inputStubs[block.type].push(block.id);
+            } else {
+                inputStubs[block.type] = [block.id];
+            }
+        } else if (block.type.indexOf("parameter") >= 0 && !isNaN(parseInt(block.type.substring(block.type.indexOf("parameter") + 9)))) {
+            if(paramStubs[block.type]){
+                paramStubs[block.type].push(block.id);
+            } else {
+                paramStubs[block.type] = [block.id];
+            }
+        }
+    }
+}
+
+function countStubs(){
+    inputStubs = {};
+    paramStubs = {};
+    var blocks = workspace.getAllBlocks();
+    for(var i = 0; i < blocks.length; i++){
+        var block = blocks[i];
+        if(block.type.indexOf("input") >= 0 && !isNaN(parseInt(block.type.substring(block.type.indexOf("input") + 5)))) {
+            if(inputStubs[block.type]){
+                inputStubs[block.type].push(block.id);
+            } else {
+                inputStubs[block.type] = [block.id];
+            }
+        } else if (block.type.indexOf("parameter") >= 0 && !isNaN(parseInt(block.type.substring(block.type.indexOf("parameter") + 9)))) {
+            if(paramStubs[block.type]){
+                paramStubs[block.type].push(block.id);
+            } else {
+                paramStubs[block.type] = [block.id];
+            }
+        }
+    }
+}
+
 function onParameterNameChange(event) {
     var block = workspace.getBlockById(event.blockId)
     if (block && block.type == 'component_create' && event.type == Blockly.Events.CHANGE && event.element == 'field') {
@@ -5,7 +46,7 @@ function onParameterNameChange(event) {
             Blockly.Blocks['input' + event.name.substring(10)] = {
                 // mutator blocks for component
                 init: function() {
-                    this.appendDummyInput()
+                    this.appendDummyInput("NAME")
                         .appendField("Input " + event.newValue);
                     this.setOutput(true, null);
                     this.setColour(180);
@@ -21,11 +62,22 @@ function onParameterNameChange(event) {
                 this.codeName = event.newValue.trim();
                 return ["<<"+event.newValue.trim()+mangler+">>", Blockly.Python.ORDER_ATOMIC];
             }
+            for(var key in inputStubs){
+                if(inputStubs.hasOwnProperty(key)){
+                    var ids = inputStubs[key];
+                    for(var i = 0; i < ids.length; i++){
+                        var b = workspace.getBlockById(ids[i]);
+                        b.init = Blockly.Blocks['input' + event.name.substring(10)].init;
+                        b.removeInput("NAME");
+                        b.init();
+                    }
+                }
+            }
         } else if (event.name.substring(0, 8) == "PAR_NAME"){
             Blockly.Blocks['parameter' + event.name.substring(8)] = {
                 // mutator blocks for component
                 init: function() {
-                    this.appendDummyInput()
+                    this.appendDummyInput("NAME")
                         .appendField("Parameter " + event.newValue);
                     this.setOutput(true, null);
                     this.setColour(180);
@@ -40,6 +92,18 @@ function onParameterNameChange(event) {
             Blockly.Python['parameter' + event.name.substring(8)] = function(){
                 this.codeName = event.newValue.trim();
                 return ["<<"+event.newValue.trim()+mangler+">>", Blockly.Python.ORDER_ATOMIC];
+            }
+            var blocks = workspace.getAllBlocks();
+            for(var key in paramStubs){
+                if(paramStubs.hasOwnProperty(key)){
+                    var ids = paramStubs[key];
+                    for(var i = 0; i < ids.length; i++){
+                        var b = workspace.getBlockById(ids[i]);
+                        b.init = Blockly.Blocks['parameter' + event.name.substring(8)].init;
+                        b.removeInput("NAME");
+                        b.init();
+                    }
+                }
             }
         }
     }
@@ -81,7 +145,7 @@ function onComponentModify(event) {
                     Blockly.Blocks['input' + inputCount] = {
                         // mutator blocks for component
                         init: function() {
-                            this.appendDummyInput()
+                            this.appendDummyInput("NAME")
                                 .appendField("Input " + this.mut_name);
                             this.setOutput(true, null);
                             this.setColour(180);
@@ -111,7 +175,7 @@ function onComponentModify(event) {
                     Blockly.Blocks['parameter' + parameterCount] = {
                         // mutator blocks for component
                         init: function() {
-                            this.appendDummyInput()
+                            this.appendDummyInput("NAME")
                                 .appendField("Parameter " + this.mut_name);
                             this.setOutput(true, null);
                             this.setColour(180);
@@ -149,6 +213,14 @@ function onInputOutputDelete(event) {
     }
 }
 
+function onStubDeleted(event) {
+    if (event.type == Blockly.Events.DELETE) {
+        countStubs();
+    }
+}
+
 workspace.addChangeListener(onInputOutputDelete);
+workspace.addChangeListener(onStubAdded);
+workspace.addChangeListener(onStubDeleted);
 workspace.addChangeListener(onParameterNameChange);
 workspace.addChangeListener(onComponentModify);

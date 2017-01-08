@@ -55,6 +55,35 @@ function onBlockAddedToWorkspace(event) {
     }
 }
 
+function onStubAdded(event){
+    var block = workspace.getBlockById(event.blockId);
+    if(event.type==Blockly.Events.CREATE){
+        if(block.type.indexOf("\\") >= 0) {
+            if(outputStubs[block.type.substring(0, block.type.indexOf("\\"))]){
+                outputStubs[block.type.substring(0, block.type.indexOf("\\"))].push(block.id);
+            } else {
+                outputStubs[block.type.substring(0, block.type.indexOf("\\"))] = [block.id];
+            }
+        }
+    }
+}
+
+function countStubs(){
+    outputStubs = {};
+    var blocks = workspace.getAllBlocks();
+    for(var i = 0; i < blocks.length; i++){
+        var block = blocks[i];
+        if(block.type.indexOf("\\") >= 0) {
+            if(outputStubs[block.type.substring(0, block.type.indexOf("\\"))]){
+                outputStubs[block.type.substring(0, block.type.indexOf("\\"))].push(block.id);
+            } else {
+                outputStubs[block.type.substring(0, block.type.indexOf("\\"))] = [block.id];
+            }
+        }
+    }
+}
+
+
 function onBlockNameChange(event) {
     var block = workspace.getBlockById(event.blockId)
 
@@ -85,12 +114,25 @@ function onBlockNameChange(event) {
             Blockly.Blocks[blockName + "|" + blockNumber + "\\" + i].outputType = outType;
             Blockly.Blocks[blockName + "|" + blockNumber + "\\" + i].outputName= outName;
             Blockly.Blocks[blockName + "|" + blockNumber + "\\" + i].init = function() {
-                this.appendDummyInput().appendField(this.name + " -> " + this.outputName );
+                this.appendDummyInput("NAME").appendField(this.name + " -> " + this.outputName );
                 this.setOutput(true, null);
                 this.setColour(180);
             };
-
         }
+
+        var ids = outputStubs[blockName + "|" + blockNumber];
+        for(var i = 0; i < ids.length; i++){
+            var b = workspace.getBlockById(ids[i]);
+            var num = parseInt(b.type.substring(b.type.indexOf("\\")+1));
+            b.name = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].name;
+            b.outputType = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].outputType;
+            b.outputName = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].outputName;
+            b.init = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].init;
+            b.removeInput("NAME");
+            b.init();
+        }
+
+
 
         Toolbox.updateToolbox();
     }
@@ -178,6 +220,14 @@ Blockly.Blocks['component_parameter'] = {
     }
 };
 
+function onStubDeleted(event) {
+    if (event.type == Blockly.Events.DELETE) {
+        countStubs();
+    }
+}
+
 workspace.addChangeListener(onBlockAddedToWorkspace);
+workspace.addChangeListener(onStubDeleted);
+workspace.addChangeListener(onStubAdded);
 workspace.addChangeListener(onBlockNameChange);
 workspace.addChangeListener(onComponentDelete);
