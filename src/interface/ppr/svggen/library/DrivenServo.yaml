@@ -1,0 +1,21 @@
+connections:
+- - [driver, eOut]
+  - [servo, eIn]
+  - {}
+constants: {}
+constraints: []
+interfaces:
+  PWMin: {interface: PWMin, subcomponent: driver}
+  inInt: {interface: inInt, subcomponent: driver}
+parameters: {}
+subcomponents:
+  driver:
+    class: ServoDriver
+    constants: {}
+    containers: {}
+    parameters: {}
+  servo:
+    class: Servo
+    constants: {}
+    containers: {}
+    parameters: {}

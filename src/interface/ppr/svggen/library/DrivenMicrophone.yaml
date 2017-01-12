@@ -1,0 +1,21 @@
+connections:
+- - [microphone, vOut]
+  - [driver, vIn]
+  - {}
+constants: {}
+constraints: []
+interfaces:
+  aOut: {interface: aOut, subcomponent: driver}
+  outInt: {interface: outInt, subcomponent: driver}
+parameters: {}
+subcomponents:
+  driver:
+    class: MicrophoneDriver
+    constants: {}
+    containers: {}
+    parameters: {}
+  microphone:
+    class: Microphone
+    constants: {}
+    containers: {}
+    parameters: {}
