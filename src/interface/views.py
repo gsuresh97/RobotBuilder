@@ -97,7 +97,7 @@ def prevblocks(request):
     context = {
         'files': files
     }
-    
+
     template = loader.get_template('interface/prev-blocks.html')
     return HttpResponse(template.render(context, request))
 
@@ -163,7 +163,7 @@ def export_code(request):
     print "Python code============================================================", codeP
 
     # Get Arduino Info
-    declare = code[0:code.find("void ")].strip()
+    declare = code[0:code.find("void setup() {")].strip()
     code = code[code.find("op() {") + 9:]
     # Extract Class Name
     classNameIndex = code.index("|", 0)
@@ -318,9 +318,11 @@ def export_code(request):
 
     # code
     print "dCode python: ======================", dPCode, "length", len(dPCode)
+    if dPCode[0] != "(":
+        dPCode = "(" + dPCode
     component += "\t\t\t\t\"code\": "
     if len(dPCode.strip()):
-        component += "(" + dPCode[0:-2] + "\n\t\t\t\t\t" + cPCode[2:]
+        component += dPCode[0:-2] + "\n\t\t\t\t\t" + cPCode[2:]
     elif len(cPCode.strip()):
         component += cPCode
     else :

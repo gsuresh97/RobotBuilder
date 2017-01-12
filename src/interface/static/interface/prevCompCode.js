@@ -245,6 +245,36 @@ function makeOutputDrivenServo(count){
 	}
 }
 
+//user_Toggle
+function makeOutputuser_Toggle(count){
+	Blockly.Arduino['user_Toggle|' + count] = function() {
+		var code = "user_Toggle" + (count) + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//ledLevel- user_Toggle
+	Blockly.Arduino['user_Toggle|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'ledLevel'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
 //DrivenRGBLED
 function makeOutputDrivenRGBLED(count){
 	Blockly.Arduino['DrivenRGBLED|' + count] = function() {
@@ -1430,6 +1460,29 @@ function makeOutputAdd(count){
 	};
 }
 
+//user_blink
+function makeOutputuser_blink(count){
+	Blockly.Arduino['user_blink|' + count] = function() {
+		var code = "user_blink" + (count) + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
 //SplitTwo
 function makeOutputSplitTwo(count){
 	Blockly.Arduino['SplitTwo|' + count] = function() {
@@ -2510,6 +2563,7 @@ makeOutputDrivenPot(0);
 makeOutputMotorDriver(0);
 makeOutputSortString(0);
 makeOutputSplitThree(0);
+makeOutputuser_Toggle(0);
 makeOutputArduino101(0);
 makeOutputArduinoUno(0);
 makeOutputLinearInterpolate(0);
@@ -2557,6 +2611,7 @@ makeOutputDrivenMotor(0);
 makeOutputSortHello(0);
 makeOutputPutString(0);
 makeOutputMotor(0);
+makeOutputuser_blink(0);
 makeOutputLED(0);
 makeOutputReverseHello(0);
 makeOutputPutReverseSort(0);

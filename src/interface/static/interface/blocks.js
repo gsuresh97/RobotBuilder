@@ -306,6 +306,42 @@ function makeDrivenServo(count, name){
 	};
 }
 
+//user_Toggle
+function makeuser_Toggle(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="user_Toggle"+(count);
+	}
+	Blockly.Blocks['user_Toggle|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_Toggle ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code',
+		inputs:[],
+		outputs:['ledLevel', ],
+	};
+
+	//ledLevel- user_Toggle
+	Blockly.Blocks['user_Toggle|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->ledLevel");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'ledLevel',
+		name:'user_Toggle',
+	};
+}
+
 //DrivenRGBLED
 function makeDrivenRGBLED(count, name){
 	var ans = name;
@@ -1958,6 +1994,29 @@ function makeAdd(count, name){
 	};
 }
 
+//user_blink
+function makeuser_blink(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="user_blink"+(count);
+	}
+	Blockly.Blocks['user_blink|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_blink ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:[],
+	};
+}
+
 //SplitTwo
 function makeSplitTwo(count, name){
 	var ans = name;
@@ -3522,6 +3581,7 @@ makeDrivenPot(0);
 makeMotorDriver(0);
 makeSortString(0);
 makeSplitThree(0);
+makeuser_Toggle(0);
 makeArduino101(0);
 makeArduinoUno(0);
 makeLinearInterpolate(0);
@@ -3569,6 +3629,7 @@ makeDrivenMotor(0);
 makeSortHello(0);
 makePutString(0);
 makeMotor(0);
+makeuser_blink(0);
 makeLED(0);
 makeReverseHello(0);
 makePutReverseSort(0);

@@ -92,7 +92,9 @@ def saveBuilder(code):
             if paramVal.strip() is "":
                 paramVal = "0"
 
-            build += "c.setSubParameter((\"{}\", \"{}\"), {})\n".format(className, paramName, paramVal)
+            if not paramVal.isdigit():
+                paramVal = "\"" + paramVal + "\""
+            # build += "c.setSubParameter((\"{}\", \"{}\"), {})\n".format(className, paramName, paramVal)
 
         build += "\n"
         code = code[1:]
