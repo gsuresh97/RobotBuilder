@@ -126,9 +126,9 @@ Blockly.Python.component_create = function() {
 
 
 function checkBlock(){
-    inputDB = {};
-    outputDB = {};
-    paramDB = {};
+    var inputDB = {};
+    var outputDB = {};
+    var paramDB = {};
     // get block
     var block = Blockly.getMainWorkspace().getAllBlocks()[0];
 

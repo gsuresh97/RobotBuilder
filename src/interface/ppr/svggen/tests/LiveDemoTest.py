@@ -1,10 +1,8 @@
 from svggen.library import getComponent
 
 def test_make():
-    test = getComponent("LiveDemo1")
-    test.makeOutput("output/demo1")
-    test2 = getComponent("LiveDemo2")
-    test2.makeOutput("output/demo2")
+    test2 = getComponent("LiveDemo4")
+    test2.makeOutput("output/demo4")
 
 if __name__ == '__main__':
     test_make()

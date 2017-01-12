@@ -1,34 +1,54 @@
-from svggen.api.UIComponent import UIComponent
-from svggen.api.ports.DataOutputPort import DataOutputPort
-from svggen.api.ports.DataInputPort import DataInputPort
+from svggen.api.Driver import Driver
+from svggen.api.ports.CodePort import InPort
+from svggen.api.component import Component
+from svggen.api.CodeComponent import CodeComponent
+from svggen.api.ports.CodePort import *
+from svggen.api.targets.ArduinoTarget import Arduino
+from svggen.api.targets.PythonTarget import Python
 
-class UISlider(UIComponent):
-  def define(self):
-    UIComponent.define(self)
-    self.addParameter('max', 100)
-    self.addParameter('min', 0)
-    self.addParameter('default', 50)
-    
-    self.addInterface('curPosition', DataOutputPort(parent=self, name='curPosition'))
-    self.addInterface('newPosition', DataInputPort(parent=self, name='newPosition'))
+class UISlider(CodeComponent):
 
-  def assemble(self):
-    UIComponent.assemble(self)
+    def __init__(self, yamlFile=None, **kwargs):
+        CodeComponent.__init__(self, yamlFile, **kwargs)
 
-    self.setInterface('curPosition', DataOutputPort(parent=self, name='curPosition'))
-    self.setInterface('newPosition', DataInputPort(parent=self, name='newPosition'))
+    def define(self, **kwargs):
+        self.addParameter("min", 0, isSymbol=False)
+        self.addParameter("max", 1023, isSymbol=False)
 
-  def getOptionStr(self):
-    try:
-      max = int(self.getParameter('max'))
-    except ValueError:
-      max = 100
-    try:
-      min = int(self.getParameter('min'))
-    except ValueError:
-      min = 0
-    try:
-      default = int(self.getParameter('default'))
-    except ValueError:
-      default = (max+min)/2
-    return str(min) + ',' + str(max) + ',' + str(default)
+        self.meta = {
+            Arduino: {
+                "code": "",
+
+                "inputs": {
+                },
+
+                "outputs": {
+                    "slider_@@name@@": "slider_@@name@@"
+                },
+
+                "declarations": "int slider_@@name@@ = 0;\n",
+
+                "needs": {"Arduino.h", "WiFiClient.h", "ESP8266WiFi.h", "ESP8266WebServer.h", "ESP8266mDNS.h", "WebSocketsServer.h"},
+
+                "setup": "",
+
+                "interface": {
+                    "html": "<input id=\\\"@@name@@\\\" type=\\\"range\\\" min=\\\"<<min_@@name@@>>\\\" max=\\\"<<max_@@name@@>>\\\" oninput=\\\"@@name@@_slider(this.value)\\\">",
+                    "style": "",
+                    "js": "var @@name@@_slider = function(sliderValue){\n" +
+                          "    connection.send(\\\"@@name@@\\\" + sliderValue.toString());\n" +
+                          "};\n",
+                    "event": "if(NULL != strstr((char *) payload, \"@@name@@\")){\n"
+                             "    slider_@@name@@ = atoi((char *)(payload + strlen(\"@@name@@\")));\n"
+                             "}\n"
+                }
+            }
+        }
+        self.addInterface("outInt", OutIntPort(self, "outInt", "slider_@@name@@"))
+        CodeComponent.define(self, **kwargs)
+
+    def assemble(self):
+        CodeComponent.assemble(self)
+
+
+

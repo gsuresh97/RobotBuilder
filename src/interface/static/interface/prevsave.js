@@ -73,7 +73,7 @@ function prevDoSave(){
     c += sessionName + "\n";
     var blocks = Blockly.getMainWorkspace().getAllBlocks();
     for(var i = 0; i < blocks.length; i++){
-        if(blocks[i].type != "component_create"){
+        if(blocks[i].type != "component_create" && blocks[i].type != "inherit_input"){
             name = blocks[i].type;
             b = name.substring(0, name.indexOf("|"));
             name = name.substring(name.indexOf("|") + 1);

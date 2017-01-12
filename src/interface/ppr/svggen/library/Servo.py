@@ -18,7 +18,7 @@ class Servo(ElectricalComponent):
             "aliases": ["Vin", "ground", "PWMin"]
         }
 
-        self.addInterface('eIn', ElectricalPort(self, [0]))
+        self.addInterface('eIn', ElectricalPort(self, [2]))
 
     def assemble(self):
         ElectricalComponent.assemble(self)

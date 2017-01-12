@@ -12,11 +12,22 @@ from svggen.api.targets.PythonTarget import Python
 from svggen.api.composables.ElectricalComposable import ElectricalComposable
 
 
-class RGBLEDDriver(CodeComponent):
+class ServoDriver(Driver):
     def __init__(self, yamlFile=None, **kwargs):
-        CodeComponent.__init__(self, yamlFile, **kwargs)
+        Driver.__init__(self, yamlFile, **kwargs)
 
     def define(self, **kwargs):
+        self.pmap = [None, None, "Pin"]
+
+        self.physical = {
+            "numPins": 3,
+            "power": {
+                "Vin": [1],
+                "Ground": [0]
+            },
+            "aliases": ["Vin", "ground", "PWMin"]
+        }
+
         self.meta = {
             Arduino: {
                 "code": "",
@@ -29,11 +40,11 @@ class RGBLEDDriver(CodeComponent):
                     "driven": "servo_@@name@@.write(<<in_@@name@@>>)"
                 },
 
-                "declarations": "Servo servo_@@name@@",
+                "declarations": "Servo servo_@@name@@;",
 
                 "setup": "    servo_@@name@@.attach(<<Pin_@@name@@>>);\n",
 
-                "needs": set("Servo.h")
+                "needs": set(["Servo.h"])
             }
         }
 
@@ -43,27 +54,4 @@ class RGBLEDDriver(CodeComponent):
 
         self.addParameter("Pin", "", isSymbol=False)
 
-        CodeComponent.define(self)
-
-    def getPinAlias(self, pin):
-        return [None, None, "Pin"][pin[0]]
-
-    def setPinParameter(self, pinName, pinValue):
-        self.setParameter(pinName, pinValue, forceConstant=True)
-
-    def getTokenSubs(self):
-        return {
-            "Pin_@@name@@".replace("@@name@@", self.getModifiedName()): self.getParameter("Pin")
-        }
-
-    def assemble(self):
-        self.composables['electrical'] = ElectricalComposable(self.getName(),         {
-            "numPins": 3,
-            "power": {
-                "Vin": [1],
-                "Ground": [0]
-            },
-            "aliases": ["Vin", "ground", "PWMin"]
-        }, isVirtual=True)
-
-        CodeComponent.assemble(self)
+        Driver.define(self)

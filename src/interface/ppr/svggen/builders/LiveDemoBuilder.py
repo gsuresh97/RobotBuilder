@@ -113,3 +113,26 @@ c.addConnection(("rgbled", "gPWM"), ("arduino", "pwm2"))
 c.addConnection(("rgbled", "bPWM"), ("arduino", "pwm3"))
 
 c.toYaml("library/LiveDemo2.yaml")
+
+# UIDemo1
+c = Component()
+c.addSubcomponent("led", "DrivenLED")
+c.addSubcomponent("button", "UIButton")
+c.addSubcomponent("ESP8266", "NodeMCU")
+
+c.addConnection(("button", "outInt"), ("led", "inInt"))
+c.addConnection(("ESP8266", "do0"), ("led", "Din"))
+
+c.toYaml("library/LiveDemo3.yaml")
+
+#UIDemo2
+c = Component()
+c.addSubcomponent("servo", "DrivenServo")
+c.addSubcomponent("slider", "UISlider")
+c.setSubParameter(("slider", "max"), 180)
+c.addSubcomponent("ESP8266", "NodeMCU")
+
+c.addConnection(("slider", "outInt"), ("servo", "inInt"))
+c.addConnection(("ESP8266", "do0"), ("servo", "PWMin"))
+
+c.toYaml("library/LiveDemo4.yaml")

@@ -12,11 +12,22 @@ from svggen.api.targets.PythonTarget import Python
 from svggen.api.composables.ElectricalComposable import ElectricalComposable
 
 
-class RGBLEDDriver(CodeComponent):
+class RGBLEDDriver(Driver):
     def __init__(self, yamlFile=None, **kwargs):
-        CodeComponent.__init__(self, yamlFile, **kwargs)
+        Driver.__init__(self, yamlFile, **kwargs)
 
     def define(self, **kwargs):
+        Driver.define(self)
+
+        self.physical = {
+            "numPins": 4,
+            "power": {
+                "Vin": [],
+                "Ground": [1]
+            },
+            "aliases": ["redpin", "cathode", "greenpin", "bluepin"],
+        }
+
         self.meta = {
             Arduino: {
                 "code": "void @@name@@(int red, int green, int blue)\n" +
@@ -91,33 +102,9 @@ class RGBLEDDriver(CodeComponent):
         self.addParameter("gPin", "", isSymbol=False)
         self.addParameter("bPin", "", isSymbol=False)
 
-        CodeComponent.define(self)
+        self.pmap = ["rPin", None, "gPin", "bPin"]
 
-    def getPinAlias(self, pin):
-        return ["rPin", None, "gPin", "bPin"][pin[0]]
 
-    def setPinParameter(self, pinName, pinValue):
-        self.setParameter(pinName, pinValue, forceConstant=True)
-
-    def getTokenSubs(self):
-        return {
-            "rPin_@@name@@".replace("@@name@@", self.getModifiedName()): self.getParameter("rPin"),
-            "bPin_@@name@@".replace("@@name@@", self.getModifiedName()): self.getParameter("bPin"),
-            "gPin_@@name@@".replace("@@name@@", self.getModifiedName()): self.getParameter("gPin")
-        }
-
-    def assemble(self):
-
-        self.composables['electrical'] = ElectricalComposable(self.getName(), {
-            "numPins": 4,
-            "power": {
-                "Vin": [],
-                "Ground": [1]
-            },
-            "aliases": ["redpin", "cathode", "greenpin", "bluepin"],
-        }, isVirtual=True)
-
-        CodeComponent.assemble(self)
 
 
 

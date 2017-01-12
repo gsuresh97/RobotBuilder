@@ -13,7 +13,9 @@ class ElectricalPort(Port):
         return self.parentName
 
     def getPins(self):
-        return self.pins
+        if isinstance(self.pins[0], int):
+            return self.pins
+        return self.parent.getPinIndices(self.pins)
 
     def isVirtual(self):
         return self.virtual

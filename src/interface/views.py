@@ -27,7 +27,7 @@ path = os.path.join(os.getcwd(), "interface/ppr/")
 sys.path.append(path)
 from svggen.library import allComponents, getComponent, instanceOf, buildDatabase, queryDatabase, filterComponents, filterDatabase, updateComponentsLists
 from svggen.api.component import Component
-# from svggen.api.ports import code_ports
+from svggen.api.ports import code_ports
 from svggen.api.CodeComponent import CodeComponent
 
 # Create your views here.
@@ -322,7 +322,7 @@ def export_code(request):
     print "dCode python: ======================", dPCode, "length", len(dPCode)
     component += "\t\t\t\t\"code\": "
     if len(dPCode.strip()):
-        component += dPCode[0:-3] + "\n\t\t\t\t\t" + cPCode[2:]
+        component += "(" + dPCode[0:-2] + "\n\t\t\t\t\t" + cPCode[2:]
     elif len(cPCode.strip()):
         component += cPCode
     else :
@@ -392,10 +392,13 @@ def export_builder(request):
     code = request.body
     cName = saveBuilder(code)
 
+    print cName
     comp = getComponent(cName, name = cName)
+    print comp.getName()
+    print comp
     buildDatabase([comp])
     updateComponentsLists()
-    # print request.body
+    print request.body
     return HttpResponse("ok")
 
 def zipdir(path, ziph):

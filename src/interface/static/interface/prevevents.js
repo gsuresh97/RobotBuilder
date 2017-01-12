@@ -95,11 +95,13 @@ function onBlockNameChange(event) {
         }
 
 
-        // change the name of the category
-        block.cat.setAttribute("name", event.newValue);
-
         var blockName = block.type.substring(0, block.type.indexOf("|"));
         var blockNumber = parseInt(block.type.substring(block.type.indexOf("|") + 1, block.type.length), 10);
+
+        // change the name of the category
+        if(Blockly.Blocks[blockName + "|" + blockNumber + "\\0"]){
+            block.cat.setAttribute("name", event.newValue);
+        }
 
         // change the output blocks, if any exist, to  reflect the name change
         for (var i = 0; Blockly.Blocks[blockName + "|" + blockNumber + "\\" + i]; i++) {
@@ -121,17 +123,18 @@ function onBlockNameChange(event) {
         }
 
         var ids = outputStubs[blockName + "|" + blockNumber];
-        for(var i = 0; i < ids.length; i++){
-            var b = workspace.getBlockById(ids[i]);
-            var num = parseInt(b.type.substring(b.type.indexOf("\\")+1));
-            b.name = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].name;
-            b.outputType = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].outputType;
-            b.outputName = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].outputName;
-            b.init = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].init;
-            b.removeInput("NAME");
-            b.init();
+        if(ids){
+            for(var i = 0; i < ids.length; i++){
+                var b = workspace.getBlockById(ids[i]);
+                var num = parseInt(b.type.substring(b.type.indexOf("\\")+1));
+                b.name = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].name;
+                b.outputType = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].outputType;
+                b.outputName = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].outputName;
+                b.init = Blockly.Blocks[blockName + "|" + blockNumber + "\\" + num].init;
+                b.removeInput("NAME");
+                b.init();
+            }
         }
-
 
 
         Toolbox.updateToolbox();

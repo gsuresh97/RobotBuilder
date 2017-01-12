@@ -1,21 +1,21 @@
 connections:
-- - [driver, eOut]
-  - [led, eIn]
+- - [LEDDriver, eOut]
+  - [LED, eIn]
   - {}
 constants: {}
 constraints: []
 interfaces:
-  Din: {interface: Din, subcomponent: driver}
-  inInt: {interface: inInt, subcomponent: driver}
+  Din: {interface: Din, subcomponent: LEDDriver}
+  inInt: {interface: inInt, subcomponent: LEDDriver}
 parameters: {}
 subcomponents:
-  driver:
-    class: LEDDriver
+  LED:
+    class: LED
     constants: {}
     containers: {}
     parameters: {}
-  led:
-    class: LED
+  LEDDriver:
+    class: LEDDriver
     constants: {}
     containers: {}
     parameters: {}

@@ -18,6 +18,9 @@ class Cpp(Target):
     def __str__(self):
         return "Cpp"
 
+    def getParamsFrom(self, where):
+        return [self.detokenize(s) for s in findall("<<[0-9a-zA-Z]+?>>", where)]
+
     def mangle(self, name):
         self.meta["code"] = self.meta["code"].replace("@@name@@", name)
         self.meta["declarations"] = self.meta["declarations"].replace("@@name@@", name)
@@ -41,13 +44,13 @@ class Cpp(Target):
     def getParameters(self):
         output_parameters = []
         input_parameters = []
-        code_parameters = [self.detokenize(s) for s in findall("<<[0-9a-zA-Z]+?>>", self.meta["code"])]
+        code_parameters = self.getParamsFrom(self.meta["code"])
 
         for (key, val) in self.meta["inputs"].iteritems():
-            input_parameters += [self.detokenize(s) for s in findall("<<[0-9a-zA-Z]+?>>", val)]
+            input_parameters += self.getParamsFrom(val)
 
         for (key, val) in self.meta["outputs"].iteritems():
-            output_parameters += [self.detokenize(s) for s in findall("<<[0-9a-zA-Z]+?>>", val)]
+            output_parameters += self.getParamsFrom(val)
 
         return list(set(output_parameters) | set(input_parameters) | set(code_parameters))
 
@@ -145,3 +148,4 @@ class Cpp(Target):
 
         f.write(main)
         f.close()
+

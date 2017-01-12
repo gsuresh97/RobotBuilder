@@ -15,8 +15,9 @@ Blockly.Arduino.component_create = function() {
 }
 
 function checkBlock(){
-    compDB = {};
-    outputDB = {};
+    var compDB = {};
+    var ininDB = {};
+    var outputDB = {};
 
     // get block
     var block = Blockly.getMainWorkspace().getAllBlocks()[0];
@@ -43,14 +44,17 @@ function checkBlock(){
     }
 
     // check component names
-    var b = block.getInput("CODE").connection.targetBlock();
+    var b = block.getInput("CODE").connection;
 
-    while(b){
+    while(b.targetBlock()){
+        b = b.targetBlock();
         if(compDB[b.getFieldValue("NAME")]){
             alert("Each component needs a unique name. You have more than one component named \"" + compDB[b.getFieldValue("NAME")] + "\".");
+            return false;
         } else {
             compDB[b.getFieldValue("NAME")] = 1;
         }
+        b = b.nextConnection;
     }
 
 
@@ -67,6 +71,21 @@ function checkBlock(){
             return false;
         } else {
             outputDB[output] = 1;
+        }
+    }
+
+    // check inherited inputs
+    var blocks = Blockly.getMainWorkspace().getAllBlocks();
+    for(var i = 0; i < blocks.length; i++){
+        if(blocks[i].type == "inherit_input"){
+            var inin = blocks[i].getFieldValue("NAME");
+            if(ininDB[inin]){
+                alert("Each of the inherited inputs need a unique name. You have more than one inherited input named \"" + inin + "\".");
+                ininDB = {};
+                return false;
+            } else {
+                ininDB[inin] = 1;
+            }
         }
     }
 

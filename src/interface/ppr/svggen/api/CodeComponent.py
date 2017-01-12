@@ -5,8 +5,8 @@ from svggen.api.ports.CodePort import CodePort
 class CodeComponent(Component):
 
     def __init__(self, yamlFile=None, **kwargs):
-        Component.__init__(self, yamlFile, **kwargs)
         self.meta = dict()
+        Component.__init__(self, yamlFile, **kwargs)
 
     def define(self, **kwargs):
         self.addParameter("target", "", isSymbol=False)

@@ -117,7 +117,7 @@ class CustomBlockFile:
 
         self.blockFile.write("\t\t\tthis.setColour(180);\n")
         self.blockFile.write("\t\t},\n")
-        self.blockFile.write("\t\tname:'{}',\n".format(name))
+        self.blockFile.write("\t\tname: ans,\n")
         paramArr = "["
 
         for k, v in comp.parameters.iteritems():
@@ -130,7 +130,7 @@ class CustomBlockFile:
                 paramArr += "[\"{}\", {}], ".format(k, a)
         paramArr += "]"
 
-        if "ArduinoUno" in name:
+        if "electrical" in comp.composables:
             self.blockFile.write("\t\tparams:[],\n")
         else:
             self.blockFile.write("\t\tparams:{},\n".format(paramArr))
@@ -172,7 +172,7 @@ class CustomBlockFile:
         self.blockFile.write("\t\t},\n")
         self.blockFile.write("\t\toutputType:'{}',\n".format(valueType))
         self.blockFile.write("\t\toutputName:'{}',\n".format(name))
-        self.blockFile.write("\t\tname:'Block Name 0',\n")
+        self.blockFile.write("\t\tname:'{}',\n".format(componentName))
         self.blockFile.write("\t};\n")
 
     # Use writeComponent, this one is deprecated

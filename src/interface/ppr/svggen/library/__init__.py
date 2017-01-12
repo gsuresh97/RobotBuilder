@@ -129,7 +129,6 @@ def buildDatabase(components, username="root", password=""):
 
     # dbPath = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), 'compDatabase.db')
     dbPath = os.path.join(os.getcwd(), 'compDatabase.db')
-    os.remove(dbPath)
     print "Database Path", dbPath
     print "Working Directory", os.getcwd()
     con = db.connect(dbPath)
