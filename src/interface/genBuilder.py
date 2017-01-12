@@ -74,8 +74,8 @@ def saveBuilder(code):
                 else:
                     connections.append([className, varName, outName, outType])
                     print code
-                    # print [className, varName, outName, outType]
 
+        classType.rstrip('1234567890')
         build += "c.addSubcomponent(\"{}\", \"{}\")\n".format(className, classType)
         code = code[1:]
 

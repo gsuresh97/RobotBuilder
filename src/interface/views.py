@@ -97,9 +97,7 @@ def prevblocks(request):
     context = {
         'files': files
     }
-    # print "Here===================================================================="
-    # for i in comps:
-    #     print i.getName()
+    
     template = loader.get_template('interface/prev-blocks.html')
     return HttpResponse(template.render(context, request))
 
