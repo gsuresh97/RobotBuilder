@@ -1,3 +1,40 @@
+//DrivenMicrophone
+function makeOutputDrivenMicrophone(count){
+	Blockly.Arduino['DrivenMicrophone|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- DrivenMicrophone
+	Blockly.Arduino['DrivenMicrophone|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//aOut- DrivenMicrophone
+	Blockly.Arduino['DrivenMicrophone|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'aOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
 //DrivenPot
 function makeOutputDrivenPot(count){
 	Blockly.Arduino['DrivenPot|' + count] = function() {
@@ -56,6 +93,36 @@ function makeOutputDrivenLED(count){
 		code += '#';
 		return code;
 	}
+}
+
+//MotorDriver
+function makeOutputMotorDriver(count){
+	Blockly.Arduino['MotorDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//eOut- MotorDriver
+	Blockly.Arduino['MotorDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'eOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
 }
 
 //SortString
@@ -153,6 +220,29 @@ function makeOutputSplitThree(count){
 		code += 'out3'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
+}
+
+//DrivenServo
+function makeOutputDrivenServo(count){
+	Blockly.Arduino['DrivenServo|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
 }
 
 //DrivenRGBLED
@@ -391,150 +481,150 @@ function makeOutputArduinoUno(count){
 		return code;
 	}
 
-	//do18- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'do18'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
 	//do14- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\1'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\0'] = function() {
 		var code = this.name + '_';
 		code += 'do14'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do15- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\2'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\1'] = function() {
 		var code = this.name + '_';
 		code += 'do15'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do16- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\3'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\2'] = function() {
 		var code = this.name + '_';
 		code += 'do16'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do17- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\4'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\3'] = function() {
 		var code = this.name + '_';
 		code += 'do17'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do10- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\5'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\4'] = function() {
 		var code = this.name + '_';
 		code += 'do10'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do11- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\6'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\5'] = function() {
 		var code = this.name + '_';
 		code += 'do11'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do12- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\7'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\6'] = function() {
 		var code = this.name + '_';
 		code += 'do12'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do13- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\8'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\7'] = function() {
 		var code = this.name + '_';
 		code += 'do13'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do8- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\9'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\8'] = function() {
 		var code = this.name + '_';
 		code += 'do8'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do9- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\10'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\9'] = function() {
 		var code = this.name + '_';
 		code += 'do9'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
-	//do2- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\11'] = function() {
+	//pwm4- ArduinoUno
+	Blockly.Arduino['ArduinoUno|' + count + '\\10'] = function() {
 		var code = this.name + '_';
-		code += 'do2'+'>';
+		code += 'pwm4'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do3- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\12'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\11'] = function() {
 		var code = this.name + '_';
 		code += 'do3'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//pwm6- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\13'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\12'] = function() {
 		var code = this.name + '_';
 		code += 'pwm6'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do1- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\14'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\13'] = function() {
 		var code = this.name + '_';
 		code += 'do1'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do6- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\15'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\14'] = function() {
 		var code = this.name + '_';
 		code += 'do6'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//pwm1- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\16'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\15'] = function() {
 		var code = this.name + '_';
 		code += 'pwm1'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do4- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\17'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\16'] = function() {
 		var code = this.name + '_';
 		code += 'do4'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//do5- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\18'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\17'] = function() {
 		var code = this.name + '_';
 		code += 'do5'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
-	//pwm4- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\19'] = function() {
+	//do2- ArduinoUno
+	Blockly.Arduino['ArduinoUno|' + count + '\\18'] = function() {
 		var code = this.name + '_';
-		code += 'pwm4'+'>';
+		code += 'do2'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
 	//pwm5- ArduinoUno
-	Blockly.Arduino['ArduinoUno|' + count + '\\20'] = function() {
+	Blockly.Arduino['ArduinoUno|' + count + '\\19'] = function() {
 		var code = this.name + '_';
 		code += 'pwm5'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do0- ArduinoUno
+	Blockly.Arduino['ArduinoUno|' + count + '\\20'] = function() {
+		var code = this.name + '_';
+		code += 'do0'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 
@@ -558,6 +648,29 @@ function makeOutputArduinoUno(count){
 		code += 'pwm3'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
+}
+
+//LiveDemo4
+function makeOutputLiveDemo4(count){
+	Blockly.Arduino['LiveDemo4|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
 }
 
 //LiveDemo0
@@ -609,6 +722,29 @@ function makeOutputLiveDemo1(count){
 //LiveDemo2
 function makeOutputLiveDemo2(count){
 	Blockly.Arduino['LiveDemo2|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//LiveDemo3
+function makeOutputLiveDemo3(count){
+	Blockly.Arduino['LiveDemo3|' + count] = function() {
 		var code = this.name + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
@@ -715,6 +851,119 @@ function makeOutputReverseString(count){
 //PrintString
 function makeOutputPrintString(count){
 	Blockly.Arduino['PrintString|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//UltrasonicSensor
+function makeOutputUltrasonicSensor(count){
+	Blockly.Arduino['UltrasonicSensor|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//MicrophoneDriver
+function makeOutputMicrophoneDriver(count){
+	Blockly.Arduino['MicrophoneDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- MicrophoneDriver
+	Blockly.Arduino['MicrophoneDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//aOut- MicrophoneDriver
+	Blockly.Arduino['MicrophoneDriver|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'aOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//DrivenUltrasonicSensor
+function makeOutputDrivenUltrasonicSensor(count){
+	Blockly.Arduino['DrivenUltrasonicSensor|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- DrivenUltrasonicSensor
+	Blockly.Arduino['DrivenUltrasonicSensor|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//DrivenMotor
+function makeOutputDrivenMotor(count){
+	Blockly.Arduino['DrivenMotor|' + count] = function() {
 		var code = this.name + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
@@ -899,6 +1148,36 @@ function makeOutputSplitFour(count){
 	};
 }
 
+//UIButton
+function makeOutputUIButton(count){
+	Blockly.Arduino['UIButton|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- UIButton
+	Blockly.Arduino['UIButton|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
 //PutString
 function makeOutputPutString(count){
 	Blockly.Arduino['PutString|' + count] = function() {
@@ -922,9 +1201,9 @@ function makeOutputPutString(count){
 	}
 }
 
-//ReverseHello
-function makeOutputReverseHello(count){
-	Blockly.Arduino['ReverseHello|' + count] = function() {
+//DigitalOutputDriver
+function makeOutputDigitalOutputDriver(count){
+	Blockly.Arduino['DigitalOutputDriver|' + count] = function() {
 		var code = this.name + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
@@ -943,6 +1222,152 @@ function makeOutputReverseHello(count){
 		code += '#';
 		return code;
 	}
+
+	//eOut- DigitalOutputDriver
+	Blockly.Arduino['DigitalOutputDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'eOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//NodeMCU
+function makeOutputNodeMCU(count){
+	Blockly.Arduino['NodeMCU|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//do8- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'do8'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do2- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'do2'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do3- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\2'] = function() {
+		var code = this.name + '_';
+		code += 'do3'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do0- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\3'] = function() {
+		var code = this.name + '_';
+		code += 'do0'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do1- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\4'] = function() {
+		var code = this.name + '_';
+		code += 'do1'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do6- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\5'] = function() {
+		var code = this.name + '_';
+		code += 'do6'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do7- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\6'] = function() {
+		var code = this.name + '_';
+		code += 'do7'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do4- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\7'] = function() {
+		var code = this.name + '_';
+		code += 'do4'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//do5- NodeMCU
+	Blockly.Arduino['NodeMCU|' + count + '\\8'] = function() {
+		var code = this.name + '_';
+		code += 'do5'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//Motor
+function makeOutputMotor(count){
+	Blockly.Arduino['Motor|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//Microphone
+function makeOutputMicrophone(count){
+	Blockly.Arduino['Microphone|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//vOut- Microphone
+	Blockly.Arduino['Microphone|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'vOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
 }
 
 //StringSource
@@ -1038,276 +1463,6 @@ function makeOutputSplitTwo(count){
 	Blockly.Arduino['SplitTwo|' + count + '\\1'] = function() {
 		var code = this.name + '_';
 		code += 'out2'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//CapacitiveTouchSensorDriver
-function makeOutputCapacitiveTouchSensorDriver(count){
-	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//outInt- CapacitiveTouchSensorDriver
-	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'outInt'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//dOut- CapacitiveTouchSensorDriver
-	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'dOut'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//LED
-function makeOutputLED(count){
-	Blockly.Arduino['LED|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//LEDDriver
-function makeOutputLEDDriver(count){
-	Blockly.Arduino['LEDDriver|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//eOut- LEDDriver
-	Blockly.Arduino['LEDDriver|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'eOut'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//RGBLEDDriver
-function makeOutputRGBLEDDriver(count){
-	Blockly.Arduino['RGBLEDDriver|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//gOut- RGBLEDDriver
-	Blockly.Arduino['RGBLEDDriver|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'gOut'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//rOut- RGBLEDDriver
-	Blockly.Arduino['RGBLEDDriver|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'rOut'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//bOut- RGBLEDDriver
-	Blockly.Arduino['RGBLEDDriver|' + count + '\\2'] = function() {
-		var code = this.name + '_';
-		code += 'bOut'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//GetString
-function makeOutputGetString(count){
-	Blockly.Arduino['GetString|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//outStr- GetString
-	Blockly.Arduino['GetString|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'outStr'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-}
-
-//PutReverseSort
-function makeOutputPutReverseSort(count){
-	Blockly.Arduino['PutReverseSort|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//live_demo_test1
-function makeOutputlive_demo_test1(count){
-	Blockly.Arduino['live_demo_test1|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//IREmitter
-function makeOutputIREmitter(count){
-	Blockly.Arduino['IREmitter|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-}
-
-//PotDriver
-function makeOutputPotDriver(count){
-	Blockly.Arduino['PotDriver|' + count] = function() {
-		var code = this.name + '|';
-		code += (this.getFieldValue('NAME') + '|');
-		code += (this.inputs.length + '|');
-		code += (this.params.length + '|');
-		for(var i = 0; i < this.inputs.length; i++){
-			code += this.inputs[i];
-			code += '\\';
-			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
-		}
-
-		code += '#';
-		for(var i = 0; i < this.params.length; i++){
-			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
-		}
-
-		code += '#';
-		return code;
-	}
-
-	//outInt- PotDriver
-	Blockly.Arduino['PotDriver|' + count + '\\0'] = function() {
-		var code = this.name + '_';
-		code += 'outInt'+'>';
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	};
-
-	//aOut- PotDriver
-	Blockly.Arduino['PotDriver|' + count + '\\1'] = function() {
-		var code = this.name + '_';
-		code += 'aOut'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 }
@@ -1485,6 +1640,440 @@ function makeOutputArduinoMKR1000(count){
 	Blockly.Arduino['ArduinoMKR1000|' + count + '\\21'] = function() {
 		var code = this.name + '_';
 		code += 'pwm3'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//LED
+function makeOutputLED(count){
+	Blockly.Arduino['LED|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//LEDDriver
+function makeOutputLEDDriver(count){
+	Blockly.Arduino['LEDDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//eOut- LEDDriver
+	Blockly.Arduino['LEDDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'eOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//RGBLEDDriver
+function makeOutputRGBLEDDriver(count){
+	Blockly.Arduino['RGBLEDDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//gOut- RGBLEDDriver
+	Blockly.Arduino['RGBLEDDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'gOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//rOut- RGBLEDDriver
+	Blockly.Arduino['RGBLEDDriver|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'rOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//bOut- RGBLEDDriver
+	Blockly.Arduino['RGBLEDDriver|' + count + '\\2'] = function() {
+		var code = this.name + '_';
+		code += 'bOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//UISlider
+function makeOutputUISlider(count){
+	Blockly.Arduino['UISlider|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- UISlider
+	Blockly.Arduino['UISlider|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//ReverseHello
+function makeOutputReverseHello(count){
+	Blockly.Arduino['ReverseHello|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//GetString
+function makeOutputGetString(count){
+	Blockly.Arduino['GetString|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outStr- GetString
+	Blockly.Arduino['GetString|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outStr'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//DigitalInputDriver
+function makeOutputDigitalInputDriver(count){
+	Blockly.Arduino['DigitalInputDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- DigitalInputDriver
+	Blockly.Arduino['DigitalInputDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//Dout- DigitalInputDriver
+	Blockly.Arduino['DigitalInputDriver|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'Dout'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//ServoDriver
+function makeOutputServoDriver(count){
+	Blockly.Arduino['ServoDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//eOut- ServoDriver
+	Blockly.Arduino['ServoDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'eOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//PutReverseSort
+function makeOutputPutReverseSort(count){
+	Blockly.Arduino['PutReverseSort|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//live_demo_test1
+function makeOutputlive_demo_test1(count){
+	Blockly.Arduino['live_demo_test1|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//IREmitter
+function makeOutputIREmitter(count){
+	Blockly.Arduino['IREmitter|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
+//UltrasonicSensorDriver
+function makeOutputUltrasonicSensorDriver(count){
+	Blockly.Arduino['UltrasonicSensorDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- UltrasonicSensorDriver
+	Blockly.Arduino['UltrasonicSensorDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//tOut- UltrasonicSensorDriver
+	Blockly.Arduino['UltrasonicSensorDriver|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'tOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//eOut- UltrasonicSensorDriver
+	Blockly.Arduino['UltrasonicSensorDriver|' + count + '\\2'] = function() {
+		var code = this.name + '_';
+		code += 'eOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//PotDriver
+function makeOutputPotDriver(count){
+	Blockly.Arduino['PotDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- PotDriver
+	Blockly.Arduino['PotDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//aOut- PotDriver
+	Blockly.Arduino['PotDriver|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'aOut'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+}
+
+//CapacitiveTouchSensorDriver
+function makeOutputCapacitiveTouchSensorDriver(count){
+	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count] = function() {
+		var code = this.name + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+
+	//outInt- CapacitiveTouchSensorDriver
+	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count + '\\0'] = function() {
+		var code = this.name + '_';
+		code += 'outInt'+'>';
+		return [code, Blockly.Arduino.ORDER_ATOMIC];
+	};
+
+	//Dout- CapacitiveTouchSensorDriver
+	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count + '\\1'] = function() {
+		var code = this.name + '_';
+		code += 'Dout'+'>';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 	};
 }
@@ -1916,42 +2505,60 @@ function makeOutputuser_DrivenLED(count){
 	}
 }
 
+makeOutputDrivenMicrophone(0);
 makeOutputDrivenPot(0);
+makeOutputMotorDriver(0);
 makeOutputSortString(0);
 makeOutputSplitThree(0);
 makeOutputArduino101(0);
 makeOutputArduinoUno(0);
 makeOutputLinearInterpolate(0);
 makeOutputReverseString(0);
+makeOutputMicrophoneDriver(0);
+makeOutputDrivenUltrasonicSensor(0);
 makeOutputReverseSort(0);
 makeOutputIREmitterDriver(0);
 makeOutputuser_Counter(0);
 makeOutputSplitFour(0);
+makeOutputUIButton(0);
+makeOutputDigitalOutputDriver(0);
+makeOutputNodeMCU(0);
+makeOutputMicrophone(0);
 makeOutputStringSource(0);
 makeOutputAdd(0);
 makeOutputSplitTwo(0);
-makeOutputCapacitiveTouchSensorDriver(0);
+makeOutputArduinoMKR1000(0);
 makeOutputLEDDriver(0);
 makeOutputRGBLEDDriver(0);
+makeOutputUISlider(0);
 makeOutputGetString(0);
+makeOutputDigitalInputDriver(0);
+makeOutputServoDriver(0);
+makeOutputUltrasonicSensorDriver(0);
 makeOutputPotDriver(0);
-makeOutputArduinoMKR1000(0);
+makeOutputCapacitiveTouchSensorDriver(0);
 makeOutputGetColor(0);
 makeOutputPot(0);
 makeOutputTeensyLC(0);
 makeOutputrevLen(0);
 makeOutputDrivenLED(0);
 makeOutputServo(0);
+makeOutputDrivenServo(0);
 makeOutputDrivenRGBLED(0);
+makeOutputLiveDemo4(0);
 makeOutputLiveDemo0(0);
 makeOutputLiveDemo1(0);
 makeOutputLiveDemo2(0);
+makeOutputLiveDemo3(0);
 makeOutputRGBLED(0);
 makeOutputPrintString(0);
+makeOutputUltrasonicSensor(0);
+makeOutputDrivenMotor(0);
 makeOutputSortHello(0);
 makeOutputPutString(0);
-makeOutputReverseHello(0);
+makeOutputMotor(0);
 makeOutputLED(0);
+makeOutputReverseHello(0);
 makeOutputPutReverseSort(0);
 makeOutputlive_demo_test1(0);
 makeOutputIREmitter(0);

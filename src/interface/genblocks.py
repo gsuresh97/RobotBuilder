@@ -126,7 +126,7 @@ class CustomBlockFile:
                 a = "\"\""
             elif v == "0":
                 a = "\"0\""
-            elif v.isDigit():
+            elif not v.isdigit():
                 a = "\"" + v + "\""
             if "target" not in k:
                 paramArr += "[\"{}\", {}], ".format(k, a)

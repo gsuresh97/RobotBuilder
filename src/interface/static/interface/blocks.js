@@ -1,5 +1,53 @@
 var BlockList = new Map();
 
+//DrivenMicrophone
+function makeDrivenMicrophone(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="DrivenMicrophone"+(count);
+	}
+	Blockly.Blocks['DrivenMicrophone|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("DrivenMicrophone ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:[],
+		outputs:['outInt', 'aOut', ],
+	};
+
+	//outInt- DrivenMicrophone
+	Blockly.Blocks['DrivenMicrophone|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'DrivenMicrophone',
+	};
+
+	//aOut- DrivenMicrophone
+	Blockly.Blocks['DrivenMicrophone|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->aOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'AnalogOutputPort',
+		outputName:'aOut',
+		name:'DrivenMicrophone',
+	};
+}
+
 //DrivenPot
 function makeDrivenPot(count, name){
 	var ans = name;
@@ -70,6 +118,44 @@ function makeDrivenLED(count, name){
 		params:[],
 		category:'code, electrical',
 		inputs:['Din', 'inInt', ],
+	};
+}
+
+//MotorDriver
+function makeMotorDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="MotorDriver"+(count);
+	}
+	Blockly.Blocks['MotorDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("MotorDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("PWMin").setCheck("PWMInputPort").appendField("PWMin");
+			this.appendValueInput("inInt").setCheck("InIntPort").appendField("inInt");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['PWMin', 'inInt', ],
+		outputs:['eOut', ],
+	};
+
+	//eOut- MotorDriver
+	Blockly.Blocks['MotorDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->eOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'eOut',
+		name:'MotorDriver',
 	};
 }
 
@@ -192,6 +278,31 @@ function makeSplitThree(count, name){
 		outputType:'OutPort',
 		outputName:'out3',
 		name:'SplitThree',
+	};
+}
+
+//DrivenServo
+function makeDrivenServo(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="DrivenServo"+(count);
+	}
+	Blockly.Blocks['DrivenServo|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("DrivenServo ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("PWMin").setCheck("PWMInputPort").appendField("PWMin");
+			this.appendValueInput("inInt").setCheck("InIntPort").appendField("inInt");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['PWMin', 'inInt', ],
 	};
 }
 
@@ -572,7 +683,6 @@ function makeArduinoUno(count, name){
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
-			this.appendValueInput("di18").setCheck("DigitalInputPort").appendField("di18");
 			this.appendValueInput("di16").setCheck("DigitalInputPort").appendField("di16");
 			this.appendValueInput("di17").setCheck("DigitalInputPort").appendField("di17");
 			this.appendValueInput("di14").setCheck("DigitalInputPort").appendField("di14");
@@ -587,6 +697,7 @@ function makeArduinoUno(count, name){
 			this.appendValueInput("di5").setCheck("DigitalInputPort").appendField("di5");
 			this.appendValueInput("di6").setCheck("DigitalInputPort").appendField("di6");
 			this.appendValueInput("di7").setCheck("DigitalInputPort").appendField("di7");
+			this.appendValueInput("di0").setCheck("DigitalInputPort").appendField("di0");
 			this.appendValueInput("di1").setCheck("DigitalInputPort").appendField("di1");
 			this.appendValueInput("di2").setCheck("DigitalInputPort").appendField("di2");
 			this.appendValueInput("di3").setCheck("DigitalInputPort").appendField("di3");
@@ -603,24 +714,12 @@ function makeArduinoUno(count, name){
 		name: ans,
 		params:[],
 		category:'electrical',
-		inputs:['di18', 'di16', 'di17', 'di14', 'di15', 'di12', 'di13', 'di10', 'di11', 'di8', 'di9', 'di4', 'di5', 'di6', 'di7', 'di1', 'di2', 'di3', 'a1', 'a3', 'a2', 'a5', 'a4', 'a6', ],
-		outputs:['do18', 'do14', 'do15', 'do16', 'do17', 'do10', 'do11', 'do12', 'do13', 'do8', 'do9', 'do2', 'do3', 'pwm6', 'do1', 'do6', 'pwm1', 'do4', 'do5', 'pwm4', 'pwm5', 'do7', 'pwm2', 'pwm3', ],
-	};
-
-	//do18- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\0'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->do18");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'DigitalOutputPort',
-		outputName:'do18',
-		name:'ArduinoUno',
+		inputs:['di16', 'di17', 'di14', 'di15', 'di12', 'di13', 'di10', 'di11', 'di8', 'di9', 'di4', 'di5', 'di6', 'di7', 'di0', 'di1', 'di2', 'di3', 'a1', 'a3', 'a2', 'a5', 'a4', 'a6', ],
+		outputs:['do14', 'do15', 'do16', 'do17', 'do10', 'do11', 'do12', 'do13', 'do8', 'do9', 'pwm4', 'do3', 'pwm6', 'do1', 'do6', 'pwm1', 'do4', 'do5', 'do2', 'pwm5', 'do0', 'do7', 'pwm2', 'pwm3', ],
 	};
 
 	//do14- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\1'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\0'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do14");
 			this.setOutput(true, null);
@@ -632,7 +731,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do15- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\2'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\1'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do15");
 			this.setOutput(true, null);
@@ -644,7 +743,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do16- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\3'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\2'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do16");
 			this.setOutput(true, null);
@@ -656,7 +755,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do17- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\4'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\3'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do17");
 			this.setOutput(true, null);
@@ -668,7 +767,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do10- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\5'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\4'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do10");
 			this.setOutput(true, null);
@@ -680,7 +779,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do11- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\6'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\5'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do11");
 			this.setOutput(true, null);
@@ -692,7 +791,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do12- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\7'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\6'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do12");
 			this.setOutput(true, null);
@@ -704,7 +803,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do13- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\8'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\7'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do13");
 			this.setOutput(true, null);
@@ -716,7 +815,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do8- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\9'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\8'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do8");
 			this.setOutput(true, null);
@@ -728,7 +827,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do9- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\10'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\9'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do9");
 			this.setOutput(true, null);
@@ -739,20 +838,20 @@ function makeArduinoUno(count, name){
 		name:'ArduinoUno',
 	};
 
-	//do2- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\11'] = {
+	//pwm4- ArduinoUno
+	Blockly.Blocks['ArduinoUno|' + count + '\\10'] = {
 		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->do2");
+			this.appendDummyInput("NAME").appendField(ans + "->pwm4");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
-		outputType:'DigitalOutputPort',
-		outputName:'do2',
+		outputType:'PWMOutputPort',
+		outputName:'pwm4',
 		name:'ArduinoUno',
 	};
 
 	//do3- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\12'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\11'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do3");
 			this.setOutput(true, null);
@@ -764,7 +863,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//pwm6- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\13'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\12'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->pwm6");
 			this.setOutput(true, null);
@@ -776,7 +875,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do1- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\14'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\13'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do1");
 			this.setOutput(true, null);
@@ -788,7 +887,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do6- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\15'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\14'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do6");
 			this.setOutput(true, null);
@@ -800,7 +899,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//pwm1- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\16'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\15'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->pwm1");
 			this.setOutput(true, null);
@@ -812,7 +911,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do4- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\17'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\16'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do4");
 			this.setOutput(true, null);
@@ -824,7 +923,7 @@ function makeArduinoUno(count, name){
 	};
 
 	//do5- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\18'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\17'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->do5");
 			this.setOutput(true, null);
@@ -835,20 +934,20 @@ function makeArduinoUno(count, name){
 		name:'ArduinoUno',
 	};
 
-	//pwm4- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\19'] = {
+	//do2- ArduinoUno
+	Blockly.Blocks['ArduinoUno|' + count + '\\18'] = {
 		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->pwm4");
+			this.appendDummyInput("NAME").appendField(ans + "->do2");
 			this.setOutput(true, null);
 			this.setColour(180);
 		},
-		outputType:'PWMOutputPort',
-		outputName:'pwm4',
+		outputType:'DigitalOutputPort',
+		outputName:'do2',
 		name:'ArduinoUno',
 	};
 
 	//pwm5- ArduinoUno
-	Blockly.Blocks['ArduinoUno|' + count + '\\20'] = {
+	Blockly.Blocks['ArduinoUno|' + count + '\\19'] = {
 		init: function(){
 			this.appendDummyInput("NAME").appendField(ans + "->pwm5");
 			this.setOutput(true, null);
@@ -856,6 +955,18 @@ function makeArduinoUno(count, name){
 		},
 		outputType:'PWMOutputPort',
 		outputName:'pwm5',
+		name:'ArduinoUno',
+	};
+
+	//do0- ArduinoUno
+	Blockly.Blocks['ArduinoUno|' + count + '\\20'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do0");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do0',
 		name:'ArduinoUno',
 	};
 
@@ -893,6 +1004,29 @@ function makeArduinoUno(count, name){
 		outputType:'PWMOutputPort',
 		outputName:'pwm3',
 		name:'ArduinoUno',
+	};
+}
+
+//LiveDemo4
+function makeLiveDemo4(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="LiveDemo4"+(count);
+	}
+	Blockly.Blocks['LiveDemo4|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("LiveDemo4 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:[],
 	};
 }
 
@@ -951,6 +1085,29 @@ function makeLiveDemo2(count, name){
 	Blockly.Blocks['LiveDemo2|' + count] = {
 		init: function(){
 			this.appendDummyInput().appendField("LiveDemo2 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:[],
+	};
+}
+
+//LiveDemo3
+function makeLiveDemo3(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="LiveDemo3"+(count);
+	}
+	Blockly.Blocks['LiveDemo3|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("LiveDemo3 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1083,6 +1240,141 @@ function makePrintString(count, name){
 		params:[],
 		category:'code',
 		inputs:['inStr', ],
+	};
+}
+
+//UltrasonicSensor
+function makeUltrasonicSensor(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="UltrasonicSensor"+(count);
+	}
+	Blockly.Blocks['UltrasonicSensor|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("UltrasonicSensor ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'electrical',
+		inputs:[],
+	};
+}
+
+//MicrophoneDriver
+function makeMicrophoneDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="MicrophoneDriver"+(count);
+	}
+	Blockly.Blocks['MicrophoneDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("MicrophoneDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("vIn").setCheck("ElectricalPort").appendField("vIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['vIn', ],
+		outputs:['outInt', 'aOut', ],
+	};
+
+	//outInt- MicrophoneDriver
+	Blockly.Blocks['MicrophoneDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'MicrophoneDriver',
+	};
+
+	//aOut- MicrophoneDriver
+	Blockly.Blocks['MicrophoneDriver|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->aOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'AnalogOutputPort',
+		outputName:'aOut',
+		name:'MicrophoneDriver',
+	};
+}
+
+//DrivenUltrasonicSensor
+function makeDrivenUltrasonicSensor(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="DrivenUltrasonicSensor"+(count);
+	}
+	Blockly.Blocks['DrivenUltrasonicSensor|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("DrivenUltrasonicSensor ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("echoIn").setCheck("DigitalInputPort").appendField("echoIn");
+			this.appendValueInput("triggerIn").setCheck("DigitalInputPort").appendField("triggerIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['echoIn', 'triggerIn', ],
+		outputs:['outInt', ],
+	};
+
+	//outInt- DrivenUltrasonicSensor
+	Blockly.Blocks['DrivenUltrasonicSensor|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'DrivenUltrasonicSensor',
+	};
+}
+
+//DrivenMotor
+function makeDrivenMotor(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="DrivenMotor"+(count);
+	}
+	Blockly.Blocks['DrivenMotor|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("DrivenMotor ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("PWMin").setCheck("PWMInputPort").appendField("PWMin");
+			this.appendValueInput("inInt").setCheck("InIntPort").appendField("inInt");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['PWMin', 'inInt', ],
 	};
 }
 
@@ -1293,6 +1585,42 @@ function makeSplitFour(count, name){
 	};
 }
 
+//UIButton
+function makeUIButton(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="UIButton"+(count);
+	}
+	Blockly.Blocks['UIButton|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("UIButton ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[["text", "Button"], ],
+		category:'code',
+		inputs:[],
+		outputs:['outInt', ],
+	};
+
+	//outInt- UIButton
+	Blockly.Blocks['UIButton|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'UIButton',
+	};
+}
+
 //PutString
 function makePutString(count, name){
 	var ans = name;
@@ -1316,15 +1644,219 @@ function makePutString(count, name){
 	};
 }
 
-//ReverseHello
-function makeReverseHello(count, name){
+//DigitalOutputDriver
+function makeDigitalOutputDriver(count, name){
 	var ans = name;
 	if (name === undefined){
-		ans="ReverseHello"+(count);
+		ans="DigitalOutputDriver"+(count);
 	}
-	Blockly.Blocks['ReverseHello|' + count] = {
+	Blockly.Blocks['DigitalOutputDriver|' + count] = {
 		init: function(){
-			this.appendDummyInput().appendField("ReverseHello ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			this.appendDummyInput().appendField("DigitalOutputDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("Din").setCheck("DigitalInputPort").appendField("Din");
+			this.appendValueInput("inInt").setCheck("InIntPort").appendField("inInt");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['Din', 'inInt', ],
+		outputs:['eOut', ],
+	};
+
+	//eOut- DigitalOutputDriver
+	Blockly.Blocks['DigitalOutputDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->eOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'eOut',
+		name:'DigitalOutputDriver',
+	};
+}
+
+//NodeMCU
+function makeNodeMCU(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="NodeMCU"+(count);
+	}
+	Blockly.Blocks['NodeMCU|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("NodeMCU ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("a1").setCheck("AnalogInputPort").appendField("a1");
+			this.appendValueInput("di8").setCheck("DigitalInputPort").appendField("di8");
+			this.appendValueInput("di4").setCheck("DigitalInputPort").appendField("di4");
+			this.appendValueInput("di5").setCheck("DigitalInputPort").appendField("di5");
+			this.appendValueInput("di6").setCheck("DigitalInputPort").appendField("di6");
+			this.appendValueInput("di7").setCheck("DigitalInputPort").appendField("di7");
+			this.appendValueInput("di0").setCheck("DigitalInputPort").appendField("di0");
+			this.appendValueInput("di1").setCheck("DigitalInputPort").appendField("di1");
+			this.appendValueInput("di2").setCheck("DigitalInputPort").appendField("di2");
+			this.appendValueInput("di3").setCheck("DigitalInputPort").appendField("di3");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'electrical',
+		inputs:['a1', 'di8', 'di4', 'di5', 'di6', 'di7', 'di0', 'di1', 'di2', 'di3', ],
+		outputs:['do8', 'do2', 'do3', 'do0', 'do1', 'do6', 'do7', 'do4', 'do5', ],
+	};
+
+	//do8- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do8");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do8',
+		name:'NodeMCU',
+	};
+
+	//do2- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do2");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do2',
+		name:'NodeMCU',
+	};
+
+	//do3- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\2'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do3");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do3',
+		name:'NodeMCU',
+	};
+
+	//do0- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\3'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do0");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do0',
+		name:'NodeMCU',
+	};
+
+	//do1- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\4'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do1");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do1',
+		name:'NodeMCU',
+	};
+
+	//do6- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\5'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do6");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do6',
+		name:'NodeMCU',
+	};
+
+	//do7- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\6'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do7");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do7',
+		name:'NodeMCU',
+	};
+
+	//do4- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\7'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do4");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do4',
+		name:'NodeMCU',
+	};
+
+	//do5- NodeMCU
+	Blockly.Blocks['NodeMCU|' + count + '\\8'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->do5");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'do5',
+		name:'NodeMCU',
+	};
+}
+
+//Motor
+function makeMotor(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="Motor"+(count);
+	}
+	Blockly.Blocks['Motor|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("Motor ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("eIn").setCheck("ElectricalPort").appendField("eIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'electrical',
+		inputs:['eIn', ],
+	};
+}
+
+//Microphone
+function makeMicrophone(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="Microphone"+(count);
+	}
+	Blockly.Blocks['Microphone|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("Microphone ").appendField(new Blockly.FieldTextInput(ans), "NAME");
 			for(var i = 0; i < this.params.length; i++){
 				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
 			}
@@ -1334,8 +1866,21 @@ function makeReverseHello(count, name){
 		},
 		name: ans,
 		params:[],
-		category:'code',
+		category:'electrical',
 		inputs:[],
+		outputs:['vOut', ],
+	};
+
+	//vOut- Microphone
+	Blockly.Blocks['Microphone|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->vOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'vOut',
+		name:'Microphone',
 	};
 }
 
@@ -1459,338 +2004,6 @@ function makeSplitTwo(count, name){
 		outputType:'OutPort',
 		outputName:'out2',
 		name:'SplitTwo',
-	};
-}
-
-//CapacitiveTouchSensorDriver
-function makeCapacitiveTouchSensorDriver(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="CapacitiveTouchSensorDriver"+(count);
-	}
-	Blockly.Blocks['CapacitiveTouchSensorDriver|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("CapacitiveTouchSensorDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.appendValueInput("eIn").setCheck("ElectricalPort").appendField("eIn");
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'code, electrical',
-		inputs:['eIn', ],
-		outputs:['outInt', 'dOut', ],
-	};
-
-	//outInt- CapacitiveTouchSensorDriver
-	Blockly.Blocks['CapacitiveTouchSensorDriver|' + count + '\\0'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->outInt");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'OutIntPort',
-		outputName:'outInt',
-		name:'CapacitiveTouchSensorDriver',
-	};
-
-	//dOut- CapacitiveTouchSensorDriver
-	Blockly.Blocks['CapacitiveTouchSensorDriver|' + count + '\\1'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->dOut");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'DigitalOutputPort',
-		outputName:'dOut',
-		name:'CapacitiveTouchSensorDriver',
-	};
-}
-
-//LED
-function makeLED(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="LED"+(count);
-	}
-	Blockly.Blocks['LED|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("LED ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.appendValueInput("eIn").setCheck("ElectricalPort").appendField("eIn");
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'electrical',
-		inputs:['eIn', ],
-	};
-}
-
-//LEDDriver
-function makeLEDDriver(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="LEDDriver"+(count);
-	}
-	Blockly.Blocks['LEDDriver|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("LEDDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.appendValueInput("Din").setCheck("DigitalInputPort").appendField("Din");
-			this.appendValueInput("inInt").setCheck("InIntPort").appendField("inInt");
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'code, electrical',
-		inputs:['Din', 'inInt', ],
-		outputs:['eOut', ],
-	};
-
-	//eOut- LEDDriver
-	Blockly.Blocks['LEDDriver|' + count + '\\0'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->eOut");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'ElectricalPort',
-		outputName:'eOut',
-		name:'LEDDriver',
-	};
-}
-
-//RGBLEDDriver
-function makeRGBLEDDriver(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="RGBLEDDriver"+(count);
-	}
-	Blockly.Blocks['RGBLEDDriver|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("RGBLEDDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.appendValueInput("gPWM").setCheck("PWMInputPort").appendField("gPWM");
-			this.appendValueInput("inGreen").setCheck("InIntPort").appendField("inGreen");
-			this.appendValueInput("rPWM").setCheck("PWMInputPort").appendField("rPWM");
-			this.appendValueInput("inRed").setCheck("InIntPort").appendField("inRed");
-			this.appendValueInput("inBlue").setCheck("InIntPort").appendField("inBlue");
-			this.appendValueInput("bPWM").setCheck("PWMInputPort").appendField("bPWM");
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'code, electrical',
-		inputs:['gPWM', 'inGreen', 'rPWM', 'inRed', 'inBlue', 'bPWM', ],
-		outputs:['gOut', 'rOut', 'bOut', ],
-	};
-
-	//gOut- RGBLEDDriver
-	Blockly.Blocks['RGBLEDDriver|' + count + '\\0'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->gOut");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'ElectricalPort',
-		outputName:'gOut',
-		name:'RGBLEDDriver',
-	};
-
-	//rOut- RGBLEDDriver
-	Blockly.Blocks['RGBLEDDriver|' + count + '\\1'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->rOut");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'ElectricalPort',
-		outputName:'rOut',
-		name:'RGBLEDDriver',
-	};
-
-	//bOut- RGBLEDDriver
-	Blockly.Blocks['RGBLEDDriver|' + count + '\\2'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->bOut");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'ElectricalPort',
-		outputName:'bOut',
-		name:'RGBLEDDriver',
-	};
-}
-
-//GetString
-function makeGetString(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="GetString"+(count);
-	}
-	Blockly.Blocks['GetString|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("GetString ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'code',
-		inputs:[],
-		outputs:['outStr', ],
-	};
-
-	//outStr- GetString
-	Blockly.Blocks['GetString|' + count + '\\0'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->outStr");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'OutStringPort',
-		outputName:'outStr',
-		name:'GetString',
-	};
-}
-
-//PutReverseSort
-function makePutReverseSort(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="PutReverseSort"+(count);
-	}
-	Blockly.Blocks['PutReverseSort|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("PutReverseSort ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'code',
-		inputs:[],
-	};
-}
-
-//live_demo_test1
-function makelive_demo_test1(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="live_demo_test1"+(count);
-	}
-	Blockly.Blocks['live_demo_test1|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("live_demo_test1 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'code, electrical',
-		inputs:[],
-	};
-}
-
-//IREmitter
-function makeIREmitter(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="IREmitter"+(count);
-	}
-	Blockly.Blocks['IREmitter|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("IREmitter ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.appendValueInput("eIn").setCheck("ElectricalPort").appendField("eIn");
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'electrical',
-		inputs:['eIn', ],
-	};
-}
-
-//PotDriver
-function makePotDriver(count, name){
-	var ans = name;
-	if (name === undefined){
-		ans="PotDriver"+(count);
-	}
-	Blockly.Blocks['PotDriver|' + count] = {
-		init: function(){
-			this.appendDummyInput().appendField("PotDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
-			for(var i = 0; i < this.params.length; i++){
-				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
-			}
-			this.appendValueInput("vIn").setCheck("ElectricalPort").appendField("vIn");
-			this.setPreviousStatement(true, null);
-			this.setNextStatement(true, null);
-			this.setColour(180);
-		},
-		name: ans,
-		params:[],
-		category:'code, electrical',
-		inputs:['vIn', ],
-		outputs:['outInt', 'aOut', ],
-	};
-
-	//outInt- PotDriver
-	Blockly.Blocks['PotDriver|' + count + '\\0'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->outInt");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'OutIntPort',
-		outputName:'outInt',
-		name:'PotDriver',
-	};
-
-	//aOut- PotDriver
-	Blockly.Blocks['PotDriver|' + count + '\\1'] = {
-		init: function(){
-			this.appendDummyInput("NAME").appendField(ans + "->aOut");
-			this.setOutput(true, null);
-			this.setColour(180);
-		},
-		outputType:'AnalogOutputPort',
-		outputName:'aOut',
-		name:'PotDriver',
 	};
 }
 
@@ -2103,6 +2316,546 @@ function makeArduinoMKR1000(count, name){
 		outputType:'PWMOutputPort',
 		outputName:'pwm3',
 		name:'ArduinoMKR1000',
+	};
+}
+
+//LED
+function makeLED(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="LED"+(count);
+	}
+	Blockly.Blocks['LED|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("LED ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("eIn").setCheck("ElectricalPort").appendField("eIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'electrical',
+		inputs:['eIn', ],
+	};
+}
+
+//LEDDriver
+function makeLEDDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="LEDDriver"+(count);
+	}
+	Blockly.Blocks['LEDDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("LEDDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("Din").setCheck("DigitalInputPort").appendField("Din");
+			this.appendValueInput("inInt").setCheck("InIntPort").appendField("inInt");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['Din', 'inInt', ],
+		outputs:['eOut', ],
+	};
+
+	//eOut- LEDDriver
+	Blockly.Blocks['LEDDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->eOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'eOut',
+		name:'LEDDriver',
+	};
+}
+
+//RGBLEDDriver
+function makeRGBLEDDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="RGBLEDDriver"+(count);
+	}
+	Blockly.Blocks['RGBLEDDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("RGBLEDDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("gPWM").setCheck("PWMInputPort").appendField("gPWM");
+			this.appendValueInput("inGreen").setCheck("InIntPort").appendField("inGreen");
+			this.appendValueInput("rPWM").setCheck("PWMInputPort").appendField("rPWM");
+			this.appendValueInput("inRed").setCheck("InIntPort").appendField("inRed");
+			this.appendValueInput("inBlue").setCheck("InIntPort").appendField("inBlue");
+			this.appendValueInput("bPWM").setCheck("PWMInputPort").appendField("bPWM");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['gPWM', 'inGreen', 'rPWM', 'inRed', 'inBlue', 'bPWM', ],
+		outputs:['gOut', 'rOut', 'bOut', ],
+	};
+
+	//gOut- RGBLEDDriver
+	Blockly.Blocks['RGBLEDDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->gOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'gOut',
+		name:'RGBLEDDriver',
+	};
+
+	//rOut- RGBLEDDriver
+	Blockly.Blocks['RGBLEDDriver|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->rOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'rOut',
+		name:'RGBLEDDriver',
+	};
+
+	//bOut- RGBLEDDriver
+	Blockly.Blocks['RGBLEDDriver|' + count + '\\2'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->bOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'bOut',
+		name:'RGBLEDDriver',
+	};
+}
+
+//UISlider
+function makeUISlider(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="UISlider"+(count);
+	}
+	Blockly.Blocks['UISlider|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("UISlider ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[["max", 1023], ["min", "0"], ],
+		category:'code',
+		inputs:[],
+		outputs:['outInt', ],
+	};
+
+	//outInt- UISlider
+	Blockly.Blocks['UISlider|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'UISlider',
+	};
+}
+
+//ReverseHello
+function makeReverseHello(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="ReverseHello"+(count);
+	}
+	Blockly.Blocks['ReverseHello|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("ReverseHello ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code',
+		inputs:[],
+	};
+}
+
+//GetString
+function makeGetString(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="GetString"+(count);
+	}
+	Blockly.Blocks['GetString|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("GetString ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code',
+		inputs:[],
+		outputs:['outStr', ],
+	};
+
+	//outStr- GetString
+	Blockly.Blocks['GetString|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outStr");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutStringPort',
+		outputName:'outStr',
+		name:'GetString',
+	};
+}
+
+//DigitalInputDriver
+function makeDigitalInputDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="DigitalInputDriver"+(count);
+	}
+	Blockly.Blocks['DigitalInputDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("DigitalInputDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("eIn").setCheck("ElectricalPort").appendField("eIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['eIn', ],
+		outputs:['outInt', 'Dout', ],
+	};
+
+	//outInt- DigitalInputDriver
+	Blockly.Blocks['DigitalInputDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'DigitalInputDriver',
+	};
+
+	//Dout- DigitalInputDriver
+	Blockly.Blocks['DigitalInputDriver|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->Dout");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'Dout',
+		name:'DigitalInputDriver',
+	};
+}
+
+//ServoDriver
+function makeServoDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="ServoDriver"+(count);
+	}
+	Blockly.Blocks['ServoDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("ServoDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("PWMin").setCheck("PWMInputPort").appendField("PWMin");
+			this.appendValueInput("inInt").setCheck("InIntPort").appendField("inInt");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['PWMin', 'inInt', ],
+		outputs:['eOut', ],
+	};
+
+	//eOut- ServoDriver
+	Blockly.Blocks['ServoDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->eOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'eOut',
+		name:'ServoDriver',
+	};
+}
+
+//PutReverseSort
+function makePutReverseSort(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="PutReverseSort"+(count);
+	}
+	Blockly.Blocks['PutReverseSort|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("PutReverseSort ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code',
+		inputs:[],
+	};
+}
+
+//live_demo_test1
+function makelive_demo_test1(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="live_demo_test1"+(count);
+	}
+	Blockly.Blocks['live_demo_test1|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("live_demo_test1 ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:[],
+	};
+}
+
+//IREmitter
+function makeIREmitter(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="IREmitter"+(count);
+	}
+	Blockly.Blocks['IREmitter|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("IREmitter ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("eIn").setCheck("ElectricalPort").appendField("eIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'electrical',
+		inputs:['eIn', ],
+	};
+}
+
+//UltrasonicSensorDriver
+function makeUltrasonicSensorDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="UltrasonicSensorDriver"+(count);
+	}
+	Blockly.Blocks['UltrasonicSensorDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("UltrasonicSensorDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("triggerIn").setCheck("DigitalInputPort").appendField("triggerIn");
+			this.appendValueInput("echoIn").setCheck("DigitalInputPort").appendField("echoIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['triggerIn', 'echoIn', ],
+		outputs:['outInt', 'tOut', 'eOut', ],
+	};
+
+	//outInt- UltrasonicSensorDriver
+	Blockly.Blocks['UltrasonicSensorDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'UltrasonicSensorDriver',
+	};
+
+	//tOut- UltrasonicSensorDriver
+	Blockly.Blocks['UltrasonicSensorDriver|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->tOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'tOut',
+		name:'UltrasonicSensorDriver',
+	};
+
+	//eOut- UltrasonicSensorDriver
+	Blockly.Blocks['UltrasonicSensorDriver|' + count + '\\2'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->eOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'ElectricalPort',
+		outputName:'eOut',
+		name:'UltrasonicSensorDriver',
+	};
+}
+
+//PotDriver
+function makePotDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="PotDriver"+(count);
+	}
+	Blockly.Blocks['PotDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("PotDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("vIn").setCheck("ElectricalPort").appendField("vIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['vIn', ],
+		outputs:['outInt', 'aOut', ],
+	};
+
+	//outInt- PotDriver
+	Blockly.Blocks['PotDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'PotDriver',
+	};
+
+	//aOut- PotDriver
+	Blockly.Blocks['PotDriver|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->aOut");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'AnalogOutputPort',
+		outputName:'aOut',
+		name:'PotDriver',
+	};
+}
+
+//CapacitiveTouchSensorDriver
+function makeCapacitiveTouchSensorDriver(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="CapacitiveTouchSensorDriver"+(count);
+	}
+	Blockly.Blocks['CapacitiveTouchSensorDriver|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("CapacitiveTouchSensorDriver ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.appendValueInput("eIn").setCheck("ElectricalPort").appendField("eIn");
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code, electrical',
+		inputs:['eIn', ],
+		outputs:['outInt', 'Dout', ],
+	};
+
+	//outInt- CapacitiveTouchSensorDriver
+	Blockly.Blocks['CapacitiveTouchSensorDriver|' + count + '\\0'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->outInt");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'OutIntPort',
+		outputName:'outInt',
+		name:'CapacitiveTouchSensorDriver',
+	};
+
+	//Dout- CapacitiveTouchSensorDriver
+	Blockly.Blocks['CapacitiveTouchSensorDriver|' + count + '\\1'] = {
+		init: function(){
+			this.appendDummyInput("NAME").appendField(ans + "->Dout");
+			this.setOutput(true, null);
+			this.setColour(180);
+		},
+		outputType:'DigitalOutputPort',
+		outputName:'Dout',
+		name:'CapacitiveTouchSensorDriver',
 	};
 }
 
@@ -2764,42 +3517,60 @@ function makeuser_DrivenLED(count, name){
 	};
 }
 
+makeDrivenMicrophone(0);
 makeDrivenPot(0);
+makeMotorDriver(0);
 makeSortString(0);
 makeSplitThree(0);
 makeArduino101(0);
 makeArduinoUno(0);
 makeLinearInterpolate(0);
 makeReverseString(0);
+makeMicrophoneDriver(0);
+makeDrivenUltrasonicSensor(0);
 makeReverseSort(0);
 makeIREmitterDriver(0);
 makeuser_Counter(0);
 makeSplitFour(0);
+makeUIButton(0);
+makeDigitalOutputDriver(0);
+makeNodeMCU(0);
+makeMicrophone(0);
 makeStringSource(0);
 makeAdd(0);
 makeSplitTwo(0);
-makeCapacitiveTouchSensorDriver(0);
+makeArduinoMKR1000(0);
 makeLEDDriver(0);
 makeRGBLEDDriver(0);
+makeUISlider(0);
 makeGetString(0);
+makeDigitalInputDriver(0);
+makeServoDriver(0);
+makeUltrasonicSensorDriver(0);
 makePotDriver(0);
-makeArduinoMKR1000(0);
+makeCapacitiveTouchSensorDriver(0);
 makeGetColor(0);
 makePot(0);
 makeTeensyLC(0);
 makerevLen(0);
 makeDrivenLED(0);
 makeServo(0);
+makeDrivenServo(0);
 makeDrivenRGBLED(0);
+makeLiveDemo4(0);
 makeLiveDemo0(0);
 makeLiveDemo1(0);
 makeLiveDemo2(0);
+makeLiveDemo3(0);
 makeRGBLED(0);
 makePrintString(0);
+makeUltrasonicSensor(0);
+makeDrivenMotor(0);
 makeSortHello(0);
 makePutString(0);
-makeReverseHello(0);
+makeMotor(0);
 makeLED(0);
+makeReverseHello(0);
 makePutReverseSort(0);
 makelive_demo_test1(0);
 makeIREmitter(0);
