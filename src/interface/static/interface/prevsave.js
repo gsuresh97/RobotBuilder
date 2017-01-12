@@ -280,7 +280,8 @@ function processCCOpen(save) {
         var ks = Array.from(m.keys());
         for (var i = 0; i < ks.length; i++) {
             block = Blockly.getMainWorkspace().getBlockById(m.get(ks[i])[0]);
-            eval("make" + name + "(" + Number(ks[i]) + ", \"" + block.getFieldValue("NAME") + "\")");
+            // eval("make" + name + "(" + Number(ks[i]) + ", \"" + block.getFieldValue("NAME") + "\")");
+            eval("make" + name + "(" + Number(ks[i]) + ")")
             eval("makeOutput" + name + "(" + Number(ks[i]) + ")");
         }
     }

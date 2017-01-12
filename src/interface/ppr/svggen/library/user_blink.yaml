@@ -1,0 +1,27 @@
+connections:
+- - [arduno, do2]
+  - [led, Din]
+  - {}
+- - [counter, ledLevel]
+  - [led, inInt]
+  - {}
+constants: {}
+constraints: []
+interfaces: {}
+parameters: {}
+subcomponents:
+  arduno:
+    class: ArduinoUno
+    constants: {}
+    containers: {}
+    parameters: {}
+  counter:
+    class: user_Counter
+    constants: {}
+    containers: {}
+    parameters: {}
+  led:
+    class: DrivenLED
+    constants: {}
+    containers: {}
+    parameters: {}

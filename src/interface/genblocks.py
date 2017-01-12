@@ -292,7 +292,7 @@ class CustomBlockFile:
             "\tBlockly.Arduino['{}' + count] = function() {{\n".format(name + "|"))
         # self.pccFile.write(
         #     "\tBlockly.Arduino['{}0'] = function() {{\n".format(name + "|"))
-        self.pccFile.write("\t\tvar code = this.name + '|';\n")
+        self.pccFile.write("\t\tvar code = \"{}\" + (count) + '|';\n".format(name))
         self.pccFile.write("\t\tcode += (this.getFieldValue('NAME') + '|');\n")
         self.pccFile.write("\t\tcode += (this.inputs.length + '|');\n")
         self.pccFile.write("\t\tcode += (this.params.length + '|');\n")

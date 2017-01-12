@@ -1,7 +1,7 @@
 //DrivenMicrophone
 function makeOutputDrivenMicrophone(count){
 	Blockly.Arduino['DrivenMicrophone|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DrivenMicrophone" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -38,7 +38,7 @@ function makeOutputDrivenMicrophone(count){
 //DrivenPot
 function makeOutputDrivenPot(count){
 	Blockly.Arduino['DrivenPot|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DrivenPot" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -75,7 +75,7 @@ function makeOutputDrivenPot(count){
 //DrivenLED
 function makeOutputDrivenLED(count){
 	Blockly.Arduino['DrivenLED|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DrivenLED" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -98,7 +98,7 @@ function makeOutputDrivenLED(count){
 //MotorDriver
 function makeOutputMotorDriver(count){
 	Blockly.Arduino['MotorDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "MotorDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -128,7 +128,7 @@ function makeOutputMotorDriver(count){
 //SortString
 function makeOutputSortString(count){
 	Blockly.Arduino['SortString|' + count] = function() {
-		var code = this.name + '|';
+		var code = "SortString" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -158,7 +158,7 @@ function makeOutputSortString(count){
 //Servo
 function makeOutputServo(count){
 	Blockly.Arduino['Servo|' + count] = function() {
-		var code = this.name + '|';
+		var code = "Servo" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -181,7 +181,7 @@ function makeOutputServo(count){
 //SplitThree
 function makeOutputSplitThree(count){
 	Blockly.Arduino['SplitThree|' + count] = function() {
-		var code = this.name + '|';
+		var code = "SplitThree" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -225,7 +225,7 @@ function makeOutputSplitThree(count){
 //DrivenServo
 function makeOutputDrivenServo(count){
 	Blockly.Arduino['DrivenServo|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DrivenServo" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -248,7 +248,7 @@ function makeOutputDrivenServo(count){
 //DrivenRGBLED
 function makeOutputDrivenRGBLED(count){
 	Blockly.Arduino['DrivenRGBLED|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DrivenRGBLED" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -271,7 +271,7 @@ function makeOutputDrivenRGBLED(count){
 //Arduino101
 function makeOutputArduino101(count){
 	Blockly.Arduino['Arduino101|' + count] = function() {
-		var code = this.name + '|';
+		var code = "Arduino101" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -462,7 +462,7 @@ function makeOutputArduino101(count){
 //ArduinoUno
 function makeOutputArduinoUno(count){
 	Blockly.Arduino['ArduinoUno|' + count] = function() {
-		var code = this.name + '|';
+		var code = "ArduinoUno" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -653,7 +653,7 @@ function makeOutputArduinoUno(count){
 //LiveDemo4
 function makeOutputLiveDemo4(count){
 	Blockly.Arduino['LiveDemo4|' + count] = function() {
-		var code = this.name + '|';
+		var code = "LiveDemo4" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -676,7 +676,7 @@ function makeOutputLiveDemo4(count){
 //LiveDemo0
 function makeOutputLiveDemo0(count){
 	Blockly.Arduino['LiveDemo0|' + count] = function() {
-		var code = this.name + '|';
+		var code = "LiveDemo0" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -699,7 +699,7 @@ function makeOutputLiveDemo0(count){
 //LiveDemo1
 function makeOutputLiveDemo1(count){
 	Blockly.Arduino['LiveDemo1|' + count] = function() {
-		var code = this.name + '|';
+		var code = "LiveDemo1" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -722,7 +722,7 @@ function makeOutputLiveDemo1(count){
 //LiveDemo2
 function makeOutputLiveDemo2(count){
 	Blockly.Arduino['LiveDemo2|' + count] = function() {
-		var code = this.name + '|';
+		var code = "LiveDemo2" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -745,7 +745,7 @@ function makeOutputLiveDemo2(count){
 //LiveDemo3
 function makeOutputLiveDemo3(count){
 	Blockly.Arduino['LiveDemo3|' + count] = function() {
-		var code = this.name + '|';
+		var code = "LiveDemo3" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -768,7 +768,7 @@ function makeOutputLiveDemo3(count){
 //RGBLED
 function makeOutputRGBLED(count){
 	Blockly.Arduino['RGBLED|' + count] = function() {
-		var code = this.name + '|';
+		var code = "RGBLED" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -791,7 +791,7 @@ function makeOutputRGBLED(count){
 //LinearInterpolate
 function makeOutputLinearInterpolate(count){
 	Blockly.Arduino['LinearInterpolate|' + count] = function() {
-		var code = this.name + '|';
+		var code = "LinearInterpolate" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -821,7 +821,7 @@ function makeOutputLinearInterpolate(count){
 //ReverseString
 function makeOutputReverseString(count){
 	Blockly.Arduino['ReverseString|' + count] = function() {
-		var code = this.name + '|';
+		var code = "ReverseString" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -851,7 +851,7 @@ function makeOutputReverseString(count){
 //PrintString
 function makeOutputPrintString(count){
 	Blockly.Arduino['PrintString|' + count] = function() {
-		var code = this.name + '|';
+		var code = "PrintString" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -874,7 +874,7 @@ function makeOutputPrintString(count){
 //UltrasonicSensor
 function makeOutputUltrasonicSensor(count){
 	Blockly.Arduino['UltrasonicSensor|' + count] = function() {
-		var code = this.name + '|';
+		var code = "UltrasonicSensor" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -897,7 +897,7 @@ function makeOutputUltrasonicSensor(count){
 //MicrophoneDriver
 function makeOutputMicrophoneDriver(count){
 	Blockly.Arduino['MicrophoneDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "MicrophoneDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -934,7 +934,7 @@ function makeOutputMicrophoneDriver(count){
 //DrivenUltrasonicSensor
 function makeOutputDrivenUltrasonicSensor(count){
 	Blockly.Arduino['DrivenUltrasonicSensor|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DrivenUltrasonicSensor" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -964,7 +964,7 @@ function makeOutputDrivenUltrasonicSensor(count){
 //DrivenMotor
 function makeOutputDrivenMotor(count){
 	Blockly.Arduino['DrivenMotor|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DrivenMotor" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -987,7 +987,7 @@ function makeOutputDrivenMotor(count){
 //ReverseSort
 function makeOutputReverseSort(count){
 	Blockly.Arduino['ReverseSort|' + count] = function() {
-		var code = this.name + '|';
+		var code = "ReverseSort" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1017,7 +1017,7 @@ function makeOutputReverseSort(count){
 //IREmitterDriver
 function makeOutputIREmitterDriver(count){
 	Blockly.Arduino['IREmitterDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "IREmitterDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1047,7 +1047,7 @@ function makeOutputIREmitterDriver(count){
 //SortHello
 function makeOutputSortHello(count){
 	Blockly.Arduino['SortHello|' + count] = function() {
-		var code = this.name + '|';
+		var code = "SortHello" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1070,7 +1070,7 @@ function makeOutputSortHello(count){
 //user_Counter
 function makeOutputuser_Counter(count){
 	Blockly.Arduino['user_Counter|' + count] = function() {
-		var code = this.name + '|';
+		var code = "user_Counter" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1100,7 +1100,7 @@ function makeOutputuser_Counter(count){
 //SplitFour
 function makeOutputSplitFour(count){
 	Blockly.Arduino['SplitFour|' + count] = function() {
-		var code = this.name + '|';
+		var code = "SplitFour" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1151,7 +1151,7 @@ function makeOutputSplitFour(count){
 //UIButton
 function makeOutputUIButton(count){
 	Blockly.Arduino['UIButton|' + count] = function() {
-		var code = this.name + '|';
+		var code = "UIButton" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1181,7 +1181,7 @@ function makeOutputUIButton(count){
 //PutString
 function makeOutputPutString(count){
 	Blockly.Arduino['PutString|' + count] = function() {
-		var code = this.name + '|';
+		var code = "PutString" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1204,7 +1204,7 @@ function makeOutputPutString(count){
 //DigitalOutputDriver
 function makeOutputDigitalOutputDriver(count){
 	Blockly.Arduino['DigitalOutputDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DigitalOutputDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1234,7 +1234,7 @@ function makeOutputDigitalOutputDriver(count){
 //NodeMCU
 function makeOutputNodeMCU(count){
 	Blockly.Arduino['NodeMCU|' + count] = function() {
-		var code = this.name + '|';
+		var code = "NodeMCU" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1320,7 +1320,7 @@ function makeOutputNodeMCU(count){
 //Motor
 function makeOutputMotor(count){
 	Blockly.Arduino['Motor|' + count] = function() {
-		var code = this.name + '|';
+		var code = "Motor" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1343,7 +1343,7 @@ function makeOutputMotor(count){
 //Microphone
 function makeOutputMicrophone(count){
 	Blockly.Arduino['Microphone|' + count] = function() {
-		var code = this.name + '|';
+		var code = "Microphone" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1373,7 +1373,7 @@ function makeOutputMicrophone(count){
 //StringSource
 function makeOutputStringSource(count){
 	Blockly.Arduino['StringSource|' + count] = function() {
-		var code = this.name + '|';
+		var code = "StringSource" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1403,7 +1403,7 @@ function makeOutputStringSource(count){
 //Add
 function makeOutputAdd(count){
 	Blockly.Arduino['Add|' + count] = function() {
-		var code = this.name + '|';
+		var code = "Add" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1433,7 +1433,7 @@ function makeOutputAdd(count){
 //SplitTwo
 function makeOutputSplitTwo(count){
 	Blockly.Arduino['SplitTwo|' + count] = function() {
-		var code = this.name + '|';
+		var code = "SplitTwo" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1470,7 +1470,7 @@ function makeOutputSplitTwo(count){
 //ArduinoMKR1000
 function makeOutputArduinoMKR1000(count){
 	Blockly.Arduino['ArduinoMKR1000|' + count] = function() {
-		var code = this.name + '|';
+		var code = "ArduinoMKR1000" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1647,7 +1647,7 @@ function makeOutputArduinoMKR1000(count){
 //LED
 function makeOutputLED(count){
 	Blockly.Arduino['LED|' + count] = function() {
-		var code = this.name + '|';
+		var code = "LED" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1670,7 +1670,7 @@ function makeOutputLED(count){
 //LEDDriver
 function makeOutputLEDDriver(count){
 	Blockly.Arduino['LEDDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "LEDDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1700,7 +1700,7 @@ function makeOutputLEDDriver(count){
 //RGBLEDDriver
 function makeOutputRGBLEDDriver(count){
 	Blockly.Arduino['RGBLEDDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "RGBLEDDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1744,7 +1744,7 @@ function makeOutputRGBLEDDriver(count){
 //UISlider
 function makeOutputUISlider(count){
 	Blockly.Arduino['UISlider|' + count] = function() {
-		var code = this.name + '|';
+		var code = "UISlider" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1774,7 +1774,7 @@ function makeOutputUISlider(count){
 //ReverseHello
 function makeOutputReverseHello(count){
 	Blockly.Arduino['ReverseHello|' + count] = function() {
-		var code = this.name + '|';
+		var code = "ReverseHello" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1797,7 +1797,7 @@ function makeOutputReverseHello(count){
 //GetString
 function makeOutputGetString(count){
 	Blockly.Arduino['GetString|' + count] = function() {
-		var code = this.name + '|';
+		var code = "GetString" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1827,7 +1827,7 @@ function makeOutputGetString(count){
 //DigitalInputDriver
 function makeOutputDigitalInputDriver(count){
 	Blockly.Arduino['DigitalInputDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "DigitalInputDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1864,7 +1864,7 @@ function makeOutputDigitalInputDriver(count){
 //ServoDriver
 function makeOutputServoDriver(count){
 	Blockly.Arduino['ServoDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "ServoDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1894,7 +1894,7 @@ function makeOutputServoDriver(count){
 //PutReverseSort
 function makeOutputPutReverseSort(count){
 	Blockly.Arduino['PutReverseSort|' + count] = function() {
-		var code = this.name + '|';
+		var code = "PutReverseSort" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1917,7 +1917,7 @@ function makeOutputPutReverseSort(count){
 //live_demo_test1
 function makeOutputlive_demo_test1(count){
 	Blockly.Arduino['live_demo_test1|' + count] = function() {
-		var code = this.name + '|';
+		var code = "live_demo_test1" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1940,7 +1940,7 @@ function makeOutputlive_demo_test1(count){
 //IREmitter
 function makeOutputIREmitter(count){
 	Blockly.Arduino['IREmitter|' + count] = function() {
-		var code = this.name + '|';
+		var code = "IREmitter" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -1963,7 +1963,7 @@ function makeOutputIREmitter(count){
 //UltrasonicSensorDriver
 function makeOutputUltrasonicSensorDriver(count){
 	Blockly.Arduino['UltrasonicSensorDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "UltrasonicSensorDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2007,7 +2007,7 @@ function makeOutputUltrasonicSensorDriver(count){
 //PotDriver
 function makeOutputPotDriver(count){
 	Blockly.Arduino['PotDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "PotDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2044,7 +2044,7 @@ function makeOutputPotDriver(count){
 //CapacitiveTouchSensorDriver
 function makeOutputCapacitiveTouchSensorDriver(count){
 	Blockly.Arduino['CapacitiveTouchSensorDriver|' + count] = function() {
-		var code = this.name + '|';
+		var code = "CapacitiveTouchSensorDriver" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2081,7 +2081,7 @@ function makeOutputCapacitiveTouchSensorDriver(count){
 //GetColor
 function makeOutputGetColor(count){
 	Blockly.Arduino['GetColor|' + count] = function() {
-		var code = this.name + '|';
+		var code = "GetColor" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2125,7 +2125,7 @@ function makeOutputGetColor(count){
 //Pot
 function makeOutputPot(count){
 	Blockly.Arduino['Pot|' + count] = function() {
-		var code = this.name + '|';
+		var code = "Pot" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2155,7 +2155,7 @@ function makeOutputPot(count){
 //TeensyLC
 function makeOutputTeensyLC(count){
 	Blockly.Arduino['TeensyLC|' + count] = function() {
-		var code = this.name + '|';
+		var code = "TeensyLC" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2409,7 +2409,7 @@ function makeOutputTeensyLC(count){
 //GetAndPutString
 function makeOutputGetAndPutString(count){
 	Blockly.Arduino['GetAndPutString|' + count] = function() {
-		var code = this.name + '|';
+		var code = "GetAndPutString" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2432,7 +2432,7 @@ function makeOutputGetAndPutString(count){
 //CapacitiveTouchSensor
 function makeOutputCapacitiveTouchSensor(count){
 	Blockly.Arduino['CapacitiveTouchSensor|' + count] = function() {
-		var code = this.name + '|';
+		var code = "CapacitiveTouchSensor" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2455,7 +2455,7 @@ function makeOutputCapacitiveTouchSensor(count){
 //revLen
 function makeOutputrevLen(count){
 	Blockly.Arduino['revLen|' + count] = function() {
-		var code = this.name + '|';
+		var code = "revLen" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
@@ -2485,7 +2485,7 @@ function makeOutputrevLen(count){
 //user_DrivenLED
 function makeOutputuser_DrivenLED(count){
 	Blockly.Arduino['user_DrivenLED|' + count] = function() {
-		var code = this.name + '|';
+		var code = "user_DrivenLED" + (count) + '|';
 		code += (this.getFieldValue('NAME') + '|');
 		code += (this.inputs.length + '|');
 		code += (this.params.length + '|');
