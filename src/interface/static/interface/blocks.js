@@ -2402,6 +2402,29 @@ function makeLED(count, name){
 	};
 }
 
+//user_name
+function makeuser_name(count, name){
+	var ans = name;
+	if (name === undefined){
+		ans="user_name"+(count);
+	}
+	Blockly.Blocks['user_name|' + count] = {
+		init: function(){
+			this.appendDummyInput().appendField("user_name ").appendField(new Blockly.FieldTextInput(ans), "NAME");
+			for(var i = 0; i < this.params.length; i++){
+				this.appendDummyInput().appendField("Parameter " + this.params[i][0]).appendField(new Blockly.FieldTextInput(this.params[i][1]), "PARAM" + i);
+			}
+			this.setPreviousStatement(true, null);
+			this.setNextStatement(true, null);
+			this.setColour(180);
+		},
+		name: ans,
+		params:[],
+		category:'code',
+		inputs:[],
+	};
+}
+
 //LEDDriver
 function makeLEDDriver(count, name){
 	var ans = name;
@@ -3631,6 +3654,7 @@ makePutString(0);
 makeMotor(0);
 makeuser_blink(0);
 makeLED(0);
+makeuser_name(0);
 makeReverseHello(0);
 makePutReverseSort(0);
 makelive_demo_test1(0);

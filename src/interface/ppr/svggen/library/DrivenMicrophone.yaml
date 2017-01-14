@@ -5,11 +5,11 @@ connections:
 constants: {}
 constraints: []
 interfaces:
-  aOut: {interface: aOut, subcomponent: driver}
-  outInt: {interface: outInt, subcomponent: driver}
+  aOut: {interface: aOut, subcomponent: mdriver}
+  outInt: {interface: outInt, subcomponent: mdriver}
 parameters: {}
 subcomponents:
-  driver:
+  mdriver:
     class: MicrophoneDriver
     constants: {}
     containers: {}

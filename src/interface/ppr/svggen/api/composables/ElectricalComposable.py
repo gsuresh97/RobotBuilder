@@ -18,13 +18,14 @@ class ElectricalComposable(Composable):
         self.physical[name]["virtual"] = isVirtual
 
     def resolveVirtuals(self):
-        for (cName, cVal) in self.physical.iteritems():
-            if not cVal["virtual"]:
-                continue
-            for cc in cVal["connections"]:
-                if cc:
-                    self.physical[cc[0][0]]["connections"][cc[0][1]] = cc[1]
-                    self.physical[cc[1][0]]["connections"][cc[1][1]] = cc[0]
+        return
+        #for (cName, cVal) in self.physical.iteritems():
+        #    if not cVal["virtual"]:
+        #        continue
+        #    for cc in cVal["connections"]:
+        #        if cc:
+        #            self.physical[cc[0][0]]["connections"][cc[0][1]] = cc[1]
+        #            self.physical[cc[1][0]]["connections"][cc[1][1]] = cc[0]
 
 
     def attach(self, fromPort, toPort, kwargs):
@@ -60,10 +61,10 @@ class ElectricalComposable(Composable):
         f = open(filename, "w")
 
         f.write("Wiring Instructions:\n")
-        self.resolveVirtuals()
+        #self.resolveVirtuals()
 
-        newPhysical = deepcopy(self.physical)
-
+        #newPhysical = deepcopy(self.physical)
+        """
         for (name, val) in newPhysical.iteritems():
             if "Component." in name:
                 name = name.replace("Component.", "")
@@ -89,6 +90,7 @@ class ElectricalComposable(Composable):
                     f.write("Connect %s on %s to Vout\n" % (fPinName, name))
                 elif fPin in val["power"]["Ground"]:
                     f.write("Connect %s on %s to ground\n" % (fPinName, name))
+        """
 
 
 

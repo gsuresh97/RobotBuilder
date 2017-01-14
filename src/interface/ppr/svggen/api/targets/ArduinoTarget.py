@@ -10,6 +10,7 @@ class Arduino(Cpp):
             "code": "",
             "declarations": "",
             "setup": "",
+            "loop": "",
             "inputs": {},
             "outputs": {},
             "needs": set(),
@@ -31,6 +32,9 @@ class Arduino(Cpp):
                 "event": ""
             }
 
+        if "loop" not in self.meta.keys():
+            self.meta["loop"] = ""
+
         if self.meta["interface"]["html"] or self.meta["interface"]["style"] or \
            self.meta["interface"]["js"] or self.meta["interface"]["event"]:
             self.interface = True
@@ -42,6 +46,7 @@ class Arduino(Cpp):
 
     def mangle(self, name):
         self.meta["setup"] = self.meta["setup"].replace("@@name@@", name)
+        self.meta["loop"] = self.meta["loop"].replace("@@name@@", name)
         self.meta["interface"]["html"] = self.meta["interface"]["html"].replace("@@name@@", name)
         self.meta["interface"]["style"] = self.meta["interface"]["style"].replace("@@name@@", name)
         self.meta["interface"]["js"] = self.meta["interface"]["js"].replace("@@name@@", name)
@@ -50,11 +55,15 @@ class Arduino(Cpp):
 
     def append(self, newMeta, newPrefix):
         pNewLine = "" if not self.meta["setup"] else "\n"
+        lNewLine = "" if not self.meta["loop"] else "\n"
 
         if newMeta["setup"]:
             if "Serial.begin" in newMeta["setup"] and "Serial.begin" in self.meta["setup"]:
                 newMeta["setup"] = newMeta["setup"].replace("Serial.begin(115200)", "")
             self.meta["setup"] += pNewLine + newMeta["setup"]
+
+        if newMeta["loop"]:
+            self.meta["loop"] += lNewLine + newMeta["setup"]
 
         if newMeta["interface"]:
             hNewLine = "" if not self.meta["interface"]["html"] else "\n"
@@ -70,11 +79,12 @@ class Arduino(Cpp):
         return Cpp.append(self, newMeta, newPrefix)
 
     def getParameters(self):
-        return list(Cpp.getParameters(self) | set(self.getParamsFrom(self.meta["setup"])) |
-                    set(self.getParamsFrom(self.meta["interface"]["html"])) |
+        return list(set(self.getParamsFrom(self.meta["interface"]["html"])) |
                     set(self.getParamsFrom(self.meta["interface"]["style"])) |
                     set(self.getParamsFrom(self.meta["interface"]["js"])) |
-                    set(self.getParamsFrom(self.meta["interface"]["event"])))
+                    set(self.getParamsFrom(self.meta["interface"]["event"])) |
+                    set(self.getParamsFrom(self.meta["setup"])) | set(self.getParamsFrom(self.meta["loop"])) |
+                    Cpp.getParameters(self))
 
     def subParameters(self, subs):
         # for inputToken, inputSub in self.meta["inputs"].iteritems():
@@ -85,6 +95,7 @@ class Arduino(Cpp):
                 self.meta["outputs"][outputToken] = outputExpr.replace(self.tokenize(token), sub)
             self.meta["code"] = self.meta["code"].replace(self.tokenize(token), sub)
             self.meta["setup"] = self.meta["setup"].replace(self.tokenize(token), sub)
+            self.meta["loop"] = self.meta["loop"].replace(self.tokenize(token), sub)
 
             self.meta["interface"]["html"] = self.meta["interface"]["html"].replace(self.tokenize(token), sub)
             self.meta["interface"]["style"] = self.meta["interface"]["style"].replace(self.tokenize(token), sub)
@@ -109,7 +120,7 @@ class Arduino(Cpp):
                                     "\"</style>\"\n" + \
                                     "\"</head>\"\n" + \
                                     "\"<body>\"\n" + \
-                                    "\"%s\n" %  (self.meta["interface"]["html"].replace("\n", "\"\n").rstrip()) + \
+                                    "\"%s\"\n" %  (self.meta["interface"]["html"].replace("\n", "\"\n\"").rstrip()) + \
                                     "\"<script>\"\n" + \
                                     "\"%s\"\n" % (
                                     "    %s" % (self.meta["interface"]["js"].replace("\n", "\"\n\"    ").rstrip())) + \
@@ -132,7 +143,7 @@ class Arduino(Cpp):
                                     "\"    };\"\n" + \
                                     "\"</script>\"\n" + \
                                     "\"</body>\"\n" + \
-                                    "\"</html>\";\n" + self.meta["declarations"]
+                                    "\"</html>\";\n\n" + self.meta["declarations"]
 
         self.meta["code"] = "\nvoid handleRoot() {\n" + \
                             "    server.send(200, \"text/html\", html);" + \
@@ -218,7 +229,8 @@ class Arduino(Cpp):
 
         loop = "\nvoid loop()\n" + \
                 "{\n" + \
-                "   %s\n" % "".join([s + ";\n" for (k,s) in self.meta["outputs"].iteritems() if s]) + \
+                "    %s\n" % "".join([s + ";\n" for (k,s) in self.meta["outputs"].iteritems() if s]) + \
+                "    %s\n" % self.meta["loop"] + \
                 "}\n"
 
         f.write(setup)

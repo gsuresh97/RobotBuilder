@@ -23,7 +23,7 @@ from DataPort import DataPort
 from DataOutputPort import DataOutputPort
 from DataInputPort import DataInputPort
 
-from CodePort import InStringPort, OutStringPort, InIntPort, OutIntPort, OutPort, InPort, InFloatPort, OutFloatPort, InDoublePort, OutDoublePort
+from CodePort import *
 
 all_ports = [
     ElectricalInputPort,
@@ -46,14 +46,14 @@ all_ports = [
 ]
 
 code_ports = [
+    OutPort,
+    InPort,
     InStringPort,
     OutStringPort,
     InIntPort,
     OutIntPort,
-    OutPort,
-    InPort,
     InFloatPort,
     OutFloatPort,
     InDoublePort,
-    OutDoublePort
+    OutDoublePort,
 ]

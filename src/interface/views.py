@@ -164,6 +164,51 @@ def export_code(request):
 
     # Get Arduino Info
     declare = code[0:code.find("void setup() {")].strip()
+
+    protos = []
+    # Cheerson CX-Stars Mini 2.4G 4CH 6 Axis Gyro RC Quadcopter UFO Drone
+    pr = declare.split("// Describe this function...\n")
+    for i in range(1, len(pr)):
+        protos.append(pr[i][0:pr[i].find("\n")])
+
+
+    for i in range(0, len(protos)):
+        protos[i] = protos[i][0:protos[i].find(" {")] + ";"
+
+
+    print "declare============================", declare, "============="
+    for i in declare.split("\n"):
+        if len(i) > 0 and i[0] != ' ' and i[len(i)-1] == ";":
+            protos.append(i)
+
+    for i in range(0, len(protos)):
+        protos[i] = "\"" + protos[i] + "\\n\""
+
+    prots = "\n\t\t\t\t\t".join(protos)
+
+    isMethod = False
+    methods = [""]
+    for i in declare.split("\n"):
+        if len(i) > 0 and i[0] != " " and i[len(i)-1] == "{":
+            isMethod = True;
+
+        if isMethod:
+            methods[len(methods)-1] += ("\"" + i + "\\n\"\n\t\t\t\t\t")
+
+        if len(i) > 0 and i[0] == "}":
+            isMethod = False
+            methods.append("\t\t\t\t\t")
+
+
+
+
+    met = "\n".join(methods)
+
+    print "Methods:=============================================", met
+
+
+    print "prots===========================================", prots
+
     code = code[code.find("op() {") + 9:]
     # Extract Class Name
     classNameIndex = code.index("|", 0)
@@ -237,9 +282,48 @@ def export_code(request):
     if len(dCode.strip()) == 0:
         dCode = "\"\"\n"
 
+    funOut = [];
+
     print "dCode:==================================================:", dCode
+    print "cCode==============================================", ("\n" + compCode)
+
+    g = (compCode).split("\n")
+
+    print "compCode before:======================================", "\n"+compCode
+
+    h = []
+
+    top = "void @@name@@{\n"
+
+    if len(g)>0 and len(g[i][2:])>0 and "=" not in g[i][2:] and "();" in g[i][2:] and g[i][3] != " ":
+        funOut.append(g[i][2:])
+    else :
+        h.append(g[i])
+
+    for i in range(1, len(g)):
+        if len(g[i][4:])>0 and "=" not in g[i][4:] and "();" in g[i][4:] and g[i][5] != " ":
+            funOut.append(g[i][4:])
+        else :
+            h.append(g[i])
+
+    compCode = "\n".join(h)
+
+    print "compCode after:======================================", "\n"+compCode
+
+    # compCode = compCode[2:]
+
+
+    for i in funOut:
+        outputs.append(["dummy", i, ""])
 
     cCode = formatIndent(compCode, trimBegin = True)
+
+
+
+    sup = cCode[2:][:-2]
+    cCode = "(" + met + "\n\t\t\t\t\t\"" + ")\n"
+
+    print "sup========================================", sup
 
 
     # Get Python info
@@ -299,13 +383,16 @@ def export_code(request):
     component += "\t\t\t\t},\n\n"
 
     # outputs
+    print "outputs==================================", outputs
+
+
     component += "\t\t\t\t\"outputs\": {\n"
     for i in outputs:
         component += "\t\t\t\t\t\"" + i[0] + "\" : \"" + i[1] + "\",\n"
     component += "\t\t\t\t},\n\n"
 
     component += "\t\t\t\t\"declarations\": "
-    component += dCode
+    component += "(" + prots + ")"
     component += "\t\t\t\t,\n\n"
 
     component += "\t\t\t\t\"setup\": \"\",\n\n"
@@ -313,43 +400,43 @@ def export_code(request):
     component += "\t\t\t\t\"needs\": set()\n"
     component += "\t\t\t},\n\n"
 
-    # Python
-    component += "\t\t\tPython: {\n"
-
-    # code
-    print "dCode python: ======================", dPCode, "length", len(dPCode)
-    if dPCode[0] != "(":
-        dPCode = "(" + dPCode
-    component += "\t\t\t\t\"code\": "
-    if len(dPCode.strip()):
-        component += dPCode[0:-2] + "\n\t\t\t\t\t" + cPCode[2:]
-    elif len(cPCode.strip()):
-        component += cPCode
-    else :
-        component += "\"\"\n"
-    component += "\t\t\t\t,\n\n"
-
-    # inputs
-    component += "\t\t\t\t\"inputs\": {\n"
-    # print inputs
-    for i in inputs:
-        component += "\t\t\t\t\t\"" + i[0] + "\": None"
-        if i[0] != inputs[len(inputs)-1]:
-            component += ","
-        component += "\n"
-    component += "\t\t\t\t},\n\n"
-
-    # outputs
-    component += "\t\t\t\t\"outputs\": {\n"
-    for i in outputsP:
-        component += "\t\t\t\t\t\"" + i[0] + "\" : \"" + i[1] + "\",\n"
-    component += "\t\t\t\t},\n\n"
-
-    component += "\t\t\t\t\"setup\": \"\",\n\n"
-
-    component += "\t\t\t\t\"needs\": set()\n"
-    component += "\t\t\t}\n"
-
+    # # Python
+    # component += "\t\t\tPython: {\n"
+    #
+    # # code
+    # print "dCode python: ======================", dPCode, "length", len(dPCode)
+    # if dPCode[0] != "(":
+    #     dPCode = "(" + dPCode
+    # component += "\t\t\t\t\"code\": "
+    # if len(dPCode.strip()):
+    #     component += dPCode[0:-2] + "\n\t\t\t\t\t" + cPCode[2:]
+    # elif len(cPCode.strip()):
+    #     component += cPCode
+    # else :
+    #     component += "\"\"\n"
+    # component += "\t\t\t\t,\n\n"
+    #
+    # # inputs
+    # component += "\t\t\t\t\"inputs\": {\n"
+    # # print inputs
+    # for i in inputs:
+    #     component += "\t\t\t\t\t\"" + i[0] + "\": None"
+    #     if i[0] != inputs[len(inputs)-1]:
+    #         component += ","
+    #     component += "\n"
+    # component += "\t\t\t\t},\n\n"
+    #
+    # # outputs
+    # component += "\t\t\t\t\"outputs\": {\n"
+    # for i in outputsP:
+    #     component += "\t\t\t\t\t\"" + i[0] + "\" : \"" + i[1] + "\",\n"
+    # component += "\t\t\t\t},\n\n"
+    #
+    # component += "\t\t\t\t\"setup\": \"\",\n\n"
+    #
+    # component += "\t\t\t\t\"needs\": set()\n"
+    # component += "\t\t\t}\n"
+    #
     component += "\t\t}\n\n"
 
     for i in range(len(inputs)):
@@ -357,7 +444,8 @@ def export_code(request):
         # component += "\t\tself.addInterface(\"inPort" +str(i) + "\", " + inputs[i][1]+"(self, \"inPort" + str(i) + "\", " + "\"" + inputs[i][0] + "\"))\n"
 
     for i in range(len(outputs)):
-        component += "\t\tself.addInterface(\"" +outputs[i][0][:-8]+ "\", " + outputs[i][2]+"(self, \"" + outputs[i][0][:-8] + "\", " + "\"" + outputs[i][0] + "\"))\n"
+        if len(outputs[i][2]) > 0:
+            component += "\t\tself.addInterface(\"" +outputs[i][0][:-8]+ "\", " + outputs[i][2]+"(self, \"" + outputs[i][0][:-8] + "\", " + "\"" + outputs[i][0] + "\"))\n"
         # component += "\t\tself.addInterface(\"outPort" +str(i) + "\", " + outputs[i][2]+"(self, \"outPort" + str(i) + "\", " + "\"" + outputs[i][0] + "\"))\n"
     component += "\t\tCodeComponent.define(self, **kwargs)\n"
 

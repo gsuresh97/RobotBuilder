@@ -41,7 +41,7 @@ class LEDDriver(Driver):
                 },
 
                 "outputs": {
-                    "driven": "digitalWrite(<<Pin_@@name@@>>, <<in_@@name@@>>)"
+                    "driven_@@name@@": "digitalWrite(<<Pin_@@name@@>>, <<in_@@name@@>>)"
                 },
 
                 "declarations": "",

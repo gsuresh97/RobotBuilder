@@ -37,7 +37,7 @@ class ServoDriver(Driver):
                 },
 
                 "outputs": {
-                    "driven": "servo_@@name@@.write(<<in_@@name@@>>)"
+                    "servo_@@name@@": "servo_@@name@@.write(<<in_@@name@@>>)"
                 },
 
                 "declarations": "Servo servo_@@name@@;",

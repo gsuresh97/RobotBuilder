@@ -49,6 +49,7 @@ class UIButton(CodeComponent):
                 }
             }
         }
+
         self.addInterface("outInt", OutIntPort(self, "outInt", "button_@@name@@"))
         CodeComponent.define(self, **kwargs)
 

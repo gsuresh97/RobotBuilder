@@ -12,9 +12,7 @@ class CodeComponent(Component):
         self.addParameter("target", "", isSymbol=False)
 
     def getModifiedName(self):
-        name = self.getName()
-        if name == self.__class__.__name__:
-            name = self.__class__.__name__ + str(id(self))
+        name = self.getName() + str(id(self))
         return name.replace(".", "_")
 
     def mangleNames(self):

@@ -102,7 +102,7 @@ class Component(Parameterized):
                 self.addSubcomponent(name, value["class"], **kwargs)
                 try:
                     for param, pvalue in value["parameters"].iteritems():
-                        self.setSubParameter((name, param), self._strToSympy(pvalue))
+                        self.setSubParameter((name, param), pvalue)
                 except AttributeError:
                     pass
 

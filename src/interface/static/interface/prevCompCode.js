@@ -1720,6 +1720,29 @@ function makeOutputLED(count){
 	}
 }
 
+//user_name
+function makeOutputuser_name(count){
+	Blockly.Arduino['user_name|' + count] = function() {
+		var code = "user_name" + (count) + '|';
+		code += (this.getFieldValue('NAME') + '|');
+		code += (this.inputs.length + '|');
+		code += (this.params.length + '|');
+		for(var i = 0; i < this.inputs.length; i++){
+			code += this.inputs[i];
+			code += '\\';
+			code += Blockly.Arduino.valueToCode(this, this.inputs[i], Blockly.Arduino.ORDER_NONE);
+		}
+
+		code += '#';
+		for(var i = 0; i < this.params.length; i++){
+			code += (this.params[i][0] + "|" + this.params[i][1] + "|");
+		}
+
+		code += '#';
+		return code;
+	}
+}
+
 //LEDDriver
 function makeOutputLEDDriver(count){
 	Blockly.Arduino['LEDDriver|' + count] = function() {
@@ -2613,6 +2636,7 @@ makeOutputPutString(0);
 makeOutputMotor(0);
 makeOutputuser_blink(0);
 makeOutputLED(0);
+makeOutputuser_name(0);
 makeOutputReverseHello(0);
 makeOutputPutReverseSort(0);
 makeOutputlive_demo_test1(0);

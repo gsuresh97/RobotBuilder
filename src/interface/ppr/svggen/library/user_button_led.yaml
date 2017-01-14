@@ -1,8 +1,8 @@
 connections:
-- - [arduno, do2]
+- - [esp8266, do0]
   - [led, Din]
   - {}
-- - [tog, ledLevel]
+- - [button, outInt]
   - [led, inInt]
   - {}
 constants: {}
@@ -10,18 +10,18 @@ constraints: []
 interfaces: {}
 parameters: {}
 subcomponents:
-  arduno:
-    class: ArduinoUno
+  button:
+    class: UIButton
+    constants: {}
+    containers: {}
+    parameters: {text: Button}
+  esp8266:
+    class: NodeMCU
     constants: {}
     containers: {}
     parameters: {}
   led:
     class: DrivenLED
-    constants: {}
-    containers: {}
-    parameters: {}
-  tog:
-    class: user_Toggle
     constants: {}
     containers: {}
     parameters: {}
